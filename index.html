@@ -56,6 +56,9 @@ textarea{min-height:90px;resize:vertical}
 .banner.ok{background:#e6f4ea;color:var(--ok)}.banner.err{background:#fdecea;color:var(--bad)}
 .err-msg{color:var(--bad);font-size:13px;margin-top:4px;font-weight:600}
 .hide{display:none!important}
+body.view{padding-bottom:20px}
+body.view input:disabled,body.view textarea:disabled,body.view select:disabled{color:#1b1f24;-webkit-text-fill-color:#1b1f24;opacity:1;background:#f7f9fc}
+body.view .seg label:not(:has(input:checked)){opacity:.45}
 </style>
 </head>
 <body>
@@ -194,7 +197,10 @@ const SMS_LIMIT = 1500;
 const $=id=>document.getElementById(id);
 function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)));}
 let J={};
-try{const m=location.hash.match(/[#&]j=([^&]+)/)||(window.EMBED_J?[0,window.EMBED_J]:null); if(m) J=JSON.parse(b64d(m[1]));}catch(e){console.error(e)}
+let V=null;
+try{const mv=location.hash.match(/[#&]v=([^&]+)/); if(mv){V=JSON.parse(b64d(mv[1])); J=V.job||{};}}catch(e){console.error(e)}
+if(!V){try{const m=location.hash.match(/[#&]j=([^&]+)/)||(window.EMBED_J?[0,window.EMBED_J]:null); if(m) J=JSON.parse(b64d(m[1]));}catch(e){console.error(e)}}
+function b64e(str){const b=new TextEncoder().encode(str);let bin='';b.forEach(x=>bin+=String.fromCharCode(x));return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 if(!J.wo) $('banner').innerHTML='<div class="banner err">This link has no job data. Open the form from the calendar entry or the job folder.</div>';
 const KEY='eshjob:'+(J.wo||'none');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -281,15 +287,54 @@ function summary(d,svcMax=500){
 }
 function tagLine(d){return `JOBFORM WO=${d.wo} STATUS=${(d.status||'NONE').toUpperCase().replace(/[^A-Z]+/g,'_')} RET=${d.returns.length} NEED=${d.needed.length+d.orders.length}${d.bRate?' BRATE=1':''}${d.closeTicket?' NEWTKT='+(d.newTicket||'?'):''}`;}
 function compactJSON(d){return 'JF '+JSON.stringify({w:d.wo,s:d.status,m:d.minutes,r:d.returns.map(r=>[r.type[0],r.item,r.qty,r.invoice]),n:d.needed.map(p=>[p.pn,p.qty]),o:d.orders.map(o=>[o.dist,o.ord,o.pns]),k:d.stock.map(p=>[p.pn,p.qty]),b:d.bRate?d.bReason:0,c:d.tsCase||0,t:d.newTicket||0});}
-function buildText(d){
-  let body; for(const n of [500,350,220,140]){body=summary(d,n)+'\n'+tagLine(d); if(body.length<=SMS_LIMIT-50)break;}
-  const withJ=body+'\n'+compactJSON(d); return withJ.length<=SMS_LIMIT?withJ:body;
+const STLBL={'Used':'Used','Unused - return':'Unused – return','Core return':'Core return','Incorrect part - return':'Incorrect part'};
+function viewLink(d){
+  let base=location.href.split('#')[0];
+  if(!/^https?:/.test(base)) base=window.HOSTED_URL||'';
+  if(!base) return '';
+  const {sms,email,...job}=J;
+  return base+'#v='+b64e(JSON.stringify({v:3,job,d}));
 }
-function smsURL(d){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body='+encodeURIComponent(buildText(d)):'';}
-window.__jobform={collect,buildText,smsURL};
+function buildText(d,view){
+  const out=[],DIV='----------';
+  let sec=null;
+  const head=t=>{sec=[t];};
+  const fld=(label,val)=>{if(val===undefined||val===null||val===''||val===false)return; sec.push(label+':');sec.push(val===true?'Yes':String(val));};
+  const line=t=>{if(t)sec.push(t);};
+  const end=()=>{if(sec&&sec.length>1){out.push(DIV);out.push(...sec);}sec=null;};
+  head('CUSTOMER');fld('Name',J.name);fld('Work order',J.wo);fld('Address',J.addr);
+  {const p=String(J.ph||'').replace(/\D/g,'');fld('Phone',p.length==10?`(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`:J.ph);}
+  fld('Warranty',J.src);end();
+  head('PRODUCT (FROM TAG)');fld('Product',d.prod);fld('Brand',d.brand);fld('Model',d.model);fld('Serial',d.serial);fld('Tag missing / unreadable',d.tagBad);end();
+  head('WORK ORDER – CUSTOMER COMPLAINT');line(J.cmp);end();
+  head('TECH SUPPORT & TICKETS');fld('Tech support case / ticket #',d.tsCase);fld('Close ticket – new ticket created',d.closeTicket);fld('New ticket #',d.closeTicket?d.newTicket:'');fld('Service bulletin / tech tip #',d.bulletin);fld('Bulletin PDF saved to folder',d.bulletinSaved);end();
+  head('PARTS ORDERED');d.ordered.forEach(p=>{line(`${p.pn} × ${p.qty||1}`);line([p.desc,p.inv?'Inv '+p.inv:'',p.dist].filter(Boolean).join(' · '));line('→ '+(STLBL[p.status]||'NOT MARKED'));if(p.reord)fld('Reordered as',p.reord);});end();
+  head('PARTS USED FROM TRUCK STOCK');d.stock.forEach(p=>line(`${p.pn||'?'} × ${p.qty||1}${p.desc?' · '+p.desc:''}`));end();
+  head('PARTS ORDERED ON SITE');d.orders.forEach(o=>line(`${o.dist||'?'} · Order / CSO # ${o.ord||'?'} · Part #s ${o.pns||'?'}`));end();
+  head('ADDITIONAL PARTS NEEDED (NOT ORDERED YET)');d.needed.forEach(p=>line(`${p.pn||'?'} × ${p.qty||1}${p.desc?' · '+p.desc:''}`));end();
+  head('SERVICE PERFORMED');line(d.service);end();
+  head('TEST READINGS & VERIFICATION');fld('Fridge °F',d.tests.fresh);fld('Freezer °F',d.tests.frz);fld('Other readings',d.tests.other);fld('SmartHQ / service mode test passed',d.tests.smartHQ);fld('Ran full cycle – verified working',d.tests.verified);end();
+  head('JOB STATUS');line(d.status||'NOT SET');if(d.statusNote)fld(NOTE_LBL[d.status]||'Status notes',d.statusNote);fld('Total time (minutes)',d.minutes);fld('B-rate labor',d.bRate);if(d.bRate){fld('Reason',d.bReason);fld('Time on site (minutes)',d.onSite);}end();
+  head('CUSTOMER INSTRUCTIONS / WARNINGS');line(d.custNote);end();
+  head('NOTES FOR ORNAH');line(d.notes);end();
+  out.push(DIV);
+  if(view){out.push('View as form:');out.push(view);}
+  out.push(tagLine(d));
+  return out.join('\n');
+}
+async function shorten(url){
+  try{const ctl=new AbortController();setTimeout(()=>ctl.abort(),4000);
+    const r=await fetch('https://is.gd/create.php?format=simple&url='+encodeURIComponent(url),{signal:ctl.signal});
+    const t=(await r.text()).trim(); if(r.ok&&/^https:\/\/is\.gd\//.test(t)) return t;}catch(e){console.warn('shorten failed',e)}
+  return url;
+}
+async function viewShort(d){const v=viewLink(d);if(!v)return '';return v.length>300?await shorten(v):v;}
+function smsURL(d,view){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body='+encodeURIComponent(buildText(d,view)):'';}
+window.__jobform={collect,buildText,smsURL,viewLink,viewShort,applyData};
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
-function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return;
+function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return;applyData(d);}catch(e){console.error(e)}}
+function applyData(d){try{
   (d.ordered||[]).forEach((p,i)=>{if(!p.added){const el=document.querySelector(`#parts .op[data-i="${i}"]`);if(!el)return;const r=el.querySelector(`.seg input[value="${p.status}"]`);if(r){r.checked=true;r.dispatchEvent(new Event('change'))}el.querySelector('.reordAs').value=p.reord||'';}else addOrdered(p);});
   (d.stock||[]).forEach(addStock);(d.orders||[]).forEach(addOrder);(d.needed||[]).forEach(addNeed);
   const ids={tsCase:d.tsCase,newTicket:d.newTicket,bulletin:d.bulletin,svc:d.service,statusNote:d.statusNote,mins:d.minutes,onSite:d.onSite,custNote:d.custNote,notes:d.notes,tFresh:d.tests?.fresh,tFrz:d.tests?.frz,tOther:d.tests?.other,model_in:d.tagBad||!J.model?d.model:'',serial_in:d.tagBad||!J.serial?d.serial:''};
@@ -299,9 +344,18 @@ function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(
   if(d.status){const r=document.querySelector(`input[name=status][value="${d.status}"]`);if(r)r.checked=true;}
   ['tagBad','closeTicket','bRate','bReason'].forEach(k=>$(k).dispatchEvent(new Event('change')));statusSync();
 }catch(e){console.error(e)}}
-restore();
+if(V){applyData(V.d||{});lockView();}else{restore();
 $('svc').addEventListener('input',()=>$('svcErr').classList.add('hide'));
-document.addEventListener('input',save);document.addEventListener('change',save);
+document.addEventListener('input',save);document.addEventListener('change',save);}
+function lockView(){
+  document.body.classList.add('view');
+  document.querySelectorAll('main input,main textarea,main select').forEach(el=>{el.disabled=true;el.placeholder='';});
+  document.querySelectorAll('main .x,main .chips,#addOrdered,#addStock,#addOrder,#addNeed,.footer,.copy').forEach(el=>el.classList.add('hide'));
+  document.querySelectorAll('main textarea').forEach(t=>{t.style.height='auto';t.style.height=(t.scrollHeight+4)+'px';});
+  const at=V.d&&V.d.at?new Date(V.d.at).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' CT':'';
+  $('banner').innerHTML='<div class="banner ok">Completed job form (read-only)'+(at?' · submitted '+at:'')+'</div>';
+  document.title='Completed: '+document.title;
+}
 
 const LAZY=/^\s*(complete[d]?|done|fixed|repaired|ok|good|finished)[.!]*\s*$/i;
 const NOSVC=['Customer no-show','Customer cancelled'];
@@ -319,12 +373,15 @@ function check(d){
 function gate(){const d=collect(),c=check(d);
   if(c.block.length){alert('Before sending: '+c.block.join('; ')+'.');($('svcErr').classList.contains('hide')?$('sec-status'):$('sec-svc')).scrollIntoView({behavior:'smooth'});return null;}
   if(c.warn.length&&!confirm('Heads up: '+c.warn.join('; ')+'.\n\nSend anyway?'))return null; return d;}
-$('smsBtn').onclick=()=>{const d=gate();if(!d)return;const u=smsURL(d);
+$('smsBtn').onclick=async()=>{const d=gate();if(!d)return;
+  if(!(J.sms||ORNAH_SMS)){alert('This link has no text number. Use "Email instead".');return;}
+  $('banner').innerHTML='<div class="banner ok">Preparing text…</div>';
+  const view=await viewShort(d); const u=smsURL(d,view);
   if(!u){alert('This link has no text number. Use "Email instead".');return;}
   $('banner').innerHTML='<div class="banner ok">Messages is opening. Add photos in Messages before sending.</div>';window.scrollTo(0,0);
   console.log('SMS_URL '+u);location.href=u;};
-$('mailBtn').onclick=()=>{const d=gate();if(!d)return;
-  const body=summary(d,2000)+'\n'+tagLine(d)+'\n'+compactJSON(d);
+$('mailBtn').onclick=async()=>{const d=gate();if(!d)return;
+  const body=buildText(d,await viewShort(d));
   if(!(J.email||OFFICE_EMAIL)){alert('This link has no email address.');return;}
   location.href='mailto:'+(J.email||OFFICE_EMAIL)+'?subject='+encodeURIComponent(`Job Form: ${d.wo} ${d.name} – ${d.status}`)+'&body='+encodeURIComponent(body);};
 </script>
