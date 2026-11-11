@@ -295,7 +295,7 @@ function viewLink(d){
   const {sms,email,...job}=J;
   return base+'#v='+b64e(JSON.stringify({v:3,job,d}));
 }
-function buildText(d,view){
+function buildFullText(d,view){
   const out=[],DIV='----------';
   let sec=null;
   const head=t=>{sec=[t];};
@@ -319,6 +319,13 @@ function buildText(d,view){
   head('NOTES FOR ORNAH');line(d.notes);end();
   out.push(DIV);
   if(view){out.push('View as form:');out.push(view);}
+  out.push(tagLine(d));
+  return out.join('\n');
+}
+// Ornah 11/11: the text holds only WO, customer name, the View-form link, and the JOBFORM tag line.
+function buildText(d,view){
+  const out=['WO '+(d.wo||J.wo||''), d.name||J.name||''];
+  out.push('View form: '+(view||'(link unavailable)'));
   out.push(tagLine(d));
   return out.join('\n');
 }
