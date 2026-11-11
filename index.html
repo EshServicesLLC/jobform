@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Esh Services – Job Form</title>
+<style>
+:root{--navy:#1f3a5f;--blue:#2d6cdf;--bg:#f2f4f7;--card:#fff;--line:#d9dee6;--muted:#6b7380;--ok:#1e8e3e;--warn:#c77700;--bad:#c62828;--pur:#7b4bc4}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:#1b1f24;padding-bottom:100px}
+header{background:var(--navy);color:#fff;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top));position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:18px}header .sub{font-size:13px;opacity:.85;margin-top:2px}
+main{max-width:640px;margin:0 auto;padding:12px}
+.card{background:var(--card);border-radius:12px;padding:14px;margin:0 0 12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.card h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #eef1f5}
+.row:last-child{border-bottom:0}.row .k{color:var(--muted);font-size:14px;flex:0 0 92px}
+.row .v{flex:1;text-align:right;font-weight:600;word-break:break-word}.row .v a{color:var(--blue);text-decoration:none}
+.copy{border:1px solid var(--line);background:#f7f9fc;border-radius:8px;padding:4px 10px;font-size:13px;margin-left:8px;color:var(--navy)}
+.copy.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+.note{font-size:12px;color:var(--muted);margin-top:6px}
+.complaint{background:#fff8e6;border-left:4px solid var(--warn);padding:10px;border-radius:6px;font-weight:600}
+.part{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px}
+.part .pn{font-weight:700}.part .meta{font-size:13px;color:var(--muted);margin:2px 0 8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg label{text-align:center;border:1px solid var(--line);border-radius:8px;padding:9px 4px;font-size:14px;font-weight:600;background:#fafbfc}
+.seg input{display:none}
+.seg label:has(input:checked){background:var(--blue);border-color:var(--blue);color:#fff}
+.seg .g:has(input:checked){background:var(--ok);border-color:var(--ok)}
+.seg .o:has(input:checked){background:var(--warn);border-color:var(--warn)}
+.seg .p:has(input:checked){background:var(--pur);border-color:var(--pur)}
+.seg .r:has(input:checked){background:var(--bad);border-color:var(--bad)}
+input[type=text],input[type=number],select,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;color:inherit}
+textarea{min-height:90px;resize:vertical}
+.f{margin-top:10px}.f>label.l{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.chk{display:flex;align-items:center;gap:10px;margin-top:10px;font-weight:600}
+.chk input{width:22px;height:22px;accent-color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.rep{border:1px dashed var(--line);border-radius:10px;padding:30px 8px 8px;margin-bottom:8px;position:relative}
+.rep .x{position:absolute;top:2px;right:4px}
+.rep .two+.two,.rep .two+input,.rep input+.two{margin-top:6px}
+.x{border:0;background:none;color:var(--bad);font-size:22px;padding:0 4px}
+.btn{display:block;width:100%;border:0;border-radius:10px;padding:13px;font:600 16px/1 inherit;font-family:inherit}
+.btn.sec{background:#e8eef9;color:var(--navy);margin-top:8px}
+.btn.main{background:var(--ok);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);background:#f7f9fc;border-radius:16px;padding:5px 10px;font-size:13px}
+.empty{color:var(--muted);font-size:14px;font-style:italic;margin-bottom:8px}
+.footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));z-index:5}
+.footer .in{max-width:640px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.footer .btn.main{flex:1}
+.linkbtn{background:none;border:0;color:var(--blue);font:500 14px inherit;font-family:inherit;padding:8px 4px;white-space:nowrap}
+.banner{padding:12px;border-radius:10px;margin-bottom:12px;font-weight:600}
+.banner.ok{background:#e6f4ea;color:var(--ok)}.banner.err{background:#fdecea;color:var(--bad)}
+.err-msg{color:var(--bad);font-size:13px;margin-top:4px;font-weight:600}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<header><h1 id="h-title">Job Form</h1><div class="sub" id="h-sub">Esh Services</div></header>
+<main>
+<div id="banner"></div>
+
+<section class="card">
+  <h2>Customer</h2>
+  <div class="row"><span class="k">Name</span><span class="v" id="c-name"></span></div>
+  <div class="row"><span class="k">Work order</span><span class="v" id="c-wo"></span></div>
+  <div class="row"><span class="k">Address</span><span class="v" id="c-addr"></span></div>
+  <div class="row"><span class="k">Phone</span><span class="v" id="c-ph"></span></div>
+  <div class="row"><span class="k">Warranty</span><span class="v" id="c-src"></span></div>
+</section>
+
+<section class="card" id="sec-product">
+  <h2>Product (from tag)</h2>
+  <div class="row"><span class="k">Product</span><span class="v" id="p-prod"></span></div>
+  <div class="row"><span class="k">Brand</span><span class="v" id="p-brand"></span></div>
+  <div class="row"><span class="k">Model</span><span class="v"><span id="p-model"></span><button type="button" class="copy" data-copy="p-model">Copy</button></span></div>
+  <div class="row"><span class="k">Serial</span><span class="v"><span id="p-serial"></span><button type="button" class="copy" data-copy="p-serial">Copy</button></span></div>
+  <div class="note" id="p-tagnote"></div>
+  <label class="chk"><input type="checkbox" id="tagBad"> Tag missing / unreadable</label>
+  <div id="tagfix" class="hide f">
+    <div class="two"><input type="text" id="model_in" placeholder="Model (if any)"><input type="text" id="serial_in" placeholder="Serial (if any)"></div>
+    <div class="note">Snap a photo of whatever is left of the tag and add it in Messages.</div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Work order – customer complaint</h2>
+  <div class="complaint" id="w-cmp"></div>
+  <div class="note" id="w-appt"></div>
+</section>
+
+<section class="card" id="sec-ticket">
+  <h2>Tech support &amp; tickets</h2>
+  <div class="f"><label class="l" for="tsCase">Tech support case / ticket #</label><input type="text" id="tsCase" placeholder="e.g. case # from tech line"></div>
+  <label class="chk"><input type="checkbox" id="closeTicket"> Close ticket – new ticket created</label>
+  <div class="f hide" id="newTicketWrap"><input type="text" id="newTicket" placeholder="New ticket #"></div>
+  <div class="f"><label class="l" for="bulletin">Service bulletin / tech tip #</label><input type="text" id="bulletin" placeholder="SB / tech tip #"></div>
+  <label class="chk"><input type="checkbox" id="bulletinSaved"> Bulletin PDF saved to folder</label>
+</section>
+
+<section class="card" id="sec-parts">
+  <h2>Parts ordered</h2>
+  <div id="parts"></div>
+  <div id="extraOrdered"></div>
+  <button type="button" class="btn sec" id="addOrdered">+ Add an ordered part</button>
+</section>
+
+<section class="card" id="sec-stock">
+  <h2>Parts used from truck stock</h2>
+  <div id="stockRows"></div>
+  <button type="button" class="btn sec" id="addStock">+ Add stock part</button>
+</section>
+
+<section class="card" id="sec-onsite">
+  <h2>Parts ordered on site</h2>
+  <div id="orderRows"></div>
+  <button type="button" class="btn sec" id="addOrder">+ Add order</button>
+</section>
+
+<section class="card">
+  <h2>Additional parts needed (not ordered yet)</h2>
+  <div id="needRows"></div>
+  <button type="button" class="btn sec" id="addNeed">+ Add part needed</button>
+</section>
+
+<section class="card" id="sec-svc">
+  <h2>Service performed</h2>
+  <textarea id="svc" placeholder="I replaced the ... Verified unit is working properly."></textarea>
+  <div class="err-msg hide" id="svcErr">Write what was actually done (at least a full sentence), not just "complete".</div>
+  <div class="chips">
+    <button type="button" class="chip" data-ins="I replaced the ">I replaced the…</button>
+    <button type="button" class="chip" data-ins="Diagnosed: ">Diagnosed…</button>
+    <button type="button" class="chip" data-ins=" Verified unit is working properly.">Verified working</button>
+  </div>
+</section>
+
+<section class="card" id="sec-tests">
+  <h2>Test readings &amp; verification</h2>
+  <div class="two"><input type="text" id="tFresh" inputmode="decimal" placeholder="Fridge °F"><input type="text" id="tFrz" inputmode="decimal" placeholder="Freezer °F"></div>
+  <div class="f"><input type="text" id="tOther" placeholder="Other readings (ohms, volts, water temp…)"></div>
+  <label class="chk"><input type="checkbox" id="smartHQ"> SmartHQ / service mode test passed</label>
+  <label class="chk"><input type="checkbox" id="verified"> Ran full cycle – verified working</label>
+</section>
+
+<section class="card" id="sec-status">
+  <h2>Job status</h2>
+  <div class="seg" id="statusSeg">
+    <label class="g"><input type="radio" name="status" value="Complete"><span>Complete</span></label>
+    <label class="o"><input type="radio" name="status" value="Needs more parts"><span>Needs parts</span></label>
+    <label class="o"><input type="radio" name="status" value="Needs diagnosis"><span>Needs diag</span></label>
+    <label class="r"><input type="radio" name="status" value="Not repairable"><span>Not repairable</span></label>
+    <label class="p"><input type="radio" name="status" value="Unit being replaced"><span>Unit replaced</span></label>
+    <label class="g"><input type="radio" name="status" value="No problem found"><span>No problem found</span></label>
+    <label class="r"><input type="radio" name="status" value="Customer no-show"><span>No-show</span></label>
+    <label class="r"><input type="radio" name="status" value="Customer cancelled"><span>Cancelled</span></label>
+  </div>
+  <div class="f hide" id="statusNoteWrap"><label class="l" for="statusNote" id="statusNoteLbl">Status notes</label><textarea id="statusNote" style="min-height:60px"></textarea></div>
+  <div class="f"><label class="l" for="mins">Total time (minutes)</label><input type="number" id="mins" inputmode="numeric" min="0" step="5" placeholder="60">
+    <div class="chips"><button type="button" class="chip" data-min="30">30</button><button type="button" class="chip" data-min="45">45</button><button type="button" class="chip" data-min="60">60</button><button type="button" class="chip" data-min="90">90</button><button type="button" class="chip" data-min="120">120</button></div></div>
+  <label class="chk"><input type="checkbox" id="bRate"> B-rate labor</label>
+  <div class="hide" id="bRateWrap">
+    <div class="f"><select id="bReason"><option value="">Reason…</option><option>Stacked unit</option><option>Full teardown</option><option>Pull-out</option><option>Other</option></select></div>
+    <div class="f hide" id="bOtherWrap"><input type="text" id="bOther" placeholder="Other reason"></div>
+    <div class="f"><label class="l" for="onSite">Time on site (minutes)</label><input type="number" id="onSite" inputmode="numeric" min="0" step="5"></div>
+  </div>
+</section>
+
+<section class="card" id="sec-cust">
+  <h2>Customer instructions / warnings</h2>
+  <textarea id="custNote" style="min-height:60px" placeholder="e.g. Told customer to clean condenser coils; don't overload washer"></textarea>
+</section>
+
+<section class="card">
+  <h2>Notes for Ornah (optional)</h2>
+  <textarea id="notes" style="min-height:60px" placeholder="Anything else she should know"></textarea>
+  <div class="note">Photos: add them in Messages after you tap "Text to Ornah".</div>
+</section>
+</main>
+
+<div class="footer"><div class="in">
+  <button type="button" class="linkbtn" id="mailBtn">Email instead</button>
+  <button type="button" class="btn main" id="smsBtn">Text to Ornah</button>
+</div></div>
+
+<script>
+/* ===== CONFIG ===== */
+const ORNAH_SMS = "";            // left empty on purpose: the number comes from each job link (j.sms)
+const OFFICE_EMAIL = "";       // comes from each job link (j.email)
+const SMS_LIMIT = 1500;
+/* ================== */
+const $=id=>document.getElementById(id);
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)));}
+let J={};
+try{const m=location.hash.match(/[#&]j=([^&]+)/)||(window.EMBED_J?[0,window.EMBED_J]:null); if(m) J=JSON.parse(b64d(m[1]));}catch(e){console.error(e)}
+if(!J.wo) $('banner').innerHTML='<div class="banner err">This link has no job data. Open the form from the calendar entry or the job folder.</div>';
+const KEY='eshjob:'+(J.wo||'none');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const set=(id,v)=>{$(id).textContent=v||'—'};
+$('h-title').textContent=J.name||'Job Form';
+$('h-sub').textContent=[J.wo,[J.brand,J.prod].filter(Boolean).join(' '),J.city].filter(Boolean).join(' · ');
+document.title='Job '+(J.wo||'')+' – Esh Services';
+set('c-name',J.name);set('c-wo',J.wo);set('c-src',J.src);
+if(J.addr)$('c-addr').innerHTML='<a href="https://maps.apple.com/?q='+encodeURIComponent(J.addr)+'">'+esc(J.addr)+'</a>';else set('c-addr');
+if(J.ph){const d=String(J.ph).replace(/\D/g,'');$('c-ph').innerHTML='<a href="tel:'+d+'">'+esc(d.length==10?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:J.ph)+'</a>';}else set('c-ph');
+set('p-prod',J.prod);set('p-brand',J.brand);set('p-model',J.model);set('p-serial',J.serial);
+$('p-tagnote').textContent=(J.model||J.serial)?'Model and serial come from the tag photo, not the ticket.':'No tag photo on file yet – type them from the tag, or check "Tag missing".';
+set('w-cmp',J.cmp);$('w-appt').textContent=J.appt?'Appointment: '+J.appt:'';
+
+const show=(id,on)=>$(id).classList.toggle('hide',!on);
+const tagSync=()=>show('tagfix',$('tagBad').checked||!(J.model&&J.serial));
+$('tagBad').onchange=tagSync;tagSync();
+$('closeTicket').onchange=()=>show('newTicketWrap',$('closeTicket').checked);
+$('bRate').onchange=()=>show('bRateWrap',$('bRate').checked);
+$('bReason').onchange=()=>show('bOtherWrap',$('bReason').value==='Other');
+const NOTE_LBL={'Not repairable':'Why not repairable?','Unit being replaced':'Replacement notes (who authorized, case #)','No problem found':'What was checked?','Customer no-show':'Arrival time / attempts to reach','Customer cancelled':'When / why cancelled','Needs diagnosis':'What is still unknown?','Needs more parts':'Notes on parts needed'};
+function statusSync(){const s=(document.querySelector('input[name=status]:checked')||{}).value;show('statusNoteWrap',!!NOTE_LBL[s]);if(NOTE_LBL[s])$('statusNoteLbl').textContent=NOTE_LBL[s];}
+document.querySelectorAll('input[name=status]').forEach(r=>r.addEventListener('change',statusSync));
+
+// ordered parts
+const parts=J.parts||[];
+const ST=[['g','Used','Used'],['o','Unused - return','Unused – return'],['p','Core return','Core return'],['r','Incorrect part - return','Incorrect part']];
+const segHTML=nm=>`<div class="seg">${ST.map(([c,v,t])=>`<label class="${c}"><input type="radio" name="${nm}" value="${v}"><span>${t}</span></label>`).join('')}</div><div class="f hide reord"><input type="text" class="reordAs" placeholder="Reordered as (part # / order #)"></div>`;
+function wireSeg(el){el.querySelectorAll('.seg input').forEach(r=>r.addEventListener('change',()=>el.querySelector('.reord').classList.toggle('hide',r.value!=='Incorrect part - return'||!r.checked)));}
+$('parts').innerHTML=parts.length?parts.map((p,i)=>`<div class="part op" data-i="${i}"><div class="pn">${esc(p.pn)} <span style="font-weight:400">× ${esc(p.qty||1)}</span></div><div class="meta">${esc(p.desc||'')}${p.inv?' · Inv '+esc(p.inv):''}${p.dist?' · '+esc(p.dist):''}</div>${segHTML('part'+i)}</div>`).join(''):'<div class="empty">No parts invoices were in the job folder when this form was made.</div>';
+document.querySelectorAll('#parts .op').forEach(wireSeg);
+const uid=()=>'n'+Math.random().toString(36).slice(2);
+function rep(container,html){const d=document.createElement('div');d.className='rep';d.innerHTML='<button type="button" class="x">×</button>'+html;d.querySelector('.x').onclick=()=>{d.remove();save()};$(container).appendChild(d);return d;}
+function addOrdered(v={}){const d=rep('extraOrdered',`<div class="two"><input type="text" class="pn" placeholder="Part #" value="${esc(v.pn)}"><input type="text" class="inv" placeholder="Invoice #" value="${esc(v.inv)}"></div><div class="two"><input type="text" class="desc" placeholder="Description" value="${esc(v.desc)}"><input type="number" class="qty" placeholder="Qty" value="${esc(v.qty||1)}"></div><div style="margin-top:6px">${segHTML(uid())}</div>`);d.classList.add('xo');wireSeg(d);if(v.status){const r=d.querySelector(`.seg input[value="${v.status}"]`);if(r){r.checked=true;r.dispatchEvent(new Event('change'))}}if(v.reord)d.querySelector('.reordAs').value=v.reord;}
+function addStock(v={}){rep('stockRows',`<div class="two"><input type="text" class="pn" placeholder="Part #" value="${esc(v.pn)}"><input type="number" class="qty" placeholder="Qty" value="${esc(v.qty||1)}"></div><input type="text" class="desc" placeholder="Description" value="${esc(v.desc)}">`).classList.add('xs');}
+const DIST=['Dey','Encompass','GE','SquareTrade','Allstate','Other'];
+function addOrder(v={}){rep('orderRows',`<div class="two"><select class="dist">${['<option value="">Distributor…</option>',...DIST.map(x=>`<option ${v.dist===x?'selected':''}>${x}</option>`)].join('')}</select><input type="text" class="ord" placeholder="Order / CSO #" value="${esc(v.ord)}"></div><input type="text" class="pns" placeholder="Part #s (comma separated)" value="${esc(v.pns)}">`).classList.add('xd');}
+function addNeed(v={}){rep('needRows',`<div class="two"><input type="text" class="pn" placeholder="Part #" value="${esc(v.pn)}"><input type="number" class="qty" placeholder="Qty" value="${esc(v.qty||1)}"></div><input type="text" class="desc" placeholder="Description" value="${esc(v.desc)}">`).classList.add('xn');}
+$('addOrdered').onclick=()=>addOrdered();$('addStock').onclick=()=>addStock();$('addOrder').onclick=()=>addOrder();$('addNeed').onclick=()=>addNeed();
+
+document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const t=$(b.dataset.copy).textContent;try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}b.textContent='Copied';b.classList.add('done');setTimeout(()=>{b.textContent='Copy';b.classList.remove('done')},1500)});
+document.querySelectorAll('[data-ins]').forEach(b=>b.onclick=()=>{const t=$('svc');t.value=(t.value+b.dataset.ins).replace(/^\s+/,'');t.focus();save()});
+document.querySelectorAll('[data-min]').forEach(b=>b.onclick=()=>{$('mins').value=b.dataset.min;save()});
+
+const val=(el,sel)=>(el.querySelector(sel)||{}).value?.trim?.()||'';
+function collect(){
+  const ordered=[];
+  document.querySelectorAll('#parts .op').forEach(el=>{const p=parts[+el.dataset.i];ordered.push({...p,status:(el.querySelector('.seg input:checked')||{}).value||'',reord:val(el,'.reordAs')});});
+  document.querySelectorAll('#extraOrdered .xo').forEach(el=>{const pn=val(el,'.pn');if(pn)ordered.push({pn,desc:val(el,'.desc'),qty:val(el,'.qty')||1,inv:val(el,'.inv'),added:true,status:(el.querySelector('.seg input:checked')||{}).value||'',reord:val(el,'.reordAs')});});
+  const stock=[...document.querySelectorAll('#stockRows .xs')].map(el=>({pn:val(el,'.pn'),desc:val(el,'.desc'),qty:val(el,'.qty')||1})).filter(x=>x.pn||x.desc);
+  const orders=[...document.querySelectorAll('#orderRows .xd')].map(el=>({dist:val(el,'.dist'),ord:val(el,'.ord'),pns:val(el,'.pns')})).filter(x=>x.ord||x.pns);
+  const needed=[...document.querySelectorAll('#needRows .xn')].map(el=>({pn:val(el,'.pn'),desc:val(el,'.desc'),qty:val(el,'.qty')||1})).filter(x=>x.pn||x.desc);
+  const tagBad=$('tagBad').checked;
+  const model=(tagBad||!J.model)?$('model_in').value.trim():J.model, serial=(tagBad||!J.serial)?$('serial_in').value.trim():J.serial;
+  const returns=ordered.filter(p=>/return/i.test(p.status)).map(p=>({type:/core/i.test(p.status)?'Core':/incorrect/i.test(p.status)?'Incorrect':'Unused',qty:p.qty||1,item:p.pn,description:p.desc||'',invoice:p.inv||'',dist:p.dist||'',reord:p.reord||''}));
+  return {v:2,wo:J.wo,name:J.name,src:J.src,brand:J.brand,prod:J.prod,model,serial,tagBad,
+    tsCase:$('tsCase').value.trim(),closeTicket:$('closeTicket').checked,newTicket:$('newTicket').value.trim(),bulletin:$('bulletin').value.trim(),bulletinSaved:$('bulletinSaved').checked,
+    ordered,stock,orders,needed,returns,service:$('svc').value.trim(),
+    tests:{fresh:$('tFresh').value.trim(),frz:$('tFrz').value.trim(),other:$('tOther').value.trim(),smartHQ:$('smartHQ').checked,verified:$('verified').checked},
+    status:(document.querySelector('input[name=status]:checked')||{}).value||'',statusNote:$('statusNote').value.trim(),minutes:$('mins').value,
+    bRate:$('bRate').checked,bReason:$('bReason').value==='Other'?('Other: '+$('bOther').value.trim()):$('bReason').value,onSite:$('onSite').value,
+    custNote:$('custNote').value.trim(),notes:$('notes').value.trim(),at:new Date().toISOString()};
+}
+const cut=(s,n)=>!s?'':(s.length>n?s.slice(0,n-1)+'…':s);
+function summary(d,svcMax=500){
+  const L=[];
+  L.push(`JOB ${d.wo} ${d.name}`);
+  L.push(`Status: ${d.status||'?'}${d.statusNote?' – '+cut(d.statusNote,140):''} | ${d.minutes||'?'} min`);
+  L.push(`${d.brand||''} ${d.prod||''} M:${d.model||'?'} S:${d.serial||'?'}${d.tagBad?' (TAG MISSING/UNREADABLE)':''}`);
+  if(d.tsCase||d.closeTicket) L.push(`Tech case: ${d.tsCase||'-'}${d.closeTicket?` | CLOSE – new ticket ${d.newTicket||'?'}`:''}`);
+  if(d.bulletin) L.push(`Bulletin: ${d.bulletin}${d.bulletinSaved?' (PDF saved)':''}`);
+  if(d.ordered.length) L.push('Ordered: '+d.ordered.map(p=>`${p.pn}${(p.qty>1)?' x'+p.qty:''} ${p.status?p.status.replace(' - return','-ret'):'NOT MARKED'}${p.reord?' → reord '+p.reord:''}`).join('; '));
+  if(d.stock.length) L.push('Truck stock: '+d.stock.map(p=>`${p.pn}${p.qty>1?' x'+p.qty:''}`).join(', '));
+  if(d.orders.length) L.push('Ordered on site: '+d.orders.map(o=>`${o.dist||'?'} #${o.ord||'?'}: ${o.pns}`).join('; '));
+  if(d.needed.length) L.push('Still need: '+d.needed.map(p=>`${p.pn||'?'}${p.qty>1?' x'+p.qty:''} ${cut(p.desc,30)}`).join('; '));
+  if(d.returns.length) L.push('RETURNS: '+d.returns.map(r=>`${r.type} ${r.item} inv ${r.invoice||'-'}`).join('; '));
+  const t=d.tests,tl=[t.fresh&&'FF '+t.fresh+'°',t.frz&&'FZ '+t.frz+'°',t.other&&cut(t.other,80),t.smartHQ&&'SmartHQ passed',t.verified&&'verified'].filter(Boolean);
+  if(tl.length) L.push('Tests: '+tl.join(', '));
+  if(d.bRate) L.push(`B-RATE: ${d.bReason||'?'} | on site ${d.onSite||'?'} min`);
+  L.push('Service: '+cut(d.service,svcMax));
+  if(d.custNote) L.push('Told customer: '+cut(d.custNote,200));
+  if(d.notes) L.push('Notes: '+cut(d.notes,200));
+  return L.join('\n');
+}
+function tagLine(d){return `JOBFORM WO=${d.wo} STATUS=${(d.status||'NONE').toUpperCase().replace(/[^A-Z]+/g,'_')} RET=${d.returns.length} NEED=${d.needed.length+d.orders.length}${d.bRate?' BRATE=1':''}${d.closeTicket?' NEWTKT='+(d.newTicket||'?'):''}`;}
+function compactJSON(d){return 'JF '+JSON.stringify({w:d.wo,s:d.status,m:d.minutes,r:d.returns.map(r=>[r.type[0],r.item,r.qty,r.invoice]),n:d.needed.map(p=>[p.pn,p.qty]),o:d.orders.map(o=>[o.dist,o.ord,o.pns]),k:d.stock.map(p=>[p.pn,p.qty]),b:d.bRate?d.bReason:0,c:d.tsCase||0,t:d.newTicket||0});}
+function buildText(d){
+  let body; for(const n of [500,350,220,140]){body=summary(d,n)+'\n'+tagLine(d); if(body.length<=SMS_LIMIT-50)break;}
+  const withJ=body+'\n'+compactJSON(d); return withJ.length<=SMS_LIMIT?withJ:body;
+}
+function smsURL(d){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body='+encodeURIComponent(buildText(d)):'';}
+window.__jobform={collect,buildText,smsURL};
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
+function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return;
+  (d.ordered||[]).forEach((p,i)=>{if(!p.added){const el=document.querySelector(`#parts .op[data-i="${i}"]`);if(!el)return;const r=el.querySelector(`.seg input[value="${p.status}"]`);if(r){r.checked=true;r.dispatchEvent(new Event('change'))}el.querySelector('.reordAs').value=p.reord||'';}else addOrdered(p);});
+  (d.stock||[]).forEach(addStock);(d.orders||[]).forEach(addOrder);(d.needed||[]).forEach(addNeed);
+  const ids={tsCase:d.tsCase,newTicket:d.newTicket,bulletin:d.bulletin,svc:d.service,statusNote:d.statusNote,mins:d.minutes,onSite:d.onSite,custNote:d.custNote,notes:d.notes,tFresh:d.tests?.fresh,tFrz:d.tests?.frz,tOther:d.tests?.other,model_in:d.tagBad||!J.model?d.model:'',serial_in:d.tagBad||!J.serial?d.serial:''};
+  for(const k in ids)$(k).value=ids[k]||'';
+  for(const k of ['tagBad','closeTicket','bulletinSaved','bRate'])$(k).checked=!!d[k];$('smartHQ').checked=!!d.tests?.smartHQ;$('verified').checked=!!d.tests?.verified;
+  if(d.bReason){if(d.bReason.startsWith('Other')){$('bReason').value='Other';$('bOther').value=d.bReason.replace(/^Other:\s*/,'')}else $('bReason').value=d.bReason;}
+  if(d.status){const r=document.querySelector(`input[name=status][value="${d.status}"]`);if(r)r.checked=true;}
+  ['tagBad','closeTicket','bRate','bReason'].forEach(k=>$(k).dispatchEvent(new Event('change')));statusSync();
+}catch(e){console.error(e)}}
+restore();
+$('svc').addEventListener('input',()=>$('svcErr').classList.add('hide'));
+document.addEventListener('input',save);document.addEventListener('change',save);
+
+const LAZY=/^\s*(complete[d]?|done|fixed|repaired|ok|good|finished)[.!]*\s*$/i;
+const NOSVC=['Customer no-show','Customer cancelled'];
+function check(d){
+  const block=[],warn=[];
+  if(!d.status) block.push('pick a job status');
+  if(!NOSVC.includes(d.status) && (d.service.length<20||LAZY.test(d.service))){block.push('describe the service performed (a real sentence, not just "complete")');$('svcErr').classList.remove('hide');} else $('svcErr').classList.add('hide');
+  if(d.ordered.some(p=>!p.status)) warn.push('used/unused not marked for every ordered part');
+  if(d.status==='Needs more parts'&&!d.needed.length&&!d.orders.length) warn.push('no parts listed under needed / ordered on site');
+  if(d.bRate&&(!d.bReason||!d.onSite)) warn.push('B-rate reason or time on site');
+  if(d.closeTicket&&!d.newTicket) warn.push('new ticket #');
+  if(d.tagBad&&!d.model) warn.push('no model typed (tag missing)');
+  return {block,warn};
+}
+function gate(){const d=collect(),c=check(d);
+  if(c.block.length){alert('Before sending: '+c.block.join('; ')+'.');($('svcErr').classList.contains('hide')?$('sec-status'):$('sec-svc')).scrollIntoView({behavior:'smooth'});return null;}
+  if(c.warn.length&&!confirm('Heads up: '+c.warn.join('; ')+'.\n\nSend anyway?'))return null; return d;}
+$('smsBtn').onclick=()=>{const d=gate();if(!d)return;const u=smsURL(d);
+  if(!u){alert('This link has no text number. Use "Email instead".');return;}
+  $('banner').innerHTML='<div class="banner ok">Messages is opening. Add photos in Messages before sending.</div>';window.scrollTo(0,0);
+  console.log('SMS_URL '+u);location.href=u;};
+$('mailBtn').onclick=()=>{const d=gate();if(!d)return;
+  const body=summary(d,2000)+'\n'+tagLine(d)+'\n'+compactJSON(d);
+  if(!(J.email||OFFICE_EMAIL)){alert('This link has no email address.');return;}
+  location.href='mailto:'+(J.email||OFFICE_EMAIL)+'?subject='+encodeURIComponent(`Job Form: ${d.wo} ${d.name} – ${d.status}`)+'&body='+encodeURIComponent(body);};
+</script>
+</body>
+</html>
