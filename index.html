@@ -372,7 +372,7 @@ function smsURL(d,view){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body
 window.__jobform={collect,buildText,smsURL,viewLink,viewShort,applyData,shorten,compactPayload,expandPayload,get lastView(){return lastView}};
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
-function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return;applyData(d);}catch(e){console.error(e)}}
+function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return false;applyData(d);return true;}catch(e){console.error(e)}return false;}
 function applyData(d){try{
   (d.ordered||[]).forEach((p,i)=>{if(!p.added){const el=document.querySelector(`#parts .op[data-i="${i}"]`);if(!el)return;const r=el.querySelector(`.seg input[value="${p.status}"]`);if(r){r.checked=true;r.dispatchEvent(new Event('change'))}el.querySelector('.reordAs').value=p.reord||'';}else addOrdered(p);});
   (d.stock||[]).forEach(addStock);(d.orders||[]).forEach(addOrder);(d.needed||[]).forEach(addNeed);
@@ -383,7 +383,7 @@ function applyData(d){try{
   if(d.status){const r=document.querySelector(`input[name=status][value="${d.status}"]`);if(r)r.checked=true;}
   ['tagBad','closeTicket','bRate','bReason'].forEach(k=>$(k).dispatchEvent(new Event('change')));statusSync();
 }catch(e){console.error(e)}}
-if(V){applyData(V.d||{});lockView();}else{restore();
+if(V){applyData(V.d||{});lockView();}else{if(!restore())(J.stock||[]).forEach(addStock); // prefill in-stock parts from the job link (first open only)
 $('svc').addEventListener('input',()=>$('svcErr').classList.add('hide'));
 document.addEventListener('input',save);document.addEventListener('change',save);}
 function lockView(){
