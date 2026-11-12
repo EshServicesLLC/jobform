@@ -194,11 +194,31 @@ const ORNAH_SMS = "";            // left empty on purpose: the number comes from
 const OFFICE_EMAIL = "";       // comes from each job link (j.email)
 const SMS_LIMIT = 1500;
 /* ================== */
+(async()=>{
 const $=id=>document.getElementById(id);
 function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)));}
 let J={};
 let V=null;
-try{const mv=location.hash.match(/[#&]v=([^&]+)/); if(mv){V=JSON.parse(b64d(mv[1])); J=V.job||{};}}catch(e){console.error(e)}
+function b64bytes(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
+function bytesb64(b){let bin='';for(let i=0;i<b.length;i++)bin+=String.fromCharCode(b[i]);return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+async function inflate(bytes){const ds=new DecompressionStream('deflate-raw');const st=new Blob([bytes]).stream().pipeThrough(ds);return await new Response(st).text();}
+async function deflate(str){if(typeof CompressionStream==='undefined')return null;const st=new Blob([new TextEncoder().encode(str)]).stream().pipeThrough(new CompressionStream('deflate-raw'));return new Uint8Array(await new Response(st).arrayBuffer());}
+const PART_KEYS=['pn','desc','qty','inv','dist'];
+function prune(o){if(Array.isArray(o))return o.map(prune);if(o&&typeof o==='object'){const r={};for(const[k,v]of Object.entries(o)){const pv=prune(v);if(pv===''||pv===null||pv===undefined||pv===false||(Array.isArray(pv)&&!pv.length)||(pv&&typeof pv==='object'&&!Array.isArray(pv)&&!Object.keys(pv).length))continue;r[k]=pv;}return r;}return o;}
+function compactPayload(job,d){
+  const dd={...d}; delete dd.returns; delete dd.v;
+  for(const k of ['wo','name','src','brand','prod','model','serial'])if(dd[k]===job[k])delete dd[k];
+  dd.ordered=(d.ordered||[]).map((p,i)=>{if(!p.added&&job.parts&&job.parts[i]){return {status:p.status,reord:p.reord};}return p;});
+  return prune({v:4,j:job,d:dd});
+}
+function expandPayload(P){
+  const job=P.j||{},d={...(P.d||{})};
+  for(const k of ['wo','name','src','brand','prod','model','serial'])if(d[k]===undefined)d[k]=job[k];
+  d.ordered=(d.ordered||[]).map((p,i)=>(!p.added&&job.parts&&job.parts[i])?{...job.parts[i],...p}:p);
+  d.v=2;return {v:4,job,d};
+}
+try{const mz=location.hash.match(/[#&]z=([^&]+)/); if(mz){V=expandPayload(JSON.parse(await inflate(b64bytes(mz[1])))); J=V.job||{};}}catch(e){console.error('z decode',e)}
+if(!V){try{const mv=location.hash.match(/[#&]v=([^&]+)/); if(mv){V=JSON.parse(b64d(mv[1])); J=V.job||{};}}catch(e){console.error(e)}}
 if(!V){try{const m=location.hash.match(/[#&]j=([^&]+)/)||(window.EMBED_J?[0,window.EMBED_J]:null); if(m) J=JSON.parse(b64d(m[1]));}catch(e){console.error(e)}}
 function b64e(str){const b=new TextEncoder().encode(str);let bin='';b.forEach(x=>bin+=String.fromCharCode(x));return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 if(!J.wo) $('banner').innerHTML='<div class="banner err">This link has no job data. Open the form from the calendar entry or the job folder.</div>';
@@ -288,11 +308,13 @@ function summary(d,svcMax=500){
 function tagLine(d){return `JOBFORM WO=${d.wo} STATUS=${(d.status||'NONE').toUpperCase().replace(/[^A-Z]+/g,'_')} RET=${d.returns.length} NEED=${d.needed.length+d.orders.length}${d.bRate?' BRATE=1':''}${d.closeTicket?' NEWTKT='+(d.newTicket||'?'):''}`;}
 function compactJSON(d){return 'JF '+JSON.stringify({w:d.wo,s:d.status,m:d.minutes,r:d.returns.map(r=>[r.type[0],r.item,r.qty,r.invoice]),n:d.needed.map(p=>[p.pn,p.qty]),o:d.orders.map(o=>[o.dist,o.ord,o.pns]),k:d.stock.map(p=>[p.pn,p.qty]),b:d.bRate?d.bReason:0,c:d.tsCase||0,t:d.newTicket||0});}
 const STLBL={'Used':'Used','Unused - return':'Unused – return','Core return':'Core return','Incorrect part - return':'Incorrect part'};
-function viewLink(d){
+async function viewLink(d){
   let base=location.href.split('#')[0];
   if(!/^https?:/.test(base)) base=window.HOSTED_URL||'';
   if(!base) return '';
   const {sms,email,...job}=J;
+  const P=compactPayload(job,d), js=JSON.stringify(P);
+  try{const z=await deflate(js); if(z) return base+'#z='+bytesb64(z);}catch(e){console.warn('deflate failed',e)}
   return base+'#v='+b64e(JSON.stringify({v:3,job,d}));
 }
 function buildFullText(d,view){
@@ -329,15 +351,25 @@ function buildText(d,view){
   out.push(tagLine(d));
   return out.join('\n');
 }
-async function shorten(url){
-  try{const ctl=new AbortController();setTimeout(()=>ctl.abort(),4000);
-    const r=await fetch('https://is.gd/create.php?format=simple&url='+encodeURIComponent(url),{signal:ctl.signal});
-    const t=(await r.text()).trim(); if(r.ok&&/^https:\/\/is\.gd\//.test(t)) return t;}catch(e){console.warn('shorten failed',e)}
-  return url;
+// format=json is required: is.gd/v.gd only send the CORS header on JSON/JSONP replies (format=simple has none, which broke 11/12).
+async function shortenFetch(host,url){
+  const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),5000);
+  try{const r=await fetch(`https://${host}/create.php?format=json&url=`+encodeURIComponent(url),{signal:ctl.signal,mode:'cors',credentials:'omit'});
+    const j=await r.json(); if(j&&j.shorturl&&/^https:\/\/(is|v)\.gd\//.test(j.shorturl)) return j.shorturl; console.warn(host,'error',j&&j.errormessage);}
+  catch(e){console.warn(host,'fetch failed',e)} finally{clearTimeout(t)}
+  return null;
 }
-async function viewShort(d){const v=viewLink(d);if(!v)return '';return v.length>300?await shorten(v):v;}
+function shortenJSONP(host,url){return new Promise(res=>{const cb='__sh'+Math.random().toString(36).slice(2);const sc=document.createElement('script');
+  const done=v=>{try{delete window[cb]}catch(e){};sc.remove();res(v)};const t=setTimeout(()=>done(null),5000);
+  window[cb]=j=>{clearTimeout(t);done(j&&j.shorturl||null)};sc.onerror=()=>{clearTimeout(t);done(null)};
+  sc.src=`https://${host}/create.php?format=json&callback=${cb}&url=`+encodeURIComponent(url);document.head.appendChild(sc);});}
+async function shorten(url){
+  return (await shortenFetch('is.gd',url))||(await shortenFetch('v.gd',url))||(await shortenJSONP('is.gd',url))||url;
+}
+let lastView=null;
+async function viewShort(d){const v=await viewLink(d);if(!v)return '';const s=v.length>200?await shorten(v):v;lastView={full:v,short:s};return s;}
 function smsURL(d,view){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body='+encodeURIComponent(buildText(d,view)):'';}
-window.__jobform={collect,buildText,smsURL,viewLink,viewShort,applyData};
+window.__jobform={collect,buildText,smsURL,viewLink,viewShort,applyData,shorten,compactPayload,expandPayload,get lastView(){return lastView}};
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
 function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return;applyData(d);}catch(e){console.error(e)}}
@@ -382,15 +414,22 @@ function gate(){const d=collect(),c=check(d);
   if(c.warn.length&&!confirm('Heads up: '+c.warn.join('; ')+'.\n\nSend anyway?'))return null; return d;}
 $('smsBtn').onclick=async()=>{const d=gate();if(!d)return;
   if(!(J.sms||ORNAH_SMS)){alert('This link has no text number. Use "Email instead".');return;}
-  $('banner').innerHTML='<div class="banner ok">Preparing text…</div>';
+  const btn=$('smsBtn');btn.disabled=true;btn.textContent='Preparing…';
+  $('banner').innerHTML='<div class="banner ok">Preparing your text…</div>';window.scrollTo(0,0);
   const view=await viewShort(d); const u=smsURL(d,view);
-  if(!u){alert('This link has no text number. Use "Email instead".');return;}
-  $('banner').innerHTML='<div class="banner ok">Messages is opening. Add photos in Messages before sending.</div>';window.scrollTo(0,0);
-  console.log('SMS_URL '+u);location.href=u;};
+  btn.disabled=false;btn.textContent='Text to Ornah';
+  console.log('SMS_URL '+u);
+  // Second tap is a real link, so iPhone Safari always opens Messages (no lost tap after the wait).
+  $('banner').innerHTML='<div class="banner ok">Ready. Tap below, then add photos in Messages before sending.<a class="btn main" id="smsGo" style="display:block;text-align:center;text-decoration:none;margin-top:10px;line-height:1">Open Messages</a></div>';
+  $('smsGo').href=u;
+  const clr=()=>{$('banner').innerHTML='';document.removeEventListener('input',clr,true);};document.addEventListener('input',clr,true);
+  try{location.href=u;}catch(e){}  // also try to open right away; harmless if Safari blocks it
+};
 $('mailBtn').onclick=async()=>{const d=gate();if(!d)return;
   const body=buildText(d,await viewShort(d));
   if(!(J.email||OFFICE_EMAIL)){alert('This link has no email address.');return;}
   location.href='mailto:'+(J.email||OFFICE_EMAIL)+'?subject='+encodeURIComponent(`Job Form: ${d.wo} ${d.name} – ${d.status}`)+'&body='+encodeURIComponent(body);};
+})();
 </script>
 </body>
 </html>
