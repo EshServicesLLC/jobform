@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Esh Services – Cash Job Form</title>
+<style>
+:root{--navy:#1f3a5f;--blue:#2d6cdf;--bg:#f2f4f7;--card:#fff;--line:#d9dee6;--muted:#6b7380;--ok:#1e8e3e;--warn:#c77700;--bad:#c62828;--pur:#7b4bc4}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:#1b1f24;padding-bottom:100px}
+header{background:var(--navy);color:#fff;padding:14px 16px;padding-top:max(14px,env(safe-area-inset-top));position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:18px}header .sub{font-size:13px;opacity:.85;margin-top:2px}
+main{max-width:640px;margin:0 auto;padding:12px}
+.card{background:var(--card);border-radius:12px;padding:14px;margin:0 0 12px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.card h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid #eef1f5}
+.row:last-child{border-bottom:0}.row .k{color:var(--muted);font-size:14px;flex:0 0 92px}
+.row .v{flex:1;text-align:right;font-weight:600;word-break:break-word}.row .v a{color:var(--blue);text-decoration:none}
+.copy{border:1px solid var(--line);background:#f7f9fc;border-radius:8px;padding:4px 10px;font-size:13px;margin-left:8px;color:var(--navy)}
+.copy.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+.note{font-size:12px;color:var(--muted);margin-top:6px}
+.complaint{background:#fff8e6;border-left:4px solid var(--warn);padding:10px;border-radius:6px;font-weight:600}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.seg.three{grid-template-columns:1fr 1fr 1fr}
+.seg.wide{grid-template-columns:1fr}
+.seg label{text-align:center;border:1px solid var(--line);border-radius:8px;padding:9px 4px;font-size:14px;font-weight:600;background:#fafbfc}
+.seg input{display:none}
+.seg label:has(input:checked){background:var(--blue);border-color:var(--blue);color:#fff}
+.seg .g:has(input:checked){background:var(--ok);border-color:var(--ok)}
+.seg .o:has(input:checked){background:var(--warn);border-color:var(--warn)}
+.seg .p:has(input:checked){background:var(--pur);border-color:var(--pur)}
+.seg .r:has(input:checked){background:var(--bad);border-color:var(--bad)}
+input[type=text],input[type=number],input[type=email],select,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff;color:inherit}
+textarea{min-height:90px;resize:vertical}
+.f{margin-top:10px}.f>label.l{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.chk{display:flex;align-items:center;gap:10px;margin-top:10px;font-weight:600}
+.chk input{width:22px;height:22px;accent-color:var(--blue)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.rep{border:1px dashed var(--line);border-radius:10px;padding:30px 8px 8px;margin-bottom:8px;position:relative}
+.rep .x{position:absolute;top:2px;right:4px}
+.rep .two+.two,.rep .two+input,.rep input+.two,.rep .two+select,.rep select+.two,.rep input+select,.rep select+input{margin-top:6px}
+.x{border:0;background:none;color:var(--bad);font-size:22px;padding:0 4px}
+.btn{display:block;width:100%;border:0;border-radius:10px;padding:13px;font:600 16px/1 inherit;font-family:inherit}
+.btn.sec{background:#e8eef9;color:var(--navy);margin-top:8px}
+.btn.main{background:var(--ok);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);background:#f7f9fc;border-radius:16px;padding:5px 10px;font-size:13px}
+.empty{color:var(--muted);font-size:14px;font-style:italic;margin-bottom:8px}
+.footer{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom));z-index:5}
+.footer .in{max-width:640px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.footer .btn.main{flex:1}
+.linkbtn{background:none;border:0;color:var(--blue);font:500 14px inherit;font-family:inherit;padding:8px 4px;white-space:nowrap}
+.banner{padding:12px;border-radius:10px;margin-bottom:12px;font-weight:600}
+.banner.ok{background:#e6f4ea;color:var(--ok)}.banner.err{background:#fdecea;color:var(--bad)}
+.err-msg{color:var(--bad);font-size:13px;margin-top:4px;font-weight:600}
+.hide{display:none!important}
+.tot{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px solid #eef1f5}
+.tot .k{color:var(--muted);font-size:14px}
+.tot .v{font-weight:700;font-variant-numeric:tabular-nums}
+.tot.grand{border-bottom:0;padding-top:12px;font-size:18px}
+.tot.grand .v{color:var(--navy)}
+.money-in{position:relative}
+.money-in:before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600}
+.money-in input{padding-left:22px}
+body.view{padding-bottom:20px}
+body.view input:disabled,body.view textarea:disabled,body.view select:disabled{color:#1b1f24;-webkit-text-fill-color:#1b1f24;opacity:1;background:#f7f9fc}
+body.view .seg label:not(:has(input:checked)){opacity:.45}
+</style>
+</head>
+<body>
+<header><h1 id="h-title">Cash Job Form</h1><div class="sub" id="h-sub">Esh Services</div></header>
+<main>
+<div id="banner"></div>
+
+<section class="card">
+  <h2>Customer</h2>
+  <div class="row"><span class="k">Name</span><span class="v" id="c-name"></span></div>
+  <div class="row"><span class="k">Job</span><span class="v" id="c-wo"></span></div>
+  <div class="row"><span class="k">Address</span><span class="v" id="c-addr"></span></div>
+  <div class="row"><span class="k">Phone</span><span class="v" id="c-ph"></span></div>
+  <div class="row"><span class="k">Source</span><span class="v" id="c-src"></span></div>
+</section>
+
+<section class="card" id="sec-product">
+  <h2>Product (from tag)</h2>
+  <div class="row"><span class="k">Product</span><span class="v" id="p-prod"></span></div>
+  <div class="row"><span class="k">Brand</span><span class="v" id="p-brand"></span></div>
+  <div class="row"><span class="k">Model</span><span class="v"><span id="p-model"></span><button type="button" class="copy" data-copy="p-model">Copy</button></span></div>
+  <div class="row"><span class="k">Serial</span><span class="v"><span id="p-serial"></span><button type="button" class="copy" data-copy="p-serial">Copy</button></span></div>
+  <div class="note" id="p-tagnote"></div>
+  <label class="chk"><input type="checkbox" id="tagBad"> Tag missing / unreadable</label>
+  <div id="tagfix" class="hide f">
+    <div class="two"><input type="text" id="model_in" placeholder="Model (if any)"><input type="text" id="serial_in" placeholder="Serial (if any)"></div>
+    <div class="note">Snap a photo of whatever is left of the tag and add it in Messages.</div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Customer complaint</h2>
+  <div class="complaint" id="w-cmp"></div>
+  <div class="note" id="w-appt"></div>
+</section>
+
+<section class="card" id="sec-status">
+  <h2>Job status</h2>
+  <div class="seg" id="statusSeg">
+    <label class="g"><input type="radio" name="status" value="Complete"><span>Complete</span></label>
+    <label class="o"><input type="radio" name="status" value="Needs parts (send estimate)"><span>Needs parts</span></label>
+    <label class="o"><input type="radio" name="status" value="Diagnosed – customer will decide"><span>Diagnosed – will decide</span></label>
+    <label class="r"><input type="radio" name="status" value="Not repairable"><span>Not repairable</span></label>
+    <label class="g"><input type="radio" name="status" value="No problem found"><span>No problem found</span></label>
+    <label class="r"><input type="radio" name="status" value="No-show / cancelled"><span>No-show / cancelled</span></label>
+  </div>
+  <div class="f hide" id="statusNoteWrap"><label class="l" for="statusNote" id="statusNoteLbl">Status notes</label><textarea id="statusNote" style="min-height:60px"></textarea></div>
+</section>
+
+<section class="card" id="sec-svc">
+  <h2>What he found / work done</h2>
+  <textarea id="svc" placeholder="I replaced the bake igniter. Unit is igniting and cycling properly."></textarea>
+  <div class="err-msg hide" id="svcErr">Write what was actually found or done (at least a full sentence), not just "complete".</div>
+  <div class="chips">
+    <button type="button" class="chip" data-ins="I replaced the ">I replaced the…</button>
+    <button type="button" class="chip" data-ins="Diagnosed: ">Diagnosed…</button>
+    <button type="button" class="chip" data-ins=" Verified unit is working properly.">Verified working</button>
+  </div>
+</section>
+
+<section class="card" id="sec-parts">
+  <h2>Parts used or needed</h2>
+  <div id="partRows"></div>
+  <div class="empty" id="partsEmpty">No parts added yet.</div>
+  <button type="button" class="btn sec" id="addPart">+ Add a part</button>
+</section>
+
+<section class="card" id="sec-charges">
+  <h2>Charges</h2>
+  <div class="tot"><span class="k">Parts</span><span class="v" id="c-parts">$0.00</span></div>
+  <div class="f"><label class="l" for="labor">Labor</label><div class="money-in"><input type="text" id="labor" inputmode="decimal" placeholder="0.00"></div></div>
+  <div class="f"><label class="l" for="diag">Diagnosis fee</label><div class="money-in"><input type="text" id="diag" inputmode="decimal" placeholder="100.00" value="100.00"></div></div>
+  <div class="tot grand"><span class="k">Total</span><span class="v" id="c-total">$100.00</span></div>
+</section>
+
+<section class="card" id="sec-pay">
+  <h2>Payment</h2>
+  <div class="seg">
+    <label class="g"><input type="radio" name="pay" value="cash"><span>Cash paid in person</span></label>
+    <label class="o"><input type="radio" name="pay" value="quickbooks"><span>QuickBooks invoice</span></label>
+  </div>
+  <div id="payCash" class="hide">
+    <div class="f"><label class="l" for="collected">Amount collected</label><div class="money-in"><input type="text" id="collected" inputmode="decimal" placeholder="0.00"></div></div>
+    <div class="tot"><span class="k">Balance due</span><span class="v" id="c-balance">$0.00</span></div>
+    <div class="f"><label class="l">Receipt</label>
+      <div class="seg wide">
+        <label><input type="radio" name="receipt" value="yes"><span>Yes</span></label>
+        <label><input type="radio" name="receipt" value="no"><span>No</span></label>
+        <label><input type="radio" name="receipt" value="yes, but not from the business"><span>Yes, but not from the business</span></label>
+      </div>
+    </div>
+  </div>
+  <div id="payQB" class="hide">
+    <div class="f"><label class="l" for="invoiceAmt">Amount to invoice</label><div class="money-in"><input type="text" id="invoiceAmt" inputmode="decimal" placeholder="0.00"></div></div>
+    <div class="f"><label class="l" for="invoiceEmail">Customer email for the invoice</label><input type="email" id="invoiceEmail" inputmode="email" autocomplete="email" placeholder="name@example.com"></div>
+  </div>
+</section>
+
+<section class="card" id="sec-follow">
+  <h2>Follow-up &amp; notes for Ornah</h2>
+  <label class="chk"><input type="checkbox" id="fuEstimate"> Send estimate to customer</label>
+  <div class="f hide" id="estEmailWrap"><label class="l" for="estEmail">Email for the estimate</label><input type="email" id="estEmail" inputmode="email" placeholder="name@example.com"></div>
+  <label class="chk"><input type="checkbox" id="fuCall"> Customer will call</label>
+  <label class="chk"><input type="checkbox" id="fuOrdered"> Parts ordered</label>
+  <div class="f"><label class="l" for="notes">Notes for Ornah (optional)</label>
+    <textarea id="notes" style="min-height:60px" placeholder="Anything else she should know"></textarea>
+  </div>
+  <div class="note">Photos: add them in Messages after you tap "Text to Ornah".</div>
+</section>
+</main>
+
+<div class="footer"><div class="in">
+  <button type="button" class="linkbtn" id="mailBtn">Email instead</button>
+  <button type="button" class="btn main" id="smsBtn">Text to Ornah</button>
+</div></div>
+
+<script>
+/* ===== CONFIG ===== */
+const ORNAH_SMS = "";            // left empty on purpose: the number comes from each job link (j.sms)
+const OFFICE_EMAIL = "";       // comes from each job link (j.email)
+const SMS_LIMIT = 1500;
+const PART_SOURCES = ['stock','ordered','customer supplied','not yet ordered'];
+/* ================== */
+(async()=>{
+const $=id=>document.getElementById(id);
+function b64d(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)));}
+let J={};
+let V=null;
+function b64bytes(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return Uint8Array.from(atob(s),c=>c.charCodeAt(0));}
+function bytesb64(b){let bin='';for(let i=0;i<b.length;i++)bin+=String.fromCharCode(b[i]);return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+async function inflate(bytes){const ds=new DecompressionStream('deflate-raw');const st=new Blob([bytes]).stream().pipeThrough(ds);return await new Response(st).text();}
+async function deflate(str){if(typeof CompressionStream==='undefined')return null;const st=new Blob([new TextEncoder().encode(str)]).stream().pipeThrough(new CompressionStream('deflate-raw'));return new Uint8Array(await new Response(st).arrayBuffer());}
+function prune(o){if(Array.isArray(o))return o.map(prune);if(o&&typeof o==='object'){const r={};for(const[k,v]of Object.entries(o)){const pv=prune(v);if(pv===''||pv===null||pv===undefined||pv===false||(Array.isArray(pv)&&!pv.length)||(pv&&typeof pv==='object'&&!Array.isArray(pv)&&!Object.keys(pv).length))continue;r[k]=pv;}return r;}return o;}
+function compactPayload(job,d){
+  const dd={...d};
+  for(const k of ['wo','name','src','brand','prod','model','serial'])if(dd[k]===job[k])delete dd[k];
+  return prune({v:5,layout:'cash',j:job,d:dd});
+}
+function expandPayload(P){
+  const job=P.j||{},d={...(P.d||{})};
+  for(const k of ['wo','name','src','brand','prod','model','serial'])if(d[k]===undefined)d[k]=job[k];
+  d.v=5;return {v:5,layout:'cash',job,d};
+}
+try{const mz=location.hash.match(/[#&]z=([^&]+)/); if(mz){V=expandPayload(JSON.parse(await inflate(b64bytes(mz[1])))); J=V.job||{};}}catch(e){console.error('z decode',e)}
+if(!V){try{const mv=location.hash.match(/[#&]v=([^&]+)/); if(mv){V=JSON.parse(b64d(mv[1])); J=V.job||{};}}catch(e){console.error(e)}}
+if(!V){try{const m=location.hash.match(/[#&]j=([^&]+)/)||(window.EMBED_J?[0,window.EMBED_J]:null); if(m) J=JSON.parse(b64d(m[1]));}catch(e){console.error(e)}}
+function b64e(str){const b=new TextEncoder().encode(str);let bin='';b.forEach(x=>bin+=String.fromCharCode(x));return btoa(bin).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
+if(!J.wo) $('banner').innerHTML='<div class="banner err">This link has no job data. Open the form from the calendar entry or the job folder.</div>';
+const KEY='eshcash:'+(J.wo||'none');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const set=(id,v)=>{$(id).textContent=v||'—'};
+$('h-title').textContent=J.name||'Cash Job Form';
+$('h-sub').textContent=[J.wo,[J.brand,J.prod].filter(Boolean).join(' '),J.city].filter(Boolean).join(' · ');
+document.title='Cash '+(J.wo||'')+' – Esh Services';
+set('c-name',J.name);set('c-wo',J.wo);set('c-src',J.src);
+if(J.addr)$('c-addr').innerHTML='<a href="https://maps.apple.com/?q='+encodeURIComponent(J.addr)+'">'+esc(J.addr)+'</a>';else set('c-addr');
+if(J.ph){const d=String(J.ph).replace(/\D/g,'');$('c-ph').innerHTML='<a href="tel:'+d+'">'+esc(d.length==10?`(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`:J.ph)+'</a>';}else set('c-ph');
+set('p-prod',J.prod);set('p-brand',J.brand);set('p-model',J.model);set('p-serial',J.serial);
+$('p-tagnote').textContent=(J.model||J.serial)?'Model and serial come from the tag photo, not the ticket.':'No tag photo on file yet – type them from the tag, or check "Tag missing".';
+set('w-cmp',J.cmp);$('w-appt').textContent=J.appt?'Appointment: '+J.appt:'';
+
+const show=(id,on)=>$(id).classList.toggle('hide',!on);
+const tagSync=()=>show('tagfix',$('tagBad').checked||!(J.model&&J.serial));
+$('tagBad').onchange=tagSync;tagSync();
+const NOTE_LBL={
+  'Not repairable':'Why not repairable?',
+  'No problem found':'What was checked?',
+  'No-show / cancelled':'When / attempts to reach',
+  'Needs parts (send estimate)':'Notes on parts needed',
+  'Diagnosed – customer will decide':'Quote / what they were told'
+};
+function statusSync(){const s=(document.querySelector('input[name=status]:checked')||{}).value;show('statusNoteWrap',!!NOTE_LBL[s]);if(NOTE_LBL[s])$('statusNoteLbl').textContent=NOTE_LBL[s];}
+document.querySelectorAll('input[name=status]').forEach(r=>r.addEventListener('change',statusSync));
+
+function money(s){const n=parseFloat(String(s??'').replace(/[^0-9.-]/g,''));return Number.isFinite(n)?Math.round(n*100)/100:0;}
+function fmt(n){return '$'+(Number(n)||0).toFixed(2);}
+function hasMoney(s){return String(s??'').trim()!=='';}
+
+const val=(el,sel)=>(el.querySelector(sel)||{}).value?.trim?.()||'';
+const uid=()=>'n'+Math.random().toString(36).slice(2);
+function rep(container,html){const d=document.createElement('div');d.className='rep';d.innerHTML='<button type="button" class="x" aria-label="Remove">×</button>'+html;d.querySelector('.x').onclick=()=>{d.remove();partsEmpty();tally();save()};$(container).appendChild(d);return d;}
+function sourceOpts(sel){return PART_SOURCES.map(s=>`<option value="${s}"${s===sel?' selected':''}>${s}</option>`).join('');}
+function addPart(v={}){
+  const src=PART_SOURCES.includes(v.source)?v.source:(v.source||'stock');
+  const d=rep('partRows',`<div class="two"><input type="text" class="pn" placeholder="Part #" value="${esc(v.pn)}"><input type="number" class="qty" inputmode="numeric" min="0" step="1" placeholder="Qty" value="${esc(v.qty||1)}"></div>
+    <input type="text" class="desc" placeholder="Description" value="${esc(v.desc)}">
+    <div class="two"><select class="src">${sourceOpts(src)}</select><div class="money-in"><input type="text" class="cost" inputmode="decimal" placeholder="Unit cost" value="${esc(v.cost??'')}"></div></div>`);
+  d.classList.add('xp');
+  partsEmpty();
+  return d;
+}
+function partsEmpty(){show('partsEmpty',!document.querySelector('#partRows .xp'));}
+$('addPart').onclick=()=>{addPart();tally();};
+
+let invoiceDirty=false;
+$('invoiceAmt').addEventListener('input',()=>{invoiceDirty=true;});
+
+function partsTotal(){
+  return [...document.querySelectorAll('#partRows .xp')].reduce((s,el)=>s+money(val(el,'.cost'))*(parseFloat(val(el,'.qty')||'1')||0),0);
+}
+function charges(){
+  const parts=partsTotal(), labor=money($('labor').value), diag=money($('diag').value);
+  return {parts,labor,diag,total:Math.round((parts+labor+diag)*100)/100};
+}
+function tally(){
+  const c=charges();
+  $('c-parts').textContent=fmt(c.parts);
+  $('c-total').textContent=fmt(c.total);
+  const collected=money($('collected').value);
+  const bal=Math.round((c.total-collected)*100)/100;
+  $('c-balance').textContent=fmt(bal);
+  if(!invoiceDirty && document.querySelector('input[name=pay]:checked')?.value==='quickbooks'){
+    $('invoiceAmt').value=c.total.toFixed(2);
+  }
+}
+function paySync(){
+  const p=(document.querySelector('input[name=pay]:checked')||{}).value;
+  show('payCash',p==='cash');
+  show('payQB',p==='quickbooks');
+  if(p==='quickbooks' && !invoiceDirty){
+    $('invoiceAmt').value=charges().total.toFixed(2);
+  }
+  tally();
+}
+document.querySelectorAll('input[name=pay]').forEach(r=>r.addEventListener('change',paySync));
+$('fuEstimate').onchange=()=>show('estEmailWrap',$('fuEstimate').checked);
+function prefillEmail(){
+  const e=(J.custEmail||J.customerEmail||'').trim();
+  if(e){if(!$('invoiceEmail').value)$('invoiceEmail').value=e;if(!$('estEmail').value)$('estEmail').value=e;}
+}
+
+document.querySelectorAll('[data-copy]').forEach(b=>b.onclick=async()=>{const t=$(b.dataset.copy).textContent;try{await navigator.clipboard.writeText(t)}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}b.textContent='Copied';b.classList.add('done');setTimeout(()=>{b.textContent='Copy';b.classList.remove('done')},1500)});
+document.querySelectorAll('[data-ins]').forEach(b=>b.onclick=()=>{const t=$('svc');t.value=(t.value+b.dataset.ins).replace(/^\s+/,'');t.focus();save()});
+
+function collectParts(){
+  return [...document.querySelectorAll('#partRows .xp')].map(el=>({
+    pn:val(el,'.pn'),desc:val(el,'.desc'),qty:val(el,'.qty')||1,source:val(el,'.src')||'stock',cost:val(el,'.cost')
+  })).filter(p=>p.pn||p.desc||hasMoney(p.cost));
+}
+function collect(){
+  const tagBad=$('tagBad').checked;
+  const model=(tagBad||!J.model)?$('model_in').value.trim():J.model, serial=(tagBad||!J.serial)?$('serial_in').value.trim():J.serial;
+  const ch=charges();
+  const pay=(document.querySelector('input[name=pay]:checked')||{}).value||'';
+  const receipt=(document.querySelector('input[name=receipt]:checked')||{}).value||'';
+  return {v:5,layout:'cash',wo:J.wo,name:J.name,src:J.src,brand:J.brand,prod:J.prod,model,serial,tagBad,
+    status:(document.querySelector('input[name=status]:checked')||{}).value||'',statusNote:$('statusNote').value.trim(),
+    service:$('svc').value.trim(),
+    parts:collectParts(),
+    charges:{parts:ch.parts,labor:ch.labor,diag:ch.diag,total:ch.total,
+      laborRaw:$('labor').value.trim(),diagRaw:$('diag').value.trim()},
+    pay,collected:$('collected').value.trim(),balance:Math.round((ch.total-money($('collected').value))*100)/100,
+    receipt,
+    invoiceAmt:$('invoiceAmt').value.trim(),invoiceEmail:$('invoiceEmail').value.trim(),
+    followup:{estimate:$('fuEstimate').checked,call:$('fuCall').checked,ordered:$('fuOrdered').checked,estEmail:$('estEmail').value.trim()},
+    notes:$('notes').value.trim(),at:new Date().toISOString()};
+}
+
+const cut=(s,n)=>!s?'':(s.length>n?s.slice(0,n-1)+'…':s);
+function payCode(d){return d.pay==='quickbooks'?'QUICKBOOKS':d.pay==='cash'?'CASH':(d.pay||'NONE').toUpperCase();}
+function statusCode(s){return (s||'NONE').toUpperCase().replace(/[^A-Z0-9]+/g,'_').replace(/_+$/,'');}
+function tagLine(d){
+  let t=`JOBFORM CASH=${d.wo||J.wo||''} STATUS=${statusCode(d.status)} PAY=${payCode(d)} TOTAL=${(d.charges&&d.charges.total!=null)?Number(d.charges.total).toFixed(2):'?'}`;
+  if(d.pay==='cash') t+=` COLLECTED=${money(d.collected).toFixed(2)} BAL=${Number(d.balance||0).toFixed(2)}`;
+  if(d.pay==='quickbooks') t+=` INVOICE=${money(d.invoiceAmt).toFixed(2)}`;
+  return t;
+}
+async function viewLink(d){
+  let base=location.href.split('#')[0];
+  if(!/^https?:/.test(base)) base=window.HOSTED_URL||'';
+  if(!base) return '';
+  const {sms,email,...job}=J;
+  const P=compactPayload(job,d), js=JSON.stringify(P);
+  try{const z=await deflate(js); if(z) return base+'#z='+bytesb64(z);}catch(e){console.warn('deflate failed',e)}
+  return base+'#v='+b64e(JSON.stringify({v:5,layout:'cash',job,d}));
+}
+function buildFullText(d,view){
+  const out=[],DIV='----------';
+  let sec=null;
+  const head=t=>{sec=[t];};
+  const fld=(label,val)=>{if(val===undefined||val===null||val===''||val===false)return; sec.push(label+':');sec.push(val===true?'Yes':String(val));};
+  const line=t=>{if(t)sec.push(t);};
+  const end=()=>{if(sec&&sec.length>1){out.push(DIV);out.push(...sec);}sec=null;};
+  head('CUSTOMER');fld('Name',J.name);fld('Job',J.wo);fld('Address',J.addr);
+  {const p=String(J.ph||'').replace(/\D/g,'');fld('Phone',p.length==10?`(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`:J.ph);}
+  fld('Source',J.src);end();
+  head('PRODUCT (FROM TAG)');fld('Product',d.prod);fld('Brand',d.brand);fld('Model',d.model);fld('Serial',d.serial);fld('Tag missing / unreadable',d.tagBad);end();
+  head('CUSTOMER COMPLAINT');line(J.cmp);if(J.appt)fld('Appointment',J.appt);end();
+  head('JOB STATUS');line(d.status||'NOT SET');if(d.statusNote)fld(NOTE_LBL[d.status]||'Status notes',d.statusNote);end();
+  head('WHAT HE FOUND / WORK DONE');line(d.service);end();
+  head('PARTS USED OR NEEDED');
+  (d.parts||[]).forEach(p=>{
+    const cost=hasMoney(p.cost)?` · ${fmt(money(p.cost))}`:'';
+    line(`${p.pn||'—'} × ${p.qty||1}${p.desc?' · '+p.desc:''} · ${p.source||'stock'}${cost}`);
+  });
+  end();
+  head('CHARGES');
+  if(d.charges){fld('Parts',fmt(d.charges.parts));fld('Labor',fmt(d.charges.labor));fld('Diagnosis fee',fmt(d.charges.diag));fld('Total',fmt(d.charges.total));}
+  end();
+  head('PAYMENT');
+  if(d.pay==='cash'){
+    line('Cash paid in person');
+    fld('Amount collected',fmt(money(d.collected)));
+    fld('Balance due',fmt(d.balance));
+    if(d.receipt==='yes') fld('Receipt','Yes');
+    else if(d.receipt==='no') fld('Receipt','No');
+    else if(d.receipt==='yes, but not from the business') fld('Receipt','Yes, but not from the business');
+  }else if(d.pay==='quickbooks'){
+    line('QuickBooks invoice');
+    fld('Amount to invoice',fmt(money(d.invoiceAmt)));
+    fld('Customer email for the invoice',d.invoiceEmail);
+  }else line('NOT SET');
+  end();
+  head('FOLLOW-UP & NOTES FOR ORNAH');
+  const fu=d.followup||{};
+  if(fu.estimate){line('Send estimate to customer');fld('Email for the estimate',fu.estEmail);}
+  if(fu.call) line('Customer will call');
+  if(fu.ordered) line('Parts ordered');
+  line(d.notes);
+  end();
+  out.push(DIV);
+  if(view){out.push('View as form:');out.push(view);}
+  out.push(tagLine(d));
+  return out.join('\n');
+}
+function buildText(d,view){
+  const out=['CASH', d.name||J.name||''];
+  out.push('View form: '+(view||'(link unavailable)'));
+  out.push(tagLine(d));
+  return out.join('\n');
+}
+async function shortenFetch(host,url){
+  const ctl=new AbortController();const t=setTimeout(()=>ctl.abort(),5000);
+  try{const r=await fetch(`https://${host}/create.php?format=json&url=`+encodeURIComponent(url),{signal:ctl.signal,mode:'cors',credentials:'omit'});
+    const j=await r.json(); if(j&&j.shorturl&&/^https:\/\/(is|v)\.gd\//.test(j.shorturl)) return j.shorturl; console.warn(host,'error',j&&j.errormessage);}
+  catch(e){console.warn(host,'fetch failed',e)} finally{clearTimeout(t)}
+  return null;
+}
+function shortenJSONP(host,url){return new Promise(res=>{const cb='__sh'+Math.random().toString(36).slice(2);const sc=document.createElement('script');
+  const done=v=>{try{delete window[cb]}catch(e){};sc.remove();res(v)};const t=setTimeout(()=>done(null),5000);
+  window[cb]=j=>{clearTimeout(t);done(j&&j.shorturl||null)};sc.onerror=()=>{clearTimeout(t);done(null)};
+  sc.src=`https://${host}/create.php?format=json&callback=${cb}&url=`+encodeURIComponent(url);document.head.appendChild(sc);});}
+async function shorten(url){
+  return (await shortenFetch('is.gd',url))||(await shortenFetch('v.gd',url))||(await shortenJSONP('is.gd',url))||url;
+}
+let lastView=null;
+async function viewShort(d){const v=await viewLink(d);if(!v)return '';const s=v.length>200?await shorten(v):v;lastView={full:v,short:s};return s;}
+function smsURL(d,view){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body='+encodeURIComponent(buildText(d,view)):'';}
+window.__jobform={collect,buildText,buildFullText,smsURL,viewLink,viewShort,applyData,shorten,compactPayload,expandPayload,tally,get lastView(){return lastView}};
+
+function save(){try{tally();localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
+function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||(d.v!==5&&d.layout!=='cash'))return false;applyData(d);return true;}catch(e){console.error(e)}return false;}
+function applyData(d){try{
+  (d.parts||[]).forEach(addPart);
+  const ids={svc:d.service,statusNote:d.statusNote,labor:d.charges?.laborRaw??(d.charges?.labor!=null?Number(d.charges.labor).toFixed(2):''),diag:d.charges?.diagRaw??(d.charges?.diag!=null?Number(d.charges.diag).toFixed(2):'100.00'),collected:d.collected,invoiceAmt:d.invoiceAmt,invoiceEmail:d.invoiceEmail,estEmail:d.followup?.estEmail,notes:d.notes,model_in:d.tagBad||!J.model?d.model:'',serial_in:d.tagBad||!J.serial?d.serial:''};
+  for(const k in ids) if($(k)) $(k).value=ids[k]||'';
+  $('tagBad').checked=!!d.tagBad;
+  $('fuEstimate').checked=!!d.followup?.estimate;
+  $('fuCall').checked=!!d.followup?.call;
+  $('fuOrdered').checked=!!d.followup?.ordered;
+  if(d.status){const r=document.querySelector(`input[name=status][value="${d.status}"]`);if(r)r.checked=true;}
+  if(d.pay){const r=document.querySelector(`input[name=pay][value="${d.pay}"]`);if(r)r.checked=true;}
+  if(d.receipt){const r=document.querySelector(`input[name=receipt][value="${d.receipt}"]`);if(r)r.checked=true;}
+  if(hasMoney(d.invoiceAmt)) invoiceDirty=true;
+  $('tagBad').dispatchEvent(new Event('change'));
+  $('fuEstimate').dispatchEvent(new Event('change'));
+  statusSync();paySync();tally();
+}catch(e){console.error(e)}}
+function prefillPartsFromJob(){
+  const list=J.parts||J.stock||[];
+  list.forEach(p=>addPart({pn:p.pn,desc:p.desc,qty:p.qty||1,cost:p.cost||p.price||'',source:p.source||(p.stock?'stock':'ordered')}));
+}
+if(V){applyData(V.d||{});lockView();}else{if(!restore()){prefillPartsFromJob();if($('diag').value==='')$('diag').value='100.00';}prefillEmail();tally();
+$('svc').addEventListener('input',()=>$('svcErr').classList.add('hide'));
+document.addEventListener('input',save);document.addEventListener('change',save);}
+function lockView(){
+  document.body.classList.add('view');
+  document.querySelectorAll('main input,main textarea,main select').forEach(el=>{el.disabled=true;el.placeholder='';});
+  document.querySelectorAll('main .x,main .chips,#addPart,.footer,.copy').forEach(el=>el.classList.add('hide'));
+  document.querySelectorAll('main textarea').forEach(t=>{t.style.height='auto';t.style.height=(t.scrollHeight+4)+'px';});
+  const at=V.d&&V.d.at?new Date(V.d.at).toLocaleString('en-US',{timeZone:'America/Chicago',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' CT':'';
+  $('banner').innerHTML='<div class="banner ok">Completed job form (read-only)'+(at?' · submitted '+at:'')+'</div>';
+  document.title='Completed: '+document.title;
+  tally();
+}
+
+const LAZY=/^\s*(complete[d]?|done|fixed|repaired|ok|good|finished)[.!]*\s*$/i;
+const NOSVC=['No-show / cancelled'];
+function validEmail(s){return /^\S+@\S+\.\S+$/.test(String(s||'').trim());}
+function check(d){
+  const block=[],warn=[];
+  if(!d.status) block.push('pick a job status');
+  if(!NOSVC.includes(d.status) && (d.service.length<20||LAZY.test(d.service))){block.push('describe what was found or done (a real sentence, not just "complete")');$('svcErr').classList.remove('hide');} else $('svcErr').classList.add('hide');
+  if(!d.pay) block.push('choose Cash paid in person or a QuickBooks invoice');
+  if(d.pay==='cash'){
+    if(!hasMoney(d.collected)) block.push('enter the amount collected');
+    if(!d.receipt) warn.push('receipt not marked');
+  }
+  if(d.pay==='quickbooks'){
+    if(!hasMoney(d.invoiceAmt)) block.push('enter the amount to invoice');
+    if(!validEmail(d.invoiceEmail)) block.push('enter the customer email for the invoice');
+  }
+  if(d.status==='Needs parts (send estimate)'&&!(d.parts||[]).length) warn.push('no parts listed');
+  if(d.followup?.estimate && !validEmail(d.followup.estEmail)) warn.push('email for the estimate');
+  if(d.tagBad&&!d.model) warn.push('no model typed (tag missing)');
+  return {block,warn};
+}
+function gate(){const d=collect(),c=check(d);
+  if(c.block.length){alert('Before sending: '+c.block.join('; ')+'.');
+    const el=(!$('svcErr').classList.contains('hide'))?$('sec-svc'):(!d.status?$('sec-status'):$('sec-pay'));
+    el.scrollIntoView({behavior:'smooth'});return null;}
+  if(c.warn.length&&!confirm('Heads up: '+c.warn.join('; ')+'.\n\nSend anyway?'))return null; return d;}
+$('smsBtn').onclick=async()=>{const d=gate();if(!d)return;
+  if(!(J.sms||ORNAH_SMS)){alert('This link has no text number. Use "Email instead".');return;}
+  const btn=$('smsBtn');btn.disabled=true;btn.textContent='Preparing…';
+  $('banner').innerHTML='<div class="banner ok">Preparing your text…</div>';window.scrollTo(0,0);
+  const view=await viewShort(d); const u=smsURL(d,view);
+  btn.disabled=false;btn.textContent='Text to Ornah';
+  console.log('SMS_URL '+u);
+  $('banner').innerHTML='<div class="banner ok">Ready. Tap below, then add photos in Messages before sending.<a class="btn main" id="smsGo" style="display:block;text-align:center;text-decoration:none;margin-top:10px;line-height:1">Open Messages</a></div>';
+  $('smsGo').href=u;
+  const clr=()=>{$('banner').innerHTML='';document.removeEventListener('input',clr,true);};document.addEventListener('input',clr,true);
+  try{location.href=u;}catch(e){}
+};
+$('mailBtn').onclick=async()=>{const d=gate();if(!d)return;
+  const body=buildText(d,await viewShort(d));
+  if(!(J.email||OFFICE_EMAIL)){alert('This link has no email address.');return;}
+  location.href='mailto:'+(J.email||OFFICE_EMAIL)+'?subject='+encodeURIComponent(`Cash Job Form: ${d.wo} ${d.name} – ${d.status}`)+'&body='+encodeURIComponent(body);};
+tally();
+})();
+</script>
+</body>
+</html>
