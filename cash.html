@@ -64,6 +64,10 @@ textarea{min-height:90px;resize:vertical}
 .money-in{position:relative}
 .money-in:before{content:"$";position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600}
 .money-in input{padding-left:22px}
+.callout-notag{background:#fde8c8;color:#1a1208;border:3px solid #c77700;border-radius:12px;padding:16px;margin:0 0 12px;font-size:22px;font-weight:800;line-height:1.35}
+.callout-notag .hint{font-size:18px;font-weight:700;margin-top:8px}
+.callout-notag .chk{font-size:20px;color:#1a1208;margin-top:14px}
+.callout-notag .chk input{width:26px;height:26px;accent-color:#c77700;flex-shrink:0}
 body.view{padding-bottom:20px}
 body.view input:disabled,body.view textarea:disabled,body.view select:disabled{color:#1b1f24;-webkit-text-fill-color:#1b1f24;opacity:1;background:#f7f9fc}
 body.view .seg label:not(:has(input:checked)){opacity:.45}
@@ -73,6 +77,12 @@ body.view .seg label:not(:has(input:checked)){opacity:.45}
 <header><h1 id="h-title">Cash Job Form</h1><div class="sub" id="h-sub">Esh Services</div></header>
 <main>
 <div id="banner"></div>
+
+<div id="noTagCallout" class="callout-notag hide">
+  NO TAG PHOTO FROM CUSTOMER: take a picture of the model &amp; serial tag and text it to Ornah
+  <label class="chk"><input type="checkbox" id="tagPhotoTaken"> Tag photo taken</label>
+</div>
+
 
 <section class="card">
   <h2>Customer</h2>
@@ -231,6 +241,8 @@ set('w-cmp',J.cmp);$('w-appt').textContent=J.appt?'Appointment: '+J.appt:'';
 const show=(id,on)=>$(id).classList.toggle('hide',!on);
 const tagSync=()=>show('tagfix',$('tagBad').checked||!(J.model&&J.serial));
 $('tagBad').onchange=tagSync;tagSync();
+const hasTagPhoto=!!(String(J.model||'').trim()||String(J.serial||'').trim());
+show('noTagCallout',!hasTagPhoto);
 const NOTE_LBL={
   'Not repairable':'Why not repairable?',
   'No problem found':'What was checked?',
@@ -312,7 +324,7 @@ function collect(){
   const ch=charges();
   const pay=(document.querySelector('input[name=pay]:checked')||{}).value||'';
   const receipt=(document.querySelector('input[name=receipt]:checked')||{}).value||'';
-  return {v:5,layout:'cash',wo:J.wo,name:J.name,src:J.src,brand:J.brand,prod:J.prod,model,serial,tagBad,
+  return {v:5,layout:'cash',wo:J.wo,name:J.name,src:J.src,brand:J.brand,prod:J.prod,model,serial,tagBad,tagPhotoTaken:hasTagPhoto?undefined:$('tagPhotoTaken').checked,
     status:(document.querySelector('input[name=status]:checked')||{}).value||'',statusNote:$('statusNote').value.trim(),
     service:$('svc').value.trim(),
     parts:collectParts(),
@@ -353,7 +365,7 @@ function buildFullText(d,view){
   head('CUSTOMER');fld('Name',J.name);fld('Job',J.wo);fld('Address',J.addr);
   {const p=String(J.ph||'').replace(/\D/g,'');fld('Phone',p.length==10?`(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`:J.ph);}
   fld('Source',J.src);end();
-  head('PRODUCT (FROM TAG)');fld('Product',d.prod);fld('Brand',d.brand);fld('Model',d.model);fld('Serial',d.serial);fld('Tag missing / unreadable',d.tagBad);end();
+  head('PRODUCT (FROM TAG)');fld('Product',d.prod);fld('Brand',d.brand);fld('Model',d.model);fld('Serial',d.serial);fld('Tag missing / unreadable',d.tagBad);if(!hasTagPhoto)fld('Tag photo taken',d.tagPhotoTaken?'Yes':'No');end();
   head('CUSTOMER COMPLAINT');line(J.cmp);if(J.appt)fld('Appointment',J.appt);end();
   head('JOB STATUS');line(d.status||'NOT SET');if(d.statusNote)fld(NOTE_LBL[d.status]||'Status notes',d.statusNote);end();
   head('WHAT HE FOUND / WORK DONE');line(d.service);end();
@@ -423,7 +435,7 @@ function applyData(d){try{
   (d.parts||[]).forEach(addPart);
   const ids={svc:d.service,statusNote:d.statusNote,labor:d.charges?.laborRaw??(d.charges?.labor!=null?Number(d.charges.labor).toFixed(2):''),diag:d.charges?.diagRaw??(d.charges?.diag!=null?Number(d.charges.diag).toFixed(2):'100.00'),collected:d.collected,invoiceAmt:d.invoiceAmt,invoiceEmail:d.invoiceEmail,estEmail:d.followup?.estEmail,notes:d.notes,model_in:d.tagBad||!J.model?d.model:'',serial_in:d.tagBad||!J.serial?d.serial:''};
   for(const k in ids) if($(k)) $(k).value=ids[k]||'';
-  $('tagBad').checked=!!d.tagBad;
+  $('tagBad').checked=!!d.tagBad;if($('tagPhotoTaken'))$('tagPhotoTaken').checked=!!d.tagPhotoTaken;
   $('fuEstimate').checked=!!d.followup?.estimate;
   $('fuCall').checked=!!d.followup?.call;
   $('fuOrdered').checked=!!d.followup?.ordered;
@@ -472,11 +484,12 @@ function check(d){
   if(d.status==='Needs parts (send estimate)'&&!(d.parts||[]).length) warn.push('no parts listed');
   if(d.followup?.estimate && !validEmail(d.followup.estEmail)) warn.push('email for the estimate');
   if(d.tagBad&&!d.model) warn.push('no model typed (tag missing)');
+  if(!hasTagPhoto&&!d.tagPhotoTaken&&!d.tagBad) block.push('check "Tag photo taken" after photographing the model & serial tag');
   return {block,warn};
 }
 function gate(){const d=collect(),c=check(d);
   if(c.block.length){alert('Before sending: '+c.block.join('; ')+'.');
-    const el=(!$('svcErr').classList.contains('hide'))?$('sec-svc'):(!d.status?$('sec-status'):$('sec-pay'));
+    const el=(!hasTagPhoto&&!d.tagPhotoTaken&&!d.tagBad)?$('noTagCallout'):((!$('svcErr').classList.contains('hide'))?$('sec-svc'):(!d.status?$('sec-status'):$('sec-pay')));
     el.scrollIntoView({behavior:'smooth'});return null;}
   if(c.warn.length&&!confirm('Heads up: '+c.warn.join('; ')+'.\n\nSend anyway?'))return null; return d;}
 $('smsBtn').onclick=async()=>{const d=gate();if(!d)return;

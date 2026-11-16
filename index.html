@@ -56,6 +56,10 @@ textarea{min-height:90px;resize:vertical}
 .banner.ok{background:#e6f4ea;color:var(--ok)}.banner.err{background:#fdecea;color:var(--bad)}
 .err-msg{color:var(--bad);font-size:13px;margin-top:4px;font-weight:600}
 .hide{display:none!important}
+.callout-notag{background:#fde8c8;color:#1a1208;border:3px solid #c77700;border-radius:12px;padding:16px;margin:0 0 12px;font-size:22px;font-weight:800;line-height:1.35}
+.callout-notag .hint{font-size:18px;font-weight:700;margin-top:8px}
+.callout-notag .chk{font-size:20px;color:#1a1208;margin-top:14px}
+.callout-notag .chk input{width:26px;height:26px;accent-color:#c77700;flex-shrink:0}
 body.view{padding-bottom:20px}
 body.view input:disabled,body.view textarea:disabled,body.view select:disabled{color:#1b1f24;-webkit-text-fill-color:#1b1f24;opacity:1;background:#f7f9fc}
 body.view .seg label:not(:has(input:checked)){opacity:.45}
@@ -65,6 +69,12 @@ body.view .seg label:not(:has(input:checked)){opacity:.45}
 <header><h1 id="h-title">Job Form</h1><div class="sub" id="h-sub">Esh Services</div></header>
 <main>
 <div id="banner"></div>
+
+<div id="noTagCallout" class="callout-notag hide">
+  NO TAG PHOTO FROM CUSTOMER: take a picture of the model &amp; serial tag and text it to Ornah
+  <label class="chk"><input type="checkbox" id="tagPhotoTaken"> Tag photo taken</label>
+</div>
+
 
 <section class="card">
   <h2>Customer</h2>
@@ -238,6 +248,8 @@ set('w-cmp',J.cmp);$('w-appt').textContent=J.appt?'Appointment: '+J.appt:'';
 const show=(id,on)=>$(id).classList.toggle('hide',!on);
 const tagSync=()=>show('tagfix',$('tagBad').checked||!(J.model&&J.serial));
 $('tagBad').onchange=tagSync;tagSync();
+const hasTagPhoto=!!(String(J.model||'').trim()||String(J.serial||'').trim());
+show('noTagCallout',!hasTagPhoto);
 $('closeTicket').onchange=()=>show('newTicketWrap',$('closeTicket').checked);
 $('bRate').onchange=()=>show('bRateWrap',$('bRate').checked);
 $('bReason').onchange=()=>show('bOtherWrap',$('bReason').value==='Other');
@@ -276,7 +288,7 @@ function collect(){
   const tagBad=$('tagBad').checked;
   const model=(tagBad||!J.model)?$('model_in').value.trim():J.model, serial=(tagBad||!J.serial)?$('serial_in').value.trim():J.serial;
   const returns=ordered.filter(p=>/return/i.test(p.status)).map(p=>({type:/core/i.test(p.status)?'Core':/incorrect/i.test(p.status)?'Incorrect':'Unused',qty:p.qty||1,item:p.pn,description:p.desc||'',invoice:p.inv||'',dist:p.dist||'',reord:p.reord||''}));
-  return {v:2,wo:J.wo,name:J.name,src:J.src,brand:J.brand,prod:J.prod,model,serial,tagBad,
+  return {v:2,wo:J.wo,name:J.name,src:J.src,brand:J.brand,prod:J.prod,model,serial,tagBad,tagPhotoTaken:hasTagPhoto?undefined:$('tagPhotoTaken').checked,
     tsCase:$('tsCase').value.trim(),closeTicket:$('closeTicket').checked,newTicket:$('newTicket').value.trim(),bulletin:$('bulletin').value.trim(),bulletinSaved:$('bulletinSaved').checked,
     ordered,stock,orders,needed,returns,service:$('svc').value.trim(),
     tests:{fresh:$('tFresh').value.trim(),frz:$('tFrz').value.trim(),other:$('tOther').value.trim(),smartHQ:$('smartHQ').checked,verified:$('verified').checked},
@@ -289,7 +301,7 @@ function summary(d,svcMax=500){
   const L=[];
   L.push(`JOB ${d.wo} ${d.name}`);
   L.push(`Status: ${d.status||'?'}${d.statusNote?' – '+cut(d.statusNote,140):''} | ${d.minutes||'?'} min`);
-  L.push(`${d.brand||''} ${d.prod||''} M:${d.model||'?'} S:${d.serial||'?'}${d.tagBad?' (TAG MISSING/UNREADABLE)':''}`);
+  L.push(`${d.brand||''} ${d.prod||''} M:${d.model||'?'} S:${d.serial||'?'}${d.tagBad?' (TAG MISSING/UNREADABLE)':''}${!hasTagPhoto?' | Tag photo taken: '+(d.tagPhotoTaken?'Yes':'No'):''}`);
   if(d.tsCase||d.closeTicket) L.push(`Tech case: ${d.tsCase||'-'}${d.closeTicket?` | CLOSE – new ticket ${d.newTicket||'?'}`:''}`);
   if(d.bulletin) L.push(`Bulletin: ${d.bulletin}${d.bulletinSaved?' (PDF saved)':''}`);
   if(d.ordered.length) L.push('Ordered: '+d.ordered.map(p=>`${p.pn}${(p.qty>1)?' x'+p.qty:''} ${p.status?p.status.replace(' - return','-ret'):'NOT MARKED'}${p.reord?' → reord '+p.reord:''}`).join('; '));
@@ -327,7 +339,7 @@ function buildFullText(d,view){
   head('CUSTOMER');fld('Name',J.name);fld('Work order',J.wo);fld('Address',J.addr);
   {const p=String(J.ph||'').replace(/\D/g,'');fld('Phone',p.length==10?`(${p.slice(0,3)}) ${p.slice(3,6)}-${p.slice(6)}`:J.ph);}
   fld('Warranty',J.src);end();
-  head('PRODUCT (FROM TAG)');fld('Product',d.prod);fld('Brand',d.brand);fld('Model',d.model);fld('Serial',d.serial);fld('Tag missing / unreadable',d.tagBad);end();
+  head('PRODUCT (FROM TAG)');fld('Product',d.prod);fld('Brand',d.brand);fld('Model',d.model);fld('Serial',d.serial);fld('Tag missing / unreadable',d.tagBad);if(!hasTagPhoto)fld('Tag photo taken',d.tagPhotoTaken?'Yes':'No');end();
   head('WORK ORDER – CUSTOMER COMPLAINT');line(J.cmp);end();
   head('TECH SUPPORT & TICKETS');fld('Tech support case / ticket #',d.tsCase);fld('Close ticket – new ticket created',d.closeTicket);fld('New ticket #',d.closeTicket?d.newTicket:'');fld('Service bulletin / tech tip #',d.bulletin);fld('Bulletin PDF saved to folder',d.bulletinSaved);end();
   head('PARTS ORDERED');d.ordered.forEach(p=>{line(`${p.pn} × ${p.qty||1}`);line([p.desc,p.inv?'Inv '+p.inv:'',p.dist].filter(Boolean).join(' · '));line('→ '+(STLBL[p.status]||'NOT MARKED'));if(p.reord)fld('Reordered as',p.reord);});end();
@@ -369,7 +381,7 @@ async function shorten(url){
 let lastView=null;
 async function viewShort(d){const v=await viewLink(d);if(!v)return '';const s=v.length>200?await shorten(v):v;lastView={full:v,short:s};return s;}
 function smsURL(d,view){const num=J.sms||ORNAH_SMS;return num?'sms:'+num+'?&body='+encodeURIComponent(buildText(d,view)):'';}
-window.__jobform={collect,buildText,smsURL,viewLink,viewShort,applyData,shorten,compactPayload,expandPayload,get lastView(){return lastView}};
+window.__jobform={collect,buildText,buildFullText,smsURL,viewLink,viewShort,applyData,shorten,compactPayload,expandPayload,get lastView(){return lastView}};
 
 function save(){try{localStorage.setItem(KEY,JSON.stringify(collect()))}catch(e){}}
 function restore(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(!d||d.v!==2)return false;applyData(d);return true;}catch(e){console.error(e)}return false;}
@@ -378,7 +390,7 @@ function applyData(d){try{
   (d.stock||[]).forEach(addStock);(d.orders||[]).forEach(addOrder);(d.needed||[]).forEach(addNeed);
   const ids={tsCase:d.tsCase,newTicket:d.newTicket,bulletin:d.bulletin,svc:d.service,statusNote:d.statusNote,mins:d.minutes,onSite:d.onSite,custNote:d.custNote,notes:d.notes,tFresh:d.tests?.fresh,tFrz:d.tests?.frz,tOther:d.tests?.other,model_in:d.tagBad||!J.model?d.model:'',serial_in:d.tagBad||!J.serial?d.serial:''};
   for(const k in ids)$(k).value=ids[k]||'';
-  for(const k of ['tagBad','closeTicket','bulletinSaved','bRate'])$(k).checked=!!d[k];$('smartHQ').checked=!!d.tests?.smartHQ;$('verified').checked=!!d.tests?.verified;
+  for(const k of ['tagBad','tagPhotoTaken','closeTicket','bulletinSaved','bRate'])if($(k))$(k).checked=!!d[k];$('smartHQ').checked=!!d.tests?.smartHQ;$('verified').checked=!!d.tests?.verified;
   if(d.bReason){if(d.bReason.startsWith('Other')){$('bReason').value='Other';$('bOther').value=d.bReason.replace(/^Other:\s*/,'')}else $('bReason').value=d.bReason;}
   if(d.status){const r=document.querySelector(`input[name=status][value="${d.status}"]`);if(r)r.checked=true;}
   ['tagBad','closeTicket','bRate','bReason'].forEach(k=>$(k).dispatchEvent(new Event('change')));statusSync();
@@ -407,10 +419,13 @@ function check(d){
   if(d.bRate&&(!d.bReason||!d.onSite)) warn.push('B-rate reason or time on site');
   if(d.closeTicket&&!d.newTicket) warn.push('new ticket #');
   if(d.tagBad&&!d.model) warn.push('no model typed (tag missing)');
+  if(!hasTagPhoto&&!d.tagPhotoTaken&&!d.tagBad) block.push('check "Tag photo taken" after photographing the model & serial tag');
   return {block,warn};
 }
 function gate(){const d=collect(),c=check(d);
-  if(c.block.length){alert('Before sending: '+c.block.join('; ')+'.');($('svcErr').classList.contains('hide')?$('sec-status'):$('sec-svc')).scrollIntoView({behavior:'smooth'});return null;}
+  if(c.block.length){alert('Before sending: '+c.block.join('; ')+'.');
+    const el=(!hasTagPhoto&&!d.tagPhotoTaken&&!d.tagBad)?$('noTagCallout'):($('svcErr').classList.contains('hide')?$('sec-status'):$('sec-svc'));
+    el.scrollIntoView({behavior:'smooth'});return null;}
   if(c.warn.length&&!confirm('Heads up: '+c.warn.join('; ')+'.\n\nSend anyway?'))return null; return d;}
 $('smsBtn').onclick=async()=>{const d=gate();if(!d)return;
   if(!(J.sms||ORNAH_SMS)){alert('This link has no text number. Use "Email instead".');return;}
