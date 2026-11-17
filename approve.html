@@ -134,6 +134,12 @@ label.part:has(.today-check:checked) .tick{background:var(--ok);border-color:var
 label.part:has(.today-check:checked) .tick::after{content:"";position:absolute;left:9px;top:3px;width:8px;height:16px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
 label.part:has(.today-check:not(:checked)){background:#fff}
 section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
+
+.diag-box{margin:12px 0 0}
+.diag-box .l{display:block;color:var(--muted);font-size:14px;margin-bottom:4px;font-weight:600}
+a.btn.diag{background:var(--warn);color:#fff}
+.today-item .diag-box{margin-top:12px}
+.today-item .diag-box .l{font-size:18px;color:#111;font-weight:800}
 </style>
 </head>
 <body>
@@ -209,6 +215,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5761576" data-name="Darin Christianson">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
 
   </article>
 
@@ -246,6 +257,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5583529" data-name="Christy Hilt">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
 
   </article>
@@ -286,6 +302,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1008023128-14" data-name="Jim Ingman">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
 
   </article>
 
@@ -307,6 +328,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5901816" data-name="Doug Owen">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
 
   </article>
 
@@ -327,6 +353,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5926097" data-name="Mindy Bowers">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
 
   </article>
@@ -411,6 +442,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1009708276-10" data-name="Kristine Metzger">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
 
   </article>
 
@@ -472,6 +508,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5859712" data-name="Payne Hughes">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5892219" data-last="Mcnamara">
@@ -513,6 +554,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5892219" data-name="Joseph Mcnamara">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   </div>
 
@@ -565,6 +611,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5949690" data-name="Timothy Meitner">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="1009766345-10" data-last="Knudsen">
@@ -606,6 +657,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="1009766345-10" data-name="Jared Knudsen">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   </div>
 
@@ -649,6 +705,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1009749855-10" data-name="Steve Frederick">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="1009735261-10" data-last="Breit">
@@ -691,6 +752,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1009735261-10" data-name="Dylan Breit">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5704343" data-last="Rahn">
@@ -724,6 +790,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5704343" data-name="Alan Rahn">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5639905" data-last="Haag">
@@ -747,6 +818,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5639905" data-name="Tim Haag">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   </div>
 
@@ -772,6 +848,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="1009160714-10" data-name="Benjamin Wagner">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   </div>
 
@@ -879,6 +960,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5901816" data-name="Doug Owen">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, use the shelf board" data-suffix="" onclick="return openYes(event)">YES, use the shelf board</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5901816: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -925,6 +1011,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5761576" data-name="Darin Christianson">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -985,6 +1076,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5583529" data-name="Christy Hilt">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -1068,6 +1164,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5859712" data-name="Payne Hughes">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5859712: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1145,6 +1246,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5949690" data-name="Timothy Meitner">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -1238,6 +1344,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5926097" data-name="Mindy Bowers">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5926097: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1307,6 +1418,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5892219" data-name="Joseph Mcnamara">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5892219: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1355,6 +1471,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="SA-5704343" data-name="Alan Rahn">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
 </section>
 <section class="card" id="card-SA-5639905" data-hold="false" data-wo="SA-5639905" data-last="Haag">
   <div class="badge ordered">ALREADY ORDERED</div>
@@ -1386,6 +1507,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="SA-5639905" data-name="Tim Haag">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
 </section>
 <h2 class="brand-title" id="frigidaire">Frigidaire (5)</h2>
@@ -1450,6 +1576,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="1008023128-14" data-name="Jim Ingman">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -1531,6 +1662,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1009766345-10" data-name="Jared Knudsen">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE 1009766345-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1611,6 +1747,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1009749855-10" data-name="Steve Frederick">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE 1009749855-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1687,6 +1828,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="1009735261-10" data-name="Dylan Breit">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
@@ -1809,6 +1955,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
+  <div class="diag-box" data-wo="1009708276-10" data-name="Kristine Metzger">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE 1009708276-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1863,6 +2014,11 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question for the customer"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="diag-box" data-wo="1009160714-10" data-name="Benjamin Wagner">
+    <label class="l">Note for diagnosis (optional)</label>
+    <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
+    <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
@@ -2148,6 +2304,23 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
       scope.querySelectorAll("a.today-yes").forEach(syncTodayYes);
     });
   });
+})();
+</script>
+
+<script>
+(function () {
+  window.sendDiagnosis = function (ev) {
+    ev.preventDefault();
+    var box = ev.currentTarget.closest(".diag-box");
+    if (!box) return false;
+    var area = box.querySelector("textarea");
+    var text = (area && area.value ? area.value : "").trim();
+    var wo = box.getAttribute("data-wo") || "";
+    var name = box.getAttribute("data-name") || "";
+    var body = "SCHEDULE DIAG " + wo + " " + name;
+    if (text) body += ": " + text;
+    return window.openSms(ev, body);
+  };
 })();
 </script>
 </body>
