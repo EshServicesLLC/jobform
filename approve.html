@@ -140,6 +140,27 @@ section.card[id],#todays-checklist,.today-sub[id]{scroll-margin-top:86px}
 a.btn.diag{background:var(--warn);color:#fff}
 .today-item .diag-box{margin-top:12px}
 .today-item .diag-box .l{font-size:18px;color:#111;font-weight:800}
+
+.pn-shelf{font-size:22px;font-weight:800;line-height:1.2;color:#111}
+.amber-card .pn-shelf{font-size:22px}
+.shelf-status{margin-top:8px;background:#e6f4ea;color:#146c2e;border:2px solid #1e8e3e;border-radius:8px;padding:8px 10px;font-weight:800}
+.today-item .shelf-status{font-size:18px;border-color:#111}
+.shelf-part-actions{display:flex;flex-direction:column;gap:8px;margin:0 0 12px}
+.shelf-part-actions .btn{margin-top:0}
+.scott-req{background:#fff3b0;border:2px solid #c77700;border-radius:10px;padding:10px 12px;margin:10px 0 0;font-weight:800;color:#1a1a1a}
+.watch-video{background:#e8f5d8;border:2px solid #3d7a2e;border-radius:10px;padding:10px 12px;margin:10px 0 0;font-weight:800;color:#1a1a1a}
+.today-item .scott-req,.today-item .watch-video{font-size:20px;border-width:2px;border-color:#111}
+.scott-note-box{margin:12px 0 0}
+.scott-note-box .l{display:block;color:var(--muted);font-size:14px;margin-bottom:4px;font-weight:600}
+.today-item .scott-note-box .l{font-size:18px;color:#111;font-weight:800}
+.approved-toggle-wrap{margin-top:10px}
+button.show-approved{background:#fff;color:var(--navy);border:1px solid rgba(255,255,255,.55);border-radius:16px;padding:6px 12px;font:600 13px inherit;cursor:pointer}
+.is-approved-hidden{display:none !important}
+body.show-approved-on .is-approved-hidden{display:block !important}
+body.show-approved-on .today-item.is-approved-hidden,body.show-approved-on .today-sub.is-approved-hidden,body.show-approved-on section.card.is-approved-hidden{display:block !important}
+.is-approved{opacity:.58;position:relative}
+.approved-bar-undo{margin:0 0 10px}
+.approved-bar-undo .btn{margin-top:0}
 </style>
 </head>
 <body>
@@ -152,6 +173,9 @@ a.btn.diag{background:var(--warn);color:#fff}
     <a href="#frigidaire">Frigidaire (5)</a>
     <a href="#electrolux">Electrolux (1)</a>
   </nav>
+  <div class="approved-toggle-wrap">
+    <button type="button" class="show-approved" id="toggle-approved" hidden>Show approved (0)</button>
+  </div>
 </header>
 <main>
 
@@ -166,33 +190,47 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-shelf">See details ↓</a>
       </div>
     </div>
-    <p>Are the Encompass parts for Cara Garrison 1008131187-12 (fan motor 140282033103) and Steve Pederson 1008042329-10 (tray heat shield 5304536691) sealed and unused? Check YES for each one that is still sealed and unused. Unchecked sends NO.</p>
+    <p>Are the Encompass parts for Cara Garrison 1008131187-12 (140282033103, evaporator fan motor, inv 8-510647-0926, location not recorded) and Steve Pederson 1008042329-10 (5304536691, tray heat shield, inv 8-510638-0926, location not recorded) sealed and unused? Check YES for each one that is still sealed and unused. Unchecked sends NO.</p>
     <p class="today-note">Encompass return numbers must be requested by Fri 11/20, about $43 credit. Nothing is returned without Ornah&#x27;s OK.</p>
     <div class="parts">
       <label class="part">
         <input type="checkbox" class="today-check today-shelf" data-yes="1008131187-12 Cara Garrison YES" data-no="1008131187-12 Cara Garrison NO">
         <span class="tick" aria-hidden="true"></span>
         <span class="part-body">
-          <div class="pn">Garrison, Cara · 1008131187-12</div>
-          <div class="what">Encompass evaporator fan motor 140282033103 — on shelf, sealed &amp; unused?</div>
+          <div class="pn pn-shelf">140282033103, evaporator fan motor</div>
+          <div class="what">Cara Garrison · 1008131187-12 · Encompass inv 8-510647-0926 · location not recorded. On shelf, sealed &amp; unused?</div>
           <div class="meta"><span>Inv 8-510647-0926, shipped 09/21/26</span></div>
+          <div class="shelf-status">Scott 11/17: send back ASAP. Return started</div>
         </span>
       </label>
+      <div class="shelf-part-actions">
+        <a class="btn alt shelf-part" href="#" data-body="SHELF CHECK: 1008131187-12 Cara Garrison UNTOUCHED SEND BACK" onclick="return openShelfPart(event)">Untouched, send back</a>
+        <a class="btn sec shelf-part" href="#" data-body="SHELF CHECK: 1008131187-12 Cara Garrison OPENED KEEP" onclick="return openShelfPart(event)">Opened, keep</a>
+      </div>
       <label class="part">
         <input type="checkbox" class="today-check today-shelf" data-yes="1008042329-10 Steve Pederson YES" data-no="1008042329-10 Steve Pederson NO">
         <span class="tick" aria-hidden="true"></span>
         <span class="part-body">
-          <div class="pn">Pederson, Steve · 1008042329-10</div>
-          <div class="what">Encompass tray heat shield 5304536691 — on shelf, sealed &amp; unused?</div>
+          <div class="pn pn-shelf">5304536691, tray heat shield</div>
+          <div class="what">Steve Pederson · 1008042329-10 · Encompass inv 8-510638-0926 · location not recorded. On shelf, sealed &amp; unused?</div>
           <div class="meta"><span>Inv 8-510638-0926, shipped 09/21/26; the wrong part was sent</span></div>
+          <div class="shelf-status">Scott 11/17: send back ASAP. Return started</div>
         </span>
       </label>
+      <div class="shelf-part-actions">
+        <a class="btn alt shelf-part" href="#" data-body="SHELF CHECK: 1008042329-10 Steve Pederson UNTOUCHED SEND BACK" onclick="return openShelfPart(event)">Untouched, send back</a>
+        <a class="btn sec shelf-part" href="#" data-body="SHELF CHECK: 1008042329-10 Steve Pederson OPENED KEEP" onclick="return openShelfPart(event)">Opened, keep</a>
+      </div>
     </div>
     <div class="today-actions"><a class="btn main today-yes" href="#" data-kind="shelf" onclick="return openTodayYes(event)">YES / OK — send shelf check</a></div>
       <div class="ask-box" data-wo="SHELF" data-last="CHECK">
     <label class="l">Ask a question / comment</label>
     <textarea rows="3" placeholder="Type a question or comment"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
 
   </article>
@@ -205,7 +243,8 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-SA-5761576">See details ↓</a>
       </div>
     </div>
-    <p>Did you already order WD22X36720 (spray arm and heater kit)? Your 11/17 note said &quot;ordered needed parts,&quot; but the form lists it as not ordered yet.</p>
+    <div class="scott-req">Scott requested at diagnosis on 11/17/26: Diagnosed: the unit has a melted spray arm. Followed steps from service bulletin DD03-26 Rev. 2 ordered needed parts. WD22X36720, Spray arm and heater kit, qty 1.</div>
+    <p>Did you already order WD22X36720, Spray arm and heater kit? Your 11/17 note said &quot;ordered needed parts,&quot; but the form lists it as not ordered yet.</p>
     <div class="today-actions">
       <a class="btn main today-yes" href="#" data-kind="fixed" data-body="CHOICE SA-5761576 Christianson: Scott already ordered WD22X36720" onclick="return openTodayYes(event)">I already ordered it</a>
       <a class="btn main today-yes" href="#" data-kind="fixed" data-body="PARTS OK SA-5761576 Christianson: WD22X36720" onclick="return openTodayYes(event)">Not ordered: approve</a>
@@ -220,6 +259,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 
   </article>
 
@@ -231,14 +274,13 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-SA-5583529">See details ↓</a>
       </div>
     </div>
-    <p>OK to order WH22X37840 (main control) and WH11X39237 (drain pump and filter)? The pump is backordered to about 12/08, so the tentative 11/30 date will not hold if ordered.</p>
+    <p>OK to order WH22X37840, Main control board, and WH11X39237, Drain pump and filter? The pump is backordered to about 12/08, so the tentative 11/30 date will not hold if ordered.</p>
     <div class="parts">
   <label class="part">
     <input type="checkbox" class="today-check" checked data-pn="WH22X37840" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH22X37840</div>
-      <div class="what">Main control board</div>
+      <div class="pn">WH22X37840, Main control board</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -246,8 +288,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WH11X39237" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH11X39237</div>
-      <div class="what">Drain pump and filter — backordered to about 12/08</div>
+      <div class="pn">WH11X39237, Drain pump and filter</div>
+      <div class="what">backordered to about 12/08</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -263,6 +305,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 
   </article>
 
@@ -274,15 +320,16 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-1008023128-14">See details ↓</a>
       </div>
     </div>
-    <p>OK to order board 5304534597 ($147.95, in stock at Encompass) and deli drawer interface 140147091031 ($80.95, factory backorder, no ETA)?</p>
+    <div class="scott-req">Scott requested at diagnosis on 11/17/26: Upon arriving on site I found the user interface was non-responsive. After unplugging the ui power plug and re-connecting it, the ui came back to life. I called tech support for further assistance as there has been multiple attempts to resolve this issue. After talking to tech support they found wrong parts were installed previously ticket 1009836160. Additional parts needed: 5304534597, Main power board, qty 1; 140147091031, Deli drawer interface, qty 1.</div>
+    <p>OK to order 5304534597, Main power board ($147.95, in stock at Encompass) and 140147091031, Deli drawer interface ($80.95, factory backorder, no ETA)?</p>
     <p class="today-note">Ornah also decides on the Encompass account before ordering.</p>
     <div class="parts">
   <label class="part">
     <input type="checkbox" class="today-check" checked data-pn="5304534597" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304534597</div>
-      <div class="what">Main power board — Enc $147.95, in stock</div>
+      <div class="pn">5304534597, Main power board</div>
+      <div class="what">Enc $147.95, in stock</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -290,8 +337,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="140147091031" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">140147091031</div>
-      <div class="what">Deli drawer interface — Enc $80.95, factory backorder, no ETA; Dey $72.19, 0 stock, not returnable</div>
+      <div class="pn">140147091031, Deli drawer interface</div>
+      <div class="what">Enc $80.95, factory backorder, no ETA; Dey $72.19, 0 stock, not returnable</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -307,6 +354,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 
   </article>
 
@@ -318,9 +369,9 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-SA-5901816">See details ↓</a>
       </div>
     </div>
-    <p>The WD21X36561 control is already on our shelf (unused Mulder) for Fri 11/20. Do you also want the optional UI WD21X36744 ordered?</p>
+    <p>The WD21X36561, Main control, is already on our shelf (unused Mulder) for Fri 11/20. Do you also want the optional UI WD21X36744, User interface, ordered?</p>
     <div class="today-actions">
-      <a class="btn main today-yes" href="#" data-kind="fixed" data-body="PARTS OK SA-5901816 Owen: WD21X36744" onclick="return openTodayYes(event)">Order optional UI WD21X36744</a>
+      <a class="btn main today-yes" href="#" data-kind="fixed" data-body="PARTS OK SA-5901816 Owen: WD21X36744" onclick="return openTodayYes(event)">Order optional UI WD21X36744, User interface</a>
       <a class="btn main today-yes" href="#" data-kind="fixed" data-body="CHOICE SA-5901816 Owen: shelf control only, no UI" onclick="return openTodayYes(event)">Use shelf control only on 11/20</a>
     </div>
       <div class="ask-box" data-wo="SA-5901816" data-last="Owen">
@@ -333,6 +384,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 
   </article>
 
@@ -344,7 +399,8 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-SA-5926097">See details ↓</a>
       </div>
     </div>
-    <p>Order rear cover WH10X29625 (bulletin HL03-26) plus dampers WH03X29516 (qty 4) and damper pins WH01X29647 (qty 4), or diagnose leveling first? She gets no date until you decide.</p>
+    <div class="watch-video">Watch the customer&#x27;s video before approving.</div>
+    <p>Order rear cover WH10X29625, Rear cover (bulletin HL03-26) plus dampers WH03X29516, Suspension damper (qty 4) and damper pins WH01X29647, Damper pin (qty 4), or diagnose leveling first? She gets no date until you decide.</p>
     <div class="today-actions">
       <a class="btn main today-yes" href="#" data-kind="fixed" data-body="PARTS OK SA-5926097 Bowers: WH10X29625, WH03X29516 x4, WH01X29647 x4" onclick="return openTodayYes(event)">Order cover + dampers</a>
       <a class="btn main today-yes" href="#" data-kind="fixed" data-body="CHOICE SA-5926097 Bowers: diagnose leveling first" onclick="return openTodayYes(event)">Diagnose leveling first</a>
@@ -359,6 +415,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 
   </article>
 
@@ -370,14 +430,13 @@ a.btn.diag{background:var(--warn);color:#fff}
         <a class="today-jump" href="#card-1009708276-10">See details ↓</a>
       </div>
     </div>
-    <p>Approve parts so they ship before 12/4. Uncheck anything you do not want. Handle screw 5304537220 is out until about 12/01.</p>
+    <p>Approve parts so they ship before 12/4. Uncheck anything you do not want. Handle screws 5304537220, Handle screws M5x16, are out until about 12/01.</p>
     <div class="parts">
   <label class="part">
     <input type="checkbox" class="today-check" checked data-pn="5304537408" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304537408</div>
-      <div class="what">Freezer drawer gasket</div>
+      <div class="pn">5304537408, Freezer drawer gasket</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -385,8 +444,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304531232" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304531232</div>
-      <div class="what">Freezer drawer handle</div>
+      <div class="pn">5304531232, Freezer drawer handle</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -394,8 +452,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304504279" data-qty="2">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304504279</div>
-      <div class="what">Handle mounting block</div>
+      <div class="pn">5304504279, Handle mounting block</div>
       <div class="meta"><span>Qty 2</span></div>
     </span>
   </label>
@@ -403,8 +460,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304537220" data-qty="As needed">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304537220</div>
-      <div class="what">Handle screws M5x16</div>
+      <div class="pn">5304537220, Handle screws M5x16</div>
       <div class="meta"><span>Qty As needed</span></div>
     </span>
   </label>
@@ -412,8 +468,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="A30433701 → 140304337011" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">A30433701 → 140304337011</div>
-      <div class="what">Handle shim kit</div>
+      <div class="pn">A30433701 → 140304337011, Handle shim kit</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -421,8 +476,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304507999" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304507999</div>
-      <div class="what">Pinion gear</div>
+      <div class="pn">5304507999, Pinion gear</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -430,8 +484,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="241770705" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241770705</div>
-      <div class="what">Timing bar</div>
+      <div class="pn">241770705, Timing bar</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -447,6 +500,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 
   </article>
 
@@ -460,6 +517,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <p>Payne Hughes, Joseph Mcnamara, Timothy Meitner, the other Frigidaire cards, plus Rahn, Haag, and Wagner. Jump to a card, then YES the checked parts or send a question.</p>
   <div class="today-sub" data-wo="SA-5859712" data-last="Hughes">
     <h3>Hughes, Payne · SA-5859712</h3>
+    <div class="watch-video">Watch the customer&#x27;s video before approving.</div>
     <p class="today-note">Waiting on a customer answer. Do not order until that is in, unless you mean to approve anyway.</p>
     <a class="today-jump" href="#card-SA-5859712">See details ↓</a>
     <div class="parts">
@@ -467,8 +525,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WB26X28953" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB26X28953</div>
-      <div class="what">Convection fan motor</div>
+      <div class="pn">WB26X28953, Convection fan motor</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -476,8 +533,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WB2X8351" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB2X8351</div>
-      <div class="what">Convection fan blade</div>
+      <div class="pn">WB2X8351, Convection fan blade</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -485,8 +541,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WB34X28703" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB34X28703</div>
-      <div class="what">Fan cover</div>
+      <div class="pn">WB34X28703, Fan cover</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -494,8 +549,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WB26X35086" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB26X35086</div>
-      <div class="what">Cooling blower (if the noise is the cooling blower, not convection)</div>
+      <div class="pn">WB26X35086, Cooling blower</div>
+      <div class="what">if the noise is the cooling blower, not convection</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -513,6 +568,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5892219" data-last="Mcnamara">
@@ -523,8 +582,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WD22X27740" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X27740</div>
-      <div class="what">Mid/upper spray arm assembly</div>
+      <div class="pn">WD22X27740, Mid/upper spray arm assembly</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -532,8 +590,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WD22X10094" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X10094</div>
-      <div class="what">Mid conduit (feed tube)</div>
+      <div class="pn">WD22X10094, Mid conduit (feed tube)</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -541,8 +598,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WD19X25460" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD19X25460</div>
-      <div class="what">Wash pump assembly (if the noise is the pump)</div>
+      <div class="pn">WD19X25460, Wash pump assembly</div>
+      <div class="what">if the noise is the pump</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -560,18 +617,23 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5949690" data-last="Meitner">
     <h3>Meitner, Timothy · SA-5949690</h3>
+    <div class="watch-video">Watch the customer&#x27;s video before approving. The video is in the job folder.</div>
     <a class="today-jump" href="#card-SA-5949690">See details ↓</a>
     <div class="parts">
   <label class="part">
     <input type="checkbox" class="today-check" checked data-pn="WH03X33961" data-qty="4">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH03X33961</div>
-      <div class="what">Suspension rod and spring assembly (replace all 4)</div>
+      <div class="pn">WH03X33961, Suspension rod and spring assembly</div>
+      <div class="what">replace all 4</div>
       <div class="meta"><span>Qty 4</span></div>
     </span>
   </label>
@@ -579,8 +641,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" data-pn="WH01X32883" data-qty="As needed">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH01X32883</div>
-      <div class="what">Upper ball joint (if a joint is broken)</div>
+      <div class="pn">WH01X32883, Upper ball joint</div>
+      <div class="what">if a joint is broken</div>
       <div class="meta"><span>Qty As needed</span></div>
     </span>
   </label>
@@ -588,8 +650,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" data-pn="WH23X28418" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH23X28418</div>
-      <div class="what">Drain pump assembly (only if the pump tests bad)</div>
+      <div class="pn">WH23X28418, Drain pump assembly</div>
+      <div class="what">only if the pump tests bad</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -597,8 +659,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" data-pn="WH08X37859" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH08X37859</div>
-      <div class="what">Lid lock, quick release (only if the lock tests bad)</div>
+      <div class="pn">WH08X37859, Lid lock, quick release</div>
+      <div class="what">only if the lock tests bad</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -616,6 +678,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="1009766345-10" data-last="Knudsen">
@@ -626,8 +692,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304531314 → A21755301" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304531314 → A21755301</div>
-      <div class="what">Ice maker twist tray</div>
+      <div class="pn">5304531314 → A21755301, Ice maker twist tray</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -635,8 +700,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304535846" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304535846</div>
-      <div class="what">Fill tube assembly (no separate heater part)</div>
+      <div class="pn">5304535846, Fill tube assembly</div>
+      <div class="what">no separate heater part</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -644,8 +709,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="140137975102" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">140137975102</div>
-      <div class="what">Triple solenoid water valve</div>
+      <div class="pn">140137975102, Triple solenoid water valve</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -663,6 +727,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="1009749855-10" data-last="Frederick">
@@ -673,8 +741,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304535347 → 140287527075" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304535347 → 140287527075</div>
-      <div class="what">Machine compartment harness (only if found bad)</div>
+      <div class="pn">5304535347 → 140287527075, Machine compartment harness</div>
+      <div class="what">only if found bad</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -682,8 +750,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304526980 → 140130970050" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304526980 → 140130970050</div>
-      <div class="what">Evap fan harness (only if found bad)</div>
+      <div class="pn">5304526980 → 140130970050, Evap fan harness</div>
+      <div class="what">only if found bad</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -691,8 +759,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="241516904" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241516904</div>
-      <div class="what">Service cord (only if found bad)</div>
+      <div class="pn">241516904, Service cord</div>
+      <div class="what">only if found bad</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -710,6 +778,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="1009735261-10" data-last="Breit">
@@ -720,8 +792,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="241518601" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241518601</div>
-      <div class="what">Damper foam seal</div>
+      <div class="pn">241518601, Damper foam seal</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -729,8 +800,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5303918775" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5303918775</div>
-      <div class="what">Thermistor kit (FF)</div>
+      <div class="pn">5303918775, Thermistor kit (FF)</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -738,8 +808,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="241518501 → 5303918899" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241518501 → 5303918899</div>
-      <div class="what">Damper with seals (already replaced once)</div>
+      <div class="pn">241518501 → 5303918899, Damper with seals</div>
+      <div class="what">already replaced once</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -757,18 +827,23 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5704343" data-last="Rahn">
     <h3>Rahn, Alan · SA-5704343</h3>
+    <div class="scott-req">Scott requested at diagnosis on 11/12/26: Diagnosed: Unit with key stuck error. Ordering user interface control board and door skin. WD21X33700, UI board; WD27X33118, SS door panel.</div>
+    <div class="watch-video">Watch the customer&#x27;s video before approving. The job form lists it as Flashing.MOV in the job folder.</div>
     <a class="today-jump" href="#card-SA-5704343">See details ↓</a>
     <div class="parts">
   <label class="part">
     <input type="checkbox" class="today-check" checked data-pn="WD21X33700" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD21X33700</div>
-      <div class="what">UI board</div>
+      <div class="pn">WD21X33700, UI board</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -776,8 +851,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="WD27X33118" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD27X33118</div>
-      <div class="what">SS door panel</div>
+      <div class="pn">WD27X33118, SS door panel</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -795,18 +869,22 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="SA-5639905" data-last="Haag">
     <h3>Haag, Tim · SA-5639905</h3>
+    <div class="scott-req">Scott requested at diagnosis on 11/13/26: The unit is missing the lower spray arm, which is causing the leaking. I ordered the lower spray arm. WD22X33499, Lower spray arm.</div>
     <a class="today-jump" href="#card-SA-5639905">See details ↓</a>
     <div class="parts">
   <label class="part">
     <input type="checkbox" class="today-check" checked data-pn="WD22X33499" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X33499</div>
-      <div class="what">Lower spray arm</div>
+      <div class="pn">WD22X33499, Lower spray arm</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -824,6 +902,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   </div>
 
   <div class="today-sub" data-wo="1009160714-10" data-last="Wagner">
@@ -835,8 +917,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="today-check" checked data-pn="5304527492" data-qty="1">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304527492</div>
-      <div class="what">Probe, Oven Temp, Pt1000 (not meat probe 5304527535)</div>
+      <div class="pn">5304527492, Probe, Oven Temp, Pt1000</div>
+      <div class="what">not meat probe 5304527535</div>
       <div class="meta"><span>Qty 1</span></div>
     </span>
   </label>
@@ -853,6 +935,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="3" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   </div>
 
@@ -875,27 +961,41 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="shelf-item" data-line="1008131187-12 Garrison YES" data-wo="1008131187-12" data-last="Garrison">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">Garrison, Cara · 1008131187-12</div>
-      <div class="what">Encompass evaporator fan motor 140282033103</div>
+      <div class="pn pn-shelf">140282033103, evaporator fan motor</div>
+      <div class="what">Cara Garrison · 1008131187-12 · Encompass inv 8-510647-0926 · location not recorded</div>
       <div class="meta"><span>On shelf, sealed &amp; unused</span></div>
       <div class="arrival">Inv 8-510647-0926, shipped 09/21/26</div>
+      <div class="shelf-status">Scott 11/17: send back ASAP. Return started</div>
     </span>
   </label>
+  <div class="shelf-part-actions">
+    <a class="btn alt shelf-part" href="#" data-body="SHELF CHECK: 1008131187-12 Cara Garrison UNTOUCHED SEND BACK" onclick="return openShelfPart(event)">Untouched, send back</a>
+    <a class="btn sec shelf-part" href="#" data-body="SHELF CHECK: 1008131187-12 Cara Garrison OPENED KEEP" onclick="return openShelfPart(event)">Opened, keep</a>
+  </div>
   <label class="part">
     <input type="checkbox" class="shelf-item" data-line="1008042329-10 Pederson YES" data-wo="1008042329-10" data-last="Pederson">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">Pederson, Steve · 1008042329-10</div>
-      <div class="what">Encompass tray heat shield 5304536691</div>
+      <div class="pn pn-shelf">5304536691, tray heat shield</div>
+      <div class="what">Steve Pederson · 1008042329-10 · Encompass inv 8-510638-0926 · location not recorded</div>
       <div class="meta"><span>On shelf, sealed &amp; unused</span></div>
       <div class="arrival">Inv 8-510638-0926, shipped 09/21/26; the wrong part was sent</div>
+      <div class="shelf-status">Scott 11/17: send back ASAP. Return started</div>
     </span>
   </label>
+  <div class="shelf-part-actions">
+    <a class="btn alt shelf-part" href="#" data-body="SHELF CHECK: 1008042329-10 Steve Pederson UNTOUCHED SEND BACK" onclick="return openShelfPart(event)">Untouched, send back</a>
+    <a class="btn sec shelf-part" href="#" data-body="SHELF CHECK: 1008042329-10 Steve Pederson OPENED KEEP" onclick="return openShelfPart(event)">Opened, keep</a>
+  </div>
   </div>
   <div class="ask-box" data-wo="SHELF" data-last="CHECK">
     <label class="l">Ask a question / comment</label>
     <textarea rows="4" placeholder="Type a question or shelf note"></textarea>
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes-shelf" href="#" onclick="return openShelfYes(event)">YES, these are on the shelf</a>
@@ -905,14 +1005,14 @@ a.btn.diag{background:var(--warn);color:#fff}
 <h2 class="brand-title" id="ge">GE (9)</h2>
 <section class="card" id="card-SA-5901816" data-hold="false" data-wo="SA-5901816" data-last="Owen">
   <div class="badge" style="background:#9ae6b4;color:#1a1a1a">APPROVED 11/17/26 · USING SHELF CONTROL</div>
-  <div style="background:#d7f5e1;border:2px solid #2f855a;border-radius:10px;padding:12px;margin:10px 0;font-size:19px;color:#1a1a1a">Scott texted PARTS OK 11/17/26. Nothing ordered: the WD21X36561 control comes from our shelf (Mulder&#x27;s unused one) and will be used on Fri 11/20. The optional user interface WD21X36744 is unchecked below — check it and tap YES if you want it ordered.</div>
+  <div style="background:#d7f5e1;border:2px solid #2f855a;border-radius:10px;padding:12px;margin:10px 0;font-size:19px;color:#1a1a1a">Scott texted PARTS OK 11/17/26. Nothing ordered: the WD21X36561, Main control, comes from our shelf (Mulder&#x27;s unused one) and will be used on Fri 11/20. The optional WD21X36744, User interface, is unchecked below — check it and tap YES if you want it ordered.</div>
   <div class="cust">Owen, Doug</div>
   <div class="claim">SA-5901816</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE dishwasher, Manitowoc</span></div>
   <div class="row"><span class="k">Tag model / serial</span><span class="v">GDT670SGV8WW / GD709853B</span></div>
   <div class="row"><span class="k">Appointment</span><span class="v">Fri 11/20/26 · 8–12</span></div>
   <div class="complaint">No power, panel dead, and the customer checked the breaker.</div>
-  <div class="callout shelf"><h3>ON THE SHELF — DO NOT ORDER A CONTROL</h3><p>Ornah confirmed 11/16/26: Mulder&#x27;s unused WD21X36561 control (inv 188272501) has not shipped. Keep it and use it for Owen on Fri 11/20. Do NOT order a new control.</p></div>
+  <div class="callout shelf"><h3>ON THE SHELF — DO NOT ORDER A CONTROL</h3><p>Ornah confirmed 11/16/26: Mulder&#x27;s unused WD21X36561, Main control (inv 188272501), has not shipped. Keep it and use it for Owen on Fri 11/20. Do NOT order a new WD21X36561, Main control.</p></div>
   <div class="callout note"><h3>Note</h3><p>Mini manual + wiring diagram 31-4000309 is saved in the job folder. No bulletin matches.</p></div>
   <div class="check">
     <h2>Check before replacing</h2>
@@ -932,8 +1032,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD21X36561" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD21X36561</div>
-      <div class="what">Main control — FROM OUR SHELF (unused Mulder, inv 188272501). Do NOT order a new control.</div>
+      <div class="pn">WD21X36561, Main control</div>
+      <div class="what">FROM OUR SHELF (unused Mulder, inv 188272501). Do NOT order a new control.</div>
       <div class="replaces">Replaces WD21X36560</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -945,8 +1045,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" data-pn="WD21X36744" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD21X36744</div>
-      <div class="what">User interface (optional — only if the UI is also suspected)</div>
+      <div class="pn">WD21X36744, User interface (optional</div>
+      <div class="what">only if the UI is also suspected)</div>
       <div class="replaces">Replaces WD21X36819</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
@@ -965,6 +1065,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, use the shelf board" data-suffix="" onclick="return openYes(event)">YES, use the shelf board</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5901816: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -974,6 +1078,7 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="badge" style="background:#fde8c8;color:#1a1a1a;font-size:16px">SCOTT: CONFIRM — DID YOU ALREADY ORDER THIS?</div>
   <div class="cust">Christianson, Darin</div>
   <div class="claim">SA-5761576</div>
+  <div class="scott-req">Scott requested at diagnosis on 11/17/26: Diagnosed: the unit has a melted spray arm. Followed steps from service bulletin DD03-26 Rev. 2 ordered needed parts. WD22X36720, Spray arm and heater kit, qty 1.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE built-in dishwasher, Sheboygan Falls</span></div>
   <div class="row"><span class="k">Tag model / serial</span><span class="v">GDF670SYV6FS / AD863073B</span></div>
   <div class="row"><span class="k">Address</span><span class="v">812 Settlers Ln #B, Sheboygan Falls</span></div>
@@ -998,8 +1103,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD22X36720" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X36720</div>
-      <div class="what">Spray arm and heater kit</div>
+      <div class="pn">WD22X36720, Spray arm and heater kit</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">HIGH (bulletin)</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: not checked yet</div>
@@ -1016,6 +1120,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -1050,8 +1158,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH22X37840" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH22X37840</div>
-      <div class="what">Main control board</div>
+      <div class="pn">WH22X37840, Main control board</div>
       <div class="replaces">Replaces WH22X35517 and earlier boards</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -1062,8 +1169,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH11X39237" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH11X39237</div>
-      <div class="what">Drain pump and filter</div>
+      <div class="pn">WH11X39237, Drain pump and filter</div>
       <div class="replaces">Replaces WH11X29539</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -1082,6 +1188,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5583529: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1093,6 +1203,7 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div style="background:#fde9b8;border:2px solid #b7791f;border-radius:10px;padding:12px;margin:10px 0;font-size:19px;color:#1a1a1a"><b>Scott asked (11/17/26):</b> Does the noise happen after the oven has been running for a while? Also, does it happen when using regular bake option.<br><b>Customer answer:</b> waiting. Do not order yet.</div>
   <div class="cust">Hughes, Payne</div>
   <div class="claim">SA-5859712</div>
+  <div class="watch-video">Watch the customer&#x27;s video before approving.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE gas range, Appleton</span></div>
   <div class="row"><span class="k">Tag model / serial</span><span class="v">PGS930YP9FS / TD481368P</span></div>
   <div class="row"><span class="k">Appointment</span><span class="v">Wed 11/18/26 · 12–5</span></div>
@@ -1116,8 +1227,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WB26X28953" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB26X28953</div>
-      <div class="what">Convection fan motor</div>
+      <div class="pn">WB26X28953, Convection fan motor</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1127,8 +1237,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WB2X8351" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB2X8351</div>
-      <div class="what">Convection fan blade</div>
+      <div class="pn">WB2X8351, Convection fan blade</div>
       <div class="replaces">Replaces WB02X8351</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -1139,8 +1248,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WB34X28703" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB34X28703</div>
-      <div class="what">Fan cover</div>
+      <div class="pn">WB34X28703, Fan cover</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1150,8 +1258,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WB26X35086" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WB26X35086</div>
-      <div class="what">Cooling blower (if the noise is the cooling blower, not convection)</div>
+      <div class="pn">WB26X35086, Cooling blower</div>
+      <div class="what">if the noise is the cooling blower, not convection</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-alternative">ALTERNATIVE</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1169,6 +1277,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5859712: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1178,6 +1290,7 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="badge">NEEDS APPROVAL</div>
   <div class="cust">Meitner, Timothy</div>
   <div class="claim">SA-5949690</div>
+  <div class="watch-video">Watch the customer&#x27;s video before approving. The video is in the job folder.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE Profile top-load washer, Menasha</span></div>
   <div class="row"><span class="k">Tag model / serial</span><span class="v">PTW700BPT0DG / AD219690G</span></div>
   <div class="row"><span class="k">Appointment</span><span class="v">Wed 12/02/26 · 12–5 (pending parts)</span></div>
@@ -1200,8 +1313,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH03X33961" data-qty="4" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH03X33961</div>
-      <div class="what">Suspension rod and spring assembly (replace all 4)</div>
+      <div class="pn">WH03X33961, Suspension rod and spring assembly</div>
+      <div class="what">replace all 4</div>
       <div class="meta"><span>Qty 4</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: not checked yet (CustomerNet sign-in expired)</div>
@@ -1211,8 +1324,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" data-pn="WH01X32883" data-qty="As needed" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH01X32883</div>
-      <div class="what">Upper ball joint (if a joint is broken)</div>
+      <div class="pn">WH01X32883, Upper ball joint</div>
+      <div class="what">if a joint is broken</div>
       <div class="meta"><span>Qty As needed</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: not checked yet (CustomerNet sign-in expired)</div>
@@ -1222,8 +1335,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" data-pn="WH23X28418" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH23X28418</div>
-      <div class="what">Drain pump assembly (only if the pump tests bad)</div>
+      <div class="pn">WH23X28418, Drain pump assembly</div>
+      <div class="what">only if the pump tests bad</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: not checked yet (CustomerNet sign-in expired)</div>
@@ -1233,8 +1346,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" data-pn="WH08X37859" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH08X37859</div>
-      <div class="what">Lid lock, quick release (replaces WH08X33879; only if the lock tests bad)</div>
+      <div class="pn">WH08X37859, Lid lock, quick release</div>
+      <div class="what">replaces WH08X33879; only if the lock tests bad</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: not checked yet (CustomerNet sign-in expired)</div>
@@ -1252,6 +1365,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5949690: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1261,11 +1378,12 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="badge">NEEDS APPROVAL</div>
   <div class="cust">Bowers, Mindy</div>
   <div class="claim">SA-5926097</div>
+  <div class="watch-video">Watch the customer&#x27;s video before approving.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE front-load washer, Appleton</span></div>
   <div class="row"><span class="k">Tag model / serial</span><span class="v">PFW955SPW0DS / MZ368785N</span></div>
   <div class="row"><span class="k">Appointment</span><span class="v">Thu 11/19/26 · 12–5</span></div>
   <div class="complaint">Bounces and pounds in high spin; it&#x27;s on a pedestal, not stacked.</div>
-  <div class="callout bulletin"><h3>GE SERVICE BULLETIN</h3><p>HL03-26 Rattling/Vibration Sound (Aug 2026). Covers PFW955SPW*DS, serials VV–RD (Nov 2023–Aug 2026). This unit is MZ (Jul 2024), so it&#x27;s covered. Sound during high-speed spin. Fix: replace the rear cover WH10X29625 (thicker, less noise/vibration).</p></div>
+  <div class="callout bulletin"><h3>GE SERVICE BULLETIN</h3><p>HL03-26 Rattling/Vibration Sound (Aug 2026). Covers PFW955SPW*DS, serials VV–RD (Nov 2023–Aug 2026). This unit is MZ (Jul 2024), so it&#x27;s covered. Sound during high-speed spin. Fix: replace the rear cover WH10X29625, Rear cover (thicker, less noise/vibration).</p></div>
   <div class="callout ask"><h3>Questions first</h3><p>Were the shipping bolts removed? Is the washer bolted/clipped to the pedestal, and is the pedestal level on all four feet?</p></div>
   <div class="callout note"><h3>Note</h3><p>Could be leveling only; check before ordering.</p></div>
   <div class="check">
@@ -1286,8 +1404,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH10X29625" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH10X29625</div>
-      <div class="what">Rear cover (bulletin HL03-26; thicker, less noise/vibration)</div>
+      <div class="pn">WH10X29625, Rear cover</div>
+      <div class="what">bulletin HL03-26; thicker, less noise/vibration</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: not checked yet</div>
@@ -1297,8 +1415,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH03X29516" data-qty="4" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH03X29516</div>
-      <div class="what">Suspension damper (if dampers test weak)</div>
+      <div class="pn">WH03X29516, Suspension damper</div>
+      <div class="what">if dampers test weak</div>
       <div class="meta"><span>Qty 4</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1308,8 +1426,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH01X29647" data-qty="4" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH01X29647</div>
-      <div class="what">Damper pin (if dampers test weak)</div>
+      <div class="pn">WH01X29647, Damper pin</div>
+      <div class="what">if dampers test weak</div>
       <div class="meta"><span>Qty 4</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1319,8 +1437,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH03X29511" data-qty="2" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH03X29511</div>
-      <div class="what">Suspension spring</div>
+      <div class="pn">WH03X29511, Suspension spring</div>
       <div class="meta"><span>Qty 2</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1330,8 +1447,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WH02X29662" data-qty="As needed" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WH02X29662</div>
-      <div class="what">Counterweight flange nut</div>
+      <div class="pn">WH02X29662, Counterweight flange nut</div>
       <div class="meta"><span>Qty As needed</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1348,6 +1464,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -1382,8 +1502,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD22X27740" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X27740</div>
-      <div class="what">Mid/upper spray arm assembly</div>
+      <div class="pn">WD22X27740, Mid/upper spray arm assembly</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival alert">Arrival / stock: Not found in CustomerNet – Parker is verifying the number</div>
@@ -1393,8 +1512,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD22X10094" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X10094</div>
-      <div class="what">Mid conduit (feed tube)</div>
+      <div class="pn">WD22X10094, Mid conduit (feed tube)</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival">Arrival / stock: At GE: in stock</div>
@@ -1404,8 +1522,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD19X25460" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD19X25460</div>
-      <div class="what">Wash pump assembly (if the noise is the pump)</div>
+      <div class="pn">WD19X25460, Wash pump assembly</div>
+      <div class="what">if the noise is the pump</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-possible">POSSIBLE</span></div>
       <div class="price">Price: not listed</div>
       <div class="arrival alert">Arrival / stock: Not found in CustomerNet – Parker is verifying the number</div>
@@ -1423,6 +1541,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5892219: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1432,6 +1554,8 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="badge ordered">ALREADY ORDERED</div>
   <div class="cust">Rahn, Alan</div>
   <div class="claim">SA-5704343</div>
+  <div class="scott-req">Scott requested at diagnosis on 11/12/26: Diagnosed: Unit with key stuck error. Ordering user interface control board and door skin. WD21X33700, UI board; WD27X33118, SS door panel.</div>
+  <div class="watch-video">Watch the customer&#x27;s video before approving. The job form lists it as Flashing.MOV in the job folder.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE dishwasher, Greenleaf</span></div>
   <div class="complaint">Already ordered — no new complaint on this card.</div>
   <div class="parts-head">
@@ -1443,8 +1567,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD21X33700" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD21X33700</div>
-      <div class="what">UI board</div>
+      <div class="pn">WD21X33700, UI board</div>
       <div class="replaces">Replaces WD21X33683</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -1455,8 +1578,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD27X33118" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD27X33118</div>
-      <div class="what">SS door panel</div>
+      <div class="pn">WD27X33118, SS door panel</div>
       <div class="replaces">Replaces WD21X33798</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -1476,11 +1598,16 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 </section>
 <section class="card" id="card-SA-5639905" data-hold="false" data-wo="SA-5639905" data-last="Haag">
   <div class="badge ordered">ALREADY ORDERED</div>
   <div class="cust">Haag, Tim</div>
   <div class="claim">SA-5639905</div>
+  <div class="scott-req">Scott requested at diagnosis on 11/13/26: The unit is missing the lower spray arm, which is causing the leaking. I ordered the lower spray arm. WD22X33499, Lower spray arm.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE dishwasher</span></div>
   <div class="complaint">Already ordered — no new complaint on this card.</div>
   <div class="parts-head">
@@ -1492,8 +1619,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="WD22X33499" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">WD22X33499</div>
-      <div class="what">Lower spray arm</div>
+      <div class="pn">WD22X33499, Lower spray arm</div>
       <div class="replaces">Replaces WD22X27724</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: not listed</div>
@@ -1513,6 +1639,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
 </section>
 <h2 class="brand-title" id="frigidaire">Frigidaire (5)</h2>
 
@@ -1520,6 +1650,7 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="badge" style="background:#fde8c8;color:#1a1a1a;font-size:16px">NEEDS SCOTT&#x27;S OK BEFORE ORDERING</div>
   <div class="cust">Ingman, Jim</div>
   <div class="claim">1008023128-14</div>
+  <div class="scott-req">Scott requested at diagnosis on 11/17/26: Upon arriving on site I found the user interface was non-responsive. After unplugging the ui power plug and re-connecting it, the ui came back to life. I called tech support for further assistance as there has been multiple attempts to resolve this issue. After talking to tech support they found wrong parts were installed previously ticket 1009836160. Additional parts needed: 5304534597, Main power board, qty 1; 140147091031, Deli drawer interface, qty 1.</div>
   <div class="row"><span class="k">Appliance</span><span class="v">Frigidaire refrigerator, West Bend</span></div>
   <div class="row"><span class="k">Tag model / serial</span><span class="v">GRFS2853AFM / 4A60810696</span></div>
   <div class="row"><span class="k">Warranty</span><span class="v">Electrolux (ServicePower), coverage Z1</span></div>
@@ -1542,8 +1673,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304534597" data-qty="1" data-enc="147.95" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304534597</div>
-      <div class="what">Main power board</div>
+      <div class="pn">5304534597, Main power board</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $147.95 · Dey not checked</div>
       <div class="arrival">Arrival / stock: Enc: in stock. Dey: not checked.</div>
@@ -1553,8 +1683,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="140147091031" data-qty="1" data-enc="80.95" data-dey="72.19">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">140147091031</div>
-      <div class="what">Deli drawer interface</div>
+      <div class="pn">140147091031, Deli drawer interface</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $80.95 · Dey $72.19</div>
       <div class="arrival alert">Arrival / stock: Enc: factory backorder, no ETA. Dey: 0 stock, not returnable.</div>
@@ -1581,6 +1710,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
@@ -1616,8 +1749,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304531314 → A21755301" data-qty="1" data-enc="103.99" data-dey="142.88">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304531314 → A21755301</div>
-      <div class="what">Ice maker twist tray</div>
+      <div class="pn">5304531314 → A21755301, Ice maker twist tray</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $103.99 · Dey $142.88</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 2 (10 total).</div>
@@ -1627,8 +1759,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304535846" data-qty="1" data-enc="8.57" data-dey="8.91">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304535846</div>
-      <div class="what">Fill tube assembly (no separate heater part)</div>
+      <div class="pn">5304535846, Fill tube assembly</div>
+      <div class="what">no separate heater part</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $8.57 · Dey $8.91</div>
       <div class="arrival alert">Arrival / stock: Enc: in stock, ships 11/17. Dey: OUT (0).</div>
@@ -1638,8 +1770,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="140137975102" data-qty="1" data-enc="41.84" data-dey="55.40">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">140137975102</div>
-      <div class="what">Triple solenoid water valve</div>
+      <div class="pn">140137975102, Triple solenoid water valve</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: Enc $41.84 · Dey $55.40</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (45 total).</div>
@@ -1666,6 +1797,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
@@ -1701,8 +1836,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304535347 → 140287527075" data-qty="1" data-enc="26.09" data-dey="33.02">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304535347 → 140287527075</div>
-      <div class="what">Machine compartment harness (only if found bad)</div>
+      <div class="pn">5304535347 → 140287527075, Machine compartment harness</div>
+      <div class="what">only if found bad</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $26.09 · Dey $33.02</div>
       <div class="arrival alert">Arrival / stock: Enc: OUT, ships ~12/01. Dey: OUT (0).</div>
@@ -1712,8 +1847,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304526980 → 140130970050" data-qty="1" data-enc="12.96" data-dey="14.61">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304526980 → 140130970050</div>
-      <div class="what">Evap fan harness (only if found bad)</div>
+      <div class="pn">5304526980 → 140130970050, Evap fan harness</div>
+      <div class="what">only if found bad</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $12.96 · Dey $14.61</div>
       <div class="arrival alert">Arrival / stock: Enc: in stock, ships 11/17. Dey: OUT (0).</div>
@@ -1723,8 +1858,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="241516904" data-qty="1" data-enc="19.66" data-dey="23.86">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241516904</div>
-      <div class="what">Service cord (only if found bad)</div>
+      <div class="pn">241516904, Service cord</div>
+      <div class="what">only if found bad</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $19.66 · Dey $23.86</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (6 total).</div>
@@ -1751,6 +1886,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
@@ -1783,8 +1922,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="241518601" data-qty="1" data-enc="6.28" data-dey="6.54">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241518601</div>
-      <div class="what">Damper foam seal</div>
+      <div class="pn">241518601, Damper foam seal</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $6.28 · Dey $6.54</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (9 total).</div>
@@ -1794,8 +1932,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5303918775" data-qty="1" data-enc="9.31" data-dey="12.29">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5303918775</div>
-      <div class="what">Thermistor kit (FF)</div>
+      <div class="pn">5303918775, Thermistor kit (FF)</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $9.31 · Dey $12.29</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 5 (15 total).</div>
@@ -1805,8 +1942,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="241518501 → 5303918899" data-qty="1" data-enc="37.45" data-dey="52.53">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241518501 → 5303918899</div>
-      <div class="what">Damper with seals (already replaced once)</div>
+      <div class="pn">241518501 → 5303918899, Damper with seals</div>
+      <div class="what">already replaced once</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: Enc $37.45 · Dey $52.53</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (91 total).</div>
@@ -1834,6 +1971,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
     <a class="btn alt yes-alt" href="#" data-label="YES – Dey pickup" data-suffix="DEY PICKUP" onclick="return openYes(event)">YES – Dey pickup</a>
@@ -1854,7 +1995,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <h2>Check before replacing</h2>
     <div class="step"><div class="num">1</div><p>Is the handle broken or just loose? If loose, use shims and tighten the set screws.</p></div>
     <div class="step"><div class="num">2</div><p>Check the drawer alignment and slides (pinion gear, timing bar).</p></div>
-    <div class="step"><div class="num">3</div><p>Check the gasket can be reseated before replacing it.</p></div>
+    <div class="step"><div class="num">3</div><p>Check the 5304537408, Freezer drawer gasket, can be reseated before replacing it.</p></div>
   </div>
   <div class="parts-head">
     <h2>Parts</h2>
@@ -1865,8 +2006,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304537408" data-qty="1" data-enc="39.98" data-dey="53.24">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304537408</div>
-      <div class="what">Freezer drawer gasket</div>
+      <div class="pn">5304537408, Freezer drawer gasket</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $39.98 · Dey $53.24</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 6 (26 total).</div>
@@ -1876,8 +2016,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304531232" data-qty="1" data-enc="38.28" data-dey="51.37">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304531232</div>
-      <div class="what">Freezer drawer handle</div>
+      <div class="pn">5304531232, Freezer drawer handle</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $38.28 · Dey $51.37</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (9 total).</div>
@@ -1887,8 +2026,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304504279" data-qty="2" data-enc="10.15" data-dey="11.43">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304504279</div>
-      <div class="what">Handle mounting block</div>
+      <div class="pn">5304504279, Handle mounting block</div>
       <div class="meta"><span>Qty 2</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $10.15 ea · Dey $11.43 ea</div>
       <div class="arrival alert">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1, need 2 (7 total).</div>
@@ -1898,8 +2036,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304537220" data-qty="As needed" data-enc="0.87" data-dey="0.75">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304537220</div>
-      <div class="what">Handle screws M5x16</div>
+      <div class="pn">5304537220, Handle screws M5x16</div>
       <div class="meta"><span>Qty As needed</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $0.87 · Dey $0.75</div>
       <div class="arrival alert">Arrival / stock: Enc: OUT, ships ~12/01 (vendor PO). Dey: OUT (0).</div>
@@ -1909,8 +2046,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="A30433701 → 140304337011" data-qty="1" data-enc="4.10" data-dey="3.55">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">A30433701 → 140304337011</div>
-      <div class="what">Handle shim kit</div>
+      <div class="pn">A30433701 → 140304337011, Handle shim kit</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $4.10 · Dey $3.55</div>
       <div class="arrival alert">Arrival / stock: Enc: OUT, ships ~12/01. Dey: Brookfield 2 (7 total).</div>
@@ -1920,8 +2056,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304507999" data-qty="1" data-enc="6.28" data-dey="6.54">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304507999</div>
-      <div class="what">Pinion gear</div>
+      <div class="pn">5304507999, Pinion gear</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: Enc $6.28 · Dey $6.54</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 0 (3 total, Waterloo/Denver/Dallas).</div>
@@ -1931,8 +2066,7 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="241770705" data-qty="1" data-enc="24.68" data-dey="31.24">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">241770705</div>
-      <div class="what">Timing bar</div>
+      <div class="pn">241770705, Timing bar</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: Enc $24.68 · Dey $31.24</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 0 (1 total, Vadnais Heights only).</div>
@@ -1960,6 +2094,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
   </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
+  </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
     <a class="btn sec change" href="#" data-body="PARTS CHANGE 1009708276-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
@@ -1974,7 +2112,7 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="row"><span class="k">Tag model / serial</span><span class="v">PCFI3670AF / SM54300082</span></div>
   <div class="complaint">Err2 during proofing. All control parts already replaced. Case is with Electrolux engineering, new related ticket 1009760176.</div>
   <div class="callout bulletin"><h3>CONFIRM MODEL</h3><p>Encompass matched model PCFI3670AFA, the closest to the tag PCFI3670AF. Confirm the tag suffix before replacing. Do not order meat probe 5304527535. Still waiting on engineering ticket 1009760176.</p></div>
-  <div class="callout tip"><h3>SERVICE TIP</h3><p>Tech Data Sheet: Error 2 = oven probe sensed too-high temperature, probable defective probe. Check the cavity probe connections first, then replace the cavity probe. Tip CKTT0222 ERR2 also applies.</p></div>
+  <div class="callout tip"><h3>SERVICE TIP</h3><p>Tech Data Sheet: Error 2 = oven probe sensed too-high temperature, probable defective probe. Check the 5304527492, Probe, Oven Temp, Pt1000, connections first, then replace the 5304527492, Probe, Oven Temp, Pt1000. Tip CKTT0222 ERR2 also applies.</p></div>
   <div class="check">
     <h2>Check before replacing</h2>
     <div class="step"><div class="num">1</div><p>Measure the cavity probe resistance at room temp. Check against the mini manual / tech data sheet spec.</p></div>
@@ -1991,8 +2129,8 @@ a.btn.diag{background:var(--warn);color:#fff}
     <input type="checkbox" class="part-check" checked data-pn="5304527492" data-qty="1" data-enc="94.58" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
-      <div class="pn">5304527492</div>
-      <div class="what">Probe, Oven Temp, Pt1000 (not meat probe 5304527535)</div>
+      <div class="pn">5304527492, Probe, Oven Temp, Pt1000</div>
+      <div class="what">not meat probe 5304527535</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
       <div class="price">Price: Enc $94.58 · Dey not checked</div>
       <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: not checked.</div>
@@ -2008,7 +2146,7 @@ a.btn.diag{background:var(--warn);color:#fff}
   <div class="howto">
     <h2>HOW TO GET THESE PARTS</h2>
     <p class="rec">Recommended: Order online (Encompass, ships 11/17). Wait for engineering ticket 1009760176 before ordering.</p>
-    <p class="missing">Dey not checked for probe 5304527492</p>
+    <p class="missing">Dey not checked for 5304527492, Probe, Oven Temp, Pt1000</p>
   </div>
   <div class="ask-box" data-wo="1009160714-10" data-last="Wagner">
     <label class="l">Ask a question / comment</label>
@@ -2019,6 +2157,10 @@ a.btn.diag{background:var(--warn);color:#fff}
     <label class="l">Note for diagnosis (optional)</label>
     <textarea rows="4" placeholder="Optional note for scheduling diagnosis"></textarea>
     <a class="btn diag send-diag" href="#" onclick="return sendDiagnosis(event)">SCHEDULE DIAGNOSIS</a>
+  </div>
+  <div class="scott-note-box">
+    <label class="l">Note from Scott</label>
+    <textarea rows="3" placeholder="Optional note — added to YES, choice, diagnosis, and shelf texts"></textarea>
   </div>
   <div class="actions">
     <a class="btn main yes" href="#" data-label="YES – order Encompass" data-suffix="ENC" onclick="return openYes(event)">YES – order Encompass</a>
@@ -2321,6 +2463,215 @@ a.btn.diag{background:var(--warn);color:#fff}
     if (text) body += ": " + text;
     return window.openSms(ev, body);
   };
+})();
+</script>
+
+<script>
+(function () {
+  var KEY = "eshApproveHidden";
+
+  function loadHidden() {
+    try {
+      var v = JSON.parse(localStorage.getItem(KEY) || "[]");
+      return Array.isArray(v) ? v : [];
+    } catch (e) { return []; }
+  }
+  function saveHidden(list) {
+    localStorage.setItem(KEY, JSON.stringify(list));
+  }
+  function todayMdY() {
+    var d = new Date();
+    var mm = String(d.getMonth() + 1).padStart(2, "0");
+    var dd = String(d.getDate()).padStart(2, "0");
+    var yy = String(d.getFullYear()).slice(-2);
+    return mm + "/" + dd + "/" + yy;
+  }
+  function cardScope(el) {
+    if (!el || !el.closest) return null;
+    return el.closest(".today-sub") || el.closest("article.today-item") || el.closest("section.card");
+  }
+  function scottNote(scope) {
+    if (!scope) return "";
+    var box = null;
+    var nodes = scope.querySelectorAll(".scott-note-box");
+    if (scope.classList.contains("today-item")) {
+      for (var i = 0; i < nodes.length; i++) {
+        if (nodes[i].closest(".today-sub") && nodes[i].closest(".today-item") === scope) continue;
+        if (!nodes[i].closest(".today-sub")) { box = nodes[i]; break; }
+      }
+    } else if (nodes.length) {
+      box = nodes[0];
+    }
+    var area = box && box.querySelector("textarea");
+    var t = (area && area.value ? area.value : "").trim();
+    return t ? " | NOTE: " + t : "";
+  }
+  function withNote(el, body) {
+    if (!body) return body;
+    body = String(body).replace(/ \| NOTE: [\s\S]*$/, "");
+    return body + scottNote(cardScope(el));
+  }
+  window.withScottNote = withNote;
+
+  function scopesForWo(wo) {
+    var out = [];
+    document.querySelectorAll("section.card[data-wo='" + wo + "'], .today-sub[data-wo='" + wo + "']").forEach(function (el) { out.push(el); });
+    document.querySelectorAll("article.today-item").forEach(function (item) {
+      var direct = item.querySelector(":scope > .ask-box[data-wo='" + wo + "'], :scope > .diag-box[data-wo='" + wo + "'], :scope > .today-actions [data-wo='" + wo + "']");
+      if (direct) out.push(item);
+    });
+    return out;
+  }
+  function ensureUndo(el, wo) {
+    var bar = el.querySelector(":scope > .approved-bar-undo");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.className = "approved-bar-undo";
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn sec undo-approved";
+      btn.textContent = "Undo";
+      btn.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        unhide(wo);
+      });
+      bar.appendChild(btn);
+      el.insertBefore(bar, el.firstChild);
+    }
+  }
+  function applyHidden() {
+    var list = loadHidden();
+    var showing = document.body.classList.contains("show-approved-on");
+    var seen = {};
+    document.querySelectorAll(".is-approved, .is-approved-hidden").forEach(function (el) {
+      el.classList.remove("is-approved", "is-approved-hidden");
+    });
+    list.forEach(function (row) {
+      if (!row || !row.wo || seen[row.wo]) return;
+      seen[row.wo] = true;
+      scopesForWo(row.wo).forEach(function (el) {
+        ensureUndo(el, row.wo);
+        el.classList.add("is-approved");
+        if (!showing) el.classList.add("is-approved-hidden");
+      });
+    });
+    var n = Object.keys(seen).length;
+    var toggle = document.getElementById("toggle-approved");
+    if (toggle) {
+      toggle.textContent = "Show approved (" + n + ")";
+      toggle.hidden = n === 0;
+      if (n === 0) document.body.classList.remove("show-approved-on");
+    }
+  }
+  function hideApproved(wo, action) {
+    if (!wo || wo === "SHELF") return;
+    var list = loadHidden().filter(function (x) { return x.wo !== wo; });
+    list.push({ wo: wo, action: action, date: todayMdY() });
+    saveHidden(list);
+    applyHidden();
+  }
+  function unhide(wo) {
+    saveHidden(loadHidden().filter(function (x) { return x.wo !== wo; }));
+    applyHidden();
+  }
+  window.hideApproved = hideApproved;
+
+  var toggle = document.getElementById("toggle-approved");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      document.body.classList.toggle("show-approved-on");
+      applyHidden();
+    });
+  }
+
+  var _openSms = window.openSms;
+  var _openYes = window.openYes;
+  var _openTodayYes = window.openTodayYes;
+  var _sendDiagnosis = window.sendDiagnosis;
+  var _openShelfYes = window.openShelfYes;
+
+  window.openYes = function (ev) {
+    ev.preventDefault();
+    var btn = ev.currentTarget;
+    if (btn.classList.contains("is-disabled")) return false;
+    var body = withNote(btn, btn.getAttribute("data-body"));
+    var ret = (window.openSms || _openSms)(ev, body);
+    var card = btn.closest(".card");
+    var wo = card && card.getAttribute("data-wo");
+    if (wo) hideApproved(wo, "PARTS OK");
+    return ret;
+  };
+
+  window.openTodayYes = function (ev) {
+    var btn = ev.currentTarget;
+    var current = window.openSms;
+    window.openSms = function (ev2, body) {
+      window.openSms = current;
+      body = withNote(btn, body);
+      var ret = current(ev2, body);
+      var raw = (btn.getAttribute("data-body") || body || "").replace(/ \| NOTE: [\s\S]*$/, "");
+      var kind = btn.getAttribute("data-kind") || "";
+      if (kind === "parts" || (kind === "fixed" && raw.indexOf("PARTS OK") === 0)) {
+        var wo = btn.getAttribute("data-wo") || "";
+        if (!wo) {
+          var m = raw.match(/^PARTS OK (\S+)/);
+          if (m) wo = m[1];
+        }
+        if (wo) hideApproved(wo, "PARTS OK");
+      }
+      return ret;
+    };
+    try {
+      return _openTodayYes(ev);
+    } finally {
+      window.openSms = current;
+    }
+  };
+
+  window.sendDiagnosis = function (ev) {
+    ev.preventDefault();
+    var btn = ev.currentTarget;
+    var current = window.openSms;
+    window.openSms = function (ev2, body) {
+      window.openSms = current;
+      body = withNote(btn, body);
+      var ret = current(ev2, body);
+      var box = btn.closest(".diag-box");
+      var wo = box && box.getAttribute("data-wo");
+      if (wo) hideApproved(wo, "SCHEDULE DIAG");
+      return ret;
+    };
+    try {
+      return _sendDiagnosis(ev);
+    } finally {
+      window.openSms = current;
+    }
+  };
+
+  if (_openShelfYes) {
+    window.openShelfYes = function (ev) {
+      var btn = ev.currentTarget;
+      var current = window.openSms;
+      window.openSms = function (ev2, body) {
+        window.openSms = current;
+        return current(ev2, withNote(btn, body));
+      };
+      try {
+        return _openShelfYes(ev);
+      } finally {
+        window.openSms = current;
+      }
+    };
+  }
+
+  window.openShelfPart = function (ev) {
+    ev.preventDefault();
+    var btn = ev.currentTarget;
+    var body = withNote(btn, btn.getAttribute("data-body") || "");
+    return (window.openSms || _openSms)(ev, body);
+  };
+
+  applyHidden();
 })();
 </script>
 </body>
