@@ -93,6 +93,14 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
 .notes-foot{color:#1b1f24}
 .notes-foot p{margin:0;font-size:14px}
 .notes-foot p + p{margin-top:8px}
+
+.card.amber-card{background:#fde8c8;border:3px solid #c77700;color:#1a1a1a}
+.card.amber-card .claim{color:#1a1a1a}
+.card.amber-card .badge{margin-bottom:6px}
+.shelf-item{position:absolute;opacity:0;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+label.part:has(.shelf-item:checked) .tick{background:var(--ok);border-color:var(--ok)}
+label.part:has(.shelf-item:checked) .tick::after{content:"";position:absolute;left:9px;top:3px;width:8px;height:16px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg)}
+label.part:has(.shelf-item:not(:checked)){background:#f7f9fc}
 </style>
 </head>
 <body>
@@ -100,8 +108,8 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
   <h1>Parts Approval</h1>
   <div class="sub">Esh Services LLC · Texts go to Ornah at +12625739584 · Updated 11/17/26</div>
   <nav>
-    <a href="#ge">GE (6)</a>
-    <a href="#frigidaire">Frigidaire (4)</a>
+    <a href="#ge">GE (9)</a>
+    <a href="#frigidaire">Frigidaire (5)</a>
     <a href="#electrolux">Electrolux (1)</a>
   </nav>
 </header>
@@ -111,10 +119,49 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
   <p>Questions go to the office; the card is held until the customer answers. Nothing is ordered until Ornah has the YES. This page works in iPad Safari — no login.</p>
 </div>
 
-<h2 class="brand-title" id="ge">GE (6)</h2>
+<section class="card amber-card" data-hold="false" data-wo="SHELF" data-last="CHECK">
+  <div class="badge" style="background:#f6c56a;color:#1a1a1a;font-size:16px">SHELF CHECK — Encompass returns (deadline 11/20)</div>
+  <p style="font-size:19px;color:#1a1a1a;font-weight:600;margin:10px 0 0;line-height:1.35">Scott: check the shelf. Are these still sealed and unused? Encompass return numbers must be requested by Fri 11/20, about $43 credit. Nothing is returned without Ornah&#x27;s OK.</p>
+  <div class="parts-head">
+    <h2>Parts to check</h2>
+    <button type="button" class="linkbtn sel-toggle-shelf" onclick="return toggleShelfSelect(event)">Select all</button>
+  </div>
+  <div class="parts">
+  <label class="part">
+    <input type="checkbox" class="shelf-item" data-line="1008131187-12 Garrison YES" data-wo="1008131187-12" data-last="Garrison">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">Garrison, Cara · 1008131187-12</div>
+      <div class="what">Encompass evaporator fan motor 140282033103</div>
+      <div class="meta"><span>On shelf, sealed &amp; unused</span></div>
+      <div class="arrival">Inv 8-510647-0926, shipped 09/21/26</div>
+    </span>
+  </label>
+  <label class="part">
+    <input type="checkbox" class="shelf-item" data-line="1008042329-10 Pederson YES" data-wo="1008042329-10" data-last="Pederson">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">Pederson, Steve · 1008042329-10</div>
+      <div class="what">Encompass tray heat shield 5304536691</div>
+      <div class="meta"><span>On shelf, sealed &amp; unused</span></div>
+      <div class="arrival">Inv 8-510638-0926, shipped 09/21/26; the wrong part was sent</div>
+    </span>
+  </label>
+  </div>
+  <div class="ask-box" data-wo="SHELF" data-last="CHECK">
+    <label class="l">Ask a question / comment</label>
+    <textarea rows="4" placeholder="Type a question or shelf note"></textarea>
+    <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="actions">
+    <a class="btn main yes-shelf" href="#" onclick="return openShelfYes(event)">YES, these are on the shelf</a>
+  </div>
+</section>
+
+<h2 class="brand-title" id="ge">GE (9)</h2>
 <section class="card" data-hold="false" data-wo="SA-5901816" data-last="Owen">
   <div class="badge" style="background:#9ae6b4;color:#1a1a1a">APPROVED 11/17/26 · USING SHELF CONTROL</div>
-  <div style="background:#d7f5e1;border:2px solid #2f855a;border-radius:10px;padding:12px;margin:10px 0;font-size:19px;color:#1a1a1a">Scott texted PARTS OK 11/17/26. Nothing ordered: the WD21X36561 control comes from our shelf (Mulder's unused one). The optional user interface WD21X36744 was not ordered. Tap YES again with it checked if you want it ordered.</div>
+  <div style="background:#d7f5e1;border:2px solid #2f855a;border-radius:10px;padding:12px;margin:10px 0;font-size:19px;color:#1a1a1a">Scott texted PARTS OK 11/17/26. Nothing ordered: the WD21X36561 control comes from our shelf (Mulder&#x27;s unused one) and will be used on Fri 11/20. The optional user interface WD21X36744 is unchecked below — check it and tap YES if you want it ordered.</div>
   <div class="cust">Owen, Doug</div>
   <div class="claim">SA-5901816</div>
   <div class="row"><span class="k">Appliance</span><span class="v">GE dishwasher, Manitowoc</span></div>
@@ -149,12 +196,13 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
       <div class="arrival alert">Arrival / stock: Our shelf — do not order. (A new one at GE is backordered, ETA 12/07/26.)</div>
     </span>
   </label>
+  <div class="badge" style="background:#fde8c8;color:#1a1a1a;font-size:16px;margin:0 0 8px">OPTIONAL UI — ORDER? (Scott decide)</div>
   <label class="part">
-    <input type="checkbox" class="part-check" checked data-pn="WD21X36744" data-qty="1" data-enc="" data-dey="">
+    <input type="checkbox" class="part-check" data-pn="WD21X36744" data-qty="1" data-enc="" data-dey="">
     <span class="tick" aria-hidden="true"></span>
     <span class="part-body">
       <div class="pn">WD21X36744</div>
-      <div class="what">User interface (if the UI is also suspected)</div>
+      <div class="what">User interface (optional — only if the UI is also suspected)</div>
       <div class="replaces">Replaces WD21X36819</div>
       <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
       <div class="price">Price: not listed</div>
@@ -173,6 +221,114 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
     <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5901816: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
   </div>
 </section>
+<section class="card" data-hold="false" data-wo="SA-5761576" data-last="Christianson">
+  <div class="badge" style="background:#fde8c8;color:#1a1a1a;font-size:16px">SCOTT: CONFIRM — DID YOU ALREADY ORDER THIS?</div>
+  <div class="cust">Christianson, Darin</div>
+  <div class="claim">SA-5761576</div>
+  <div class="row"><span class="k">Appliance</span><span class="v">GE built-in dishwasher, Sheboygan Falls</span></div>
+  <div class="row"><span class="k">Tag model / serial</span><span class="v">GDF670SYV6FS / AD863073B</span></div>
+  <div class="row"><span class="k">Address</span><span class="v">812 Settlers Ln #B, Sheboygan Falls</span></div>
+  <div class="row"><span class="k">GE case</span><span class="v">26477901</span></div>
+  <div class="row"><span class="k">Appointment</span><span class="v">Was Tue 11/17/26 · 11–3 · needs parts</span></div>
+  <div class="complaint">Leaking at the bottom left-hand corner of the door; customer thought the seal was not intact. Scott&#x27;s 11/17 form: melted spray arm.</div>
+  <div class="callout bulletin"><h3>GE SERVICE BULLETIN</h3><p>Scott followed DD03-26 Rev. 2. He diagnosed a melted spray arm and listed WD22X36720 spray arm and heater kit as needed, qty 1.</p></div>
+  <div class="callout ask"><h3>CONFIRM BEFORE ANY ORDER</h3><p>His service note says &quot;ordered needed parts,&quot; but the form status is Needs more parts and the kit is under Additional parts needed (not ordered yet). Do not order until Scott confirms whether this is already on order.</p></div>
+  <div class="callout note"><h3>Confidence</h3><p>HIGH (bulletin). Form submitted 11/17/26 at 1:58 PM CT.</p></div>
+  <div class="check">
+    <h2>Check before replacing</h2>
+    <div class="step"><div class="num">1</div><p>Confirm the lower spray arm is melted (already diagnosed 11/17).</p></div>
+    <div class="step"><div class="num">2</div><p>Follow service bulletin DD03-26 Rev. 2.</p></div>
+    <div class="step"><div class="num">3</div><p>Install the WD22X36720 spray arm and heater kit.</p></div>
+  </div>
+  <div class="parts-head">
+    <h2>Parts</h2>
+    <button type="button" class="linkbtn sel-toggle" onclick="return toggleSelect(event)">Select none</button>
+  </div>
+  <div class="parts">
+  <label class="part">
+    <input type="checkbox" class="part-check" checked data-pn="WD22X36720" data-qty="1" data-enc="" data-dey="">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">WD22X36720</div>
+      <div class="what">Spray arm and heater kit</div>
+      <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">HIGH (bulletin)</span></div>
+      <div class="price">Price: not listed</div>
+      <div class="arrival">Arrival / stock: At GE: not checked yet</div>
+    </span>
+  </label>
+  </div>
+  <div class="parts-total" hidden></div>
+  <div class="ask-box" data-wo="SA-5761576" data-last="Christianson">
+    <label class="l">Ask a question / comment</label>
+    <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+    <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="actions">
+    <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
+    <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5761576: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+  </div>
+</section>
+
+<section class="card" data-hold="false" data-wo="SA-5583529" data-last="Hilt">
+  <div class="badge" style="background:#fde8c8;color:#1a1a1a;font-size:16px">NEEDS SCOTT&#x27;S OK BEFORE ORDERING</div>
+  <div class="cust">Hilt, Christy</div>
+  <div class="claim">SA-5583529</div>
+  <div class="row"><span class="k">Appliance</span><span class="v">GE washer, Oshkosh</span></div>
+  <div class="row"><span class="k">Tag model / serial</span><span class="v">GFW655SSVWW / SZ317603</span></div>
+  <div class="row"><span class="k">GE case</span><span class="v">26187422</span></div>
+  <div class="row"><span class="k">Appointment</span><span class="v">Tentative Mon 11/30/26 — will not hold if these are ordered</span></div>
+  <div class="complaint">Stops during the cycle. Water was not coming into the soap dispenser; bleach and fabric softener stay filled. Customer did the manual troubleshooting, cleaned filters, and spoke to SmartHQ; they were told it might be the solenoids. Husband replaced the water valve assembly; still not working. Last loads showed 13 minutes remaining, still showed 13 minutes 15 minutes later, then shut off with the wash soaked. Rinse and spin also stopped at 13 minutes left, wash still soaked. Unit is about 1.5 years old.</div>
+  <div class="callout bulletin"><h3>DATE WILL SLIP</h3><p>The tentative 11/30 date will not hold if these parts are ordered. WH11X39237 (drain pump and filter) is backordered to about 12/08/26.</p></div>
+  <div class="callout note"><h3>Note</h3><p>Nothing is to be ordered until Scott OKs this card. Customer already replaced the water valve.</p></div>
+  <div class="check">
+    <h2>Check before replacing</h2>
+    <div class="step"><div class="num">1</div><p>Clean and inspect the drain pump filter for debris before condemning the pump.</p></div>
+    <div class="step"><div class="num">2</div><p>Confirm the washer still stops mid-cycle with a soaked load (customer reported it hanging at 13 minutes).</p></div>
+    <div class="step"><div class="num">3</div><p>Check for error codes in service mode.</p></div>
+    <div class="step"><div class="num">4</div><p>Verify the water valve the customer installed is the correct part and is actually filling.</p></div>
+  </div>
+  <div class="parts-head">
+    <h2>Parts</h2>
+    <button type="button" class="linkbtn sel-toggle" onclick="return toggleSelect(event)">Select none</button>
+  </div>
+  <div class="parts">
+  <label class="part">
+    <input type="checkbox" class="part-check" checked data-pn="WH22X37840" data-qty="1" data-enc="" data-dey="">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">WH22X37840</div>
+      <div class="what">Main control board</div>
+      <div class="replaces">Replaces WH22X35517 and earlier boards</div>
+      <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+      <div class="price">Price: not listed</div>
+      <div class="arrival">Arrival / stock: At GE: not checked yet</div>
+    </span>
+  </label>
+  <label class="part">
+    <input type="checkbox" class="part-check" checked data-pn="WH11X39237" data-qty="1" data-enc="" data-dey="">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">WH11X39237</div>
+      <div class="what">Drain pump and filter</div>
+      <div class="replaces">Replaces WH11X29539</div>
+      <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+      <div class="price">Price: not listed</div>
+      <div class="arrival alert">Arrival / stock: At GE: backordered, ETA about 12/08/26. The 11/30 tentative date will not hold if ordered.</div>
+    </span>
+  </label>
+  </div>
+  <div class="parts-total" hidden></div>
+  <div class="ask-box" data-wo="SA-5583529" data-last="Hilt">
+    <label class="l">Ask a question / comment</label>
+    <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+    <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="actions">
+    <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
+    <a class="btn sec change" href="#" data-body="PARTS CHANGE SA-5583529: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+  </div>
+</section>
+
 <section class="card" data-hold="true" data-wo="SA-5859712" data-last="Hughes">
   <div class="badge" style="background:#f6c453;color:#1a1a1a">WAITING ON CUSTOMER ANSWER</div>
   <div style="background:#fde9b8;border:2px solid #b7791f;border-radius:10px;padding:12px;margin:10px 0;font-size:19px;color:#1a1a1a"><b>Scott asked (11/17/26):</b> Does the noise happen after the oven has been running for a while? Also, does it happen when using regular bake option.<br><b>Customer answer:</b> waiting. Do not order yet.</div>
@@ -569,7 +725,75 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
     <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
   </div>
 </section>
-<h2 class="brand-title" id="frigidaire">Frigidaire (4)</h2>
+<h2 class="brand-title" id="frigidaire">Frigidaire (5)</h2>
+
+<section class="card" data-hold="false" data-wo="1008023128-14" data-last="Ingman">
+  <div class="badge" style="background:#fde8c8;color:#1a1a1a;font-size:16px">NEEDS SCOTT&#x27;S OK BEFORE ORDERING</div>
+  <div class="cust">Ingman, Jim</div>
+  <div class="claim">1008023128-14</div>
+  <div class="row"><span class="k">Appliance</span><span class="v">Frigidaire refrigerator, West Bend</span></div>
+  <div class="row"><span class="k">Tag model / serial</span><span class="v">GRFS2853AFM / 4A60810696</span></div>
+  <div class="row"><span class="k">Warranty</span><span class="v">Electrolux (ServicePower), coverage Z1</span></div>
+  <div class="row"><span class="k">Appointment</span><span class="v">Was Tue 11/17/26 · 10–2 · needs parts</span></div>
+  <div class="complaint">Error message — control panels are out and everything is freezing. Control boards keep going out; after the last repair it took 3 days. Two other companies (Eberhardt and Modern Appliance) have already looked at it. Control panel does not light up and nothing can be changed on the panel.</div>
+  <div class="callout bulletin"><h3>ON HOLD</h3><p>Also on hold for Ornah&#x27;s Encompass account decision. Do not order until Scott OKs this card and that account question is settled.</p></div>
+  <div class="callout tip"><h3>SERVICE TIP</h3><p>Tech sheet in the job folder: How to Correct a Sleeping or Off Refrigerator (RFIS2206). On 11/17 the UI was dead; reseating the UI power plug brought it back. Tech support found wrong parts were installed previously on ticket 1009836160. Form submitted 11/17/26 at 11:25 AM CT; needs more parts (30 minutes on site).</p></div>
+  <div class="check">
+    <h2>Check before replacing</h2>
+    <div class="step"><div class="num">1</div><p>Confirm the correct main power board and deli drawer interface this time — tech support said the wrong parts were installed on ticket 1009836160.</p></div>
+    <div class="step"><div class="num">2</div><p>Recheck the UI power plug; reseating it restored the display on 11/17.</p></div>
+    <div class="step"><div class="num">3</div><p>Follow tech sheet RFIS2206 (Sleeping or Off Refrigerator) in the job folder.</p></div>
+  </div>
+  <div class="parts-head">
+    <h2>Parts</h2>
+    <button type="button" class="linkbtn sel-toggle" onclick="return toggleSelect(event)">Select none</button>
+  </div>
+  <div class="parts">
+  <label class="part">
+    <input type="checkbox" class="part-check" checked data-pn="5304534597" data-qty="1" data-enc="147.95" data-dey="">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">5304534597</div>
+      <div class="what">Main power board</div>
+      <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+      <div class="price">Price: Enc $147.95 · Dey not checked</div>
+      <div class="arrival">Arrival / stock: Enc: in stock. Dey: not checked.</div>
+    </span>
+  </label>
+  <label class="part">
+    <input type="checkbox" class="part-check" checked data-pn="140147091031" data-qty="1" data-enc="80.95" data-dey="72.19">
+    <span class="tick" aria-hidden="true"></span>
+    <span class="part-body">
+      <div class="pn">140147091031</div>
+      <div class="what">Deli drawer interface</div>
+      <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+      <div class="price">Price: Enc $80.95 · Dey $72.19</div>
+      <div class="arrival alert">Arrival / stock: Enc: factory backorder, no ETA. Dey: 0 stock, not returnable.</div>
+    </span>
+  </label>
+  </div>
+  <div class="parts-total" hidden></div>
+  <div class="subtotals">
+    <p class="label">Subtotals (dealer, 11/17/26)</p>
+    <p>Encompass — board $147.95 + deli $80.95 = $228.90</p>
+    <p>Dey — deli $72.19 (board not checked); 0 stock, not returnable</p>
+  </div>
+  <div class="howto">
+    <h2>HOW TO GET THESE PARTS</h2>
+    <p class="rec">Board 5304534597 is in stock at Encompass ($147.95). Deli drawer interface 140147091031 is factory backorder at Encompass ($80.95, no ETA). Dey has the interface at $72.19 but 0 stock and it is not returnable.</p>
+    <p class="missing">Also on hold for Ornah&#x27;s Encompass account decision. Do not order yet.</p>
+  </div>
+  <div class="ask-box" data-wo="1008023128-14" data-last="Ingman">
+    <label class="l">Ask a question / comment</label>
+    <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+    <a class="btn ask send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+  </div>
+  <div class="actions">
+    <a class="btn main yes" href="#" data-label="YES, order these" data-suffix="" onclick="return openYes(event)">YES, order these</a>
+    <a class="btn sec change" href="#" data-body="PARTS CHANGE 1008023128-14: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+  </div>
+</section>
+
 <section class="card" data-hold="false" data-wo="1009766345-10" data-last="Knudsen">
   <div class="badge">NEEDS APPROVAL</div>
   <div class="cust">Knudsen, Jared</div>
@@ -1123,6 +1347,54 @@ a.btn.is-disabled{background:#c5ccd6;color:#fff;pointer-events:none}
     area.addEventListener("input", sync);
     sync();
   });
+})();
+</script>
+
+<script>
+(function () {
+  var card = document.querySelector(".amber-card");
+  if (!card) return;
+  function smsUrl(body) {
+    return "sms:+12625739584&body=" + encodeURIComponent(body);
+  }
+  function syncShelf() {
+    var boxes = card.querySelectorAll(".shelf-item");
+    var checked = Array.prototype.filter.call(boxes, function (c) { return c.checked; });
+    var btn = card.querySelector("a.yes-shelf");
+    var toggle = card.querySelector(".sel-toggle-shelf");
+    if (toggle) toggle.textContent = (checked.length === boxes.length && boxes.length) ? "Select none" : "Select all";
+    if (!btn) return;
+    if (!checked.length) {
+      btn.classList.add("is-disabled");
+      btn.removeAttribute("data-body");
+      btn.setAttribute("href", "#");
+      btn.textContent = "Pick at least one part";
+      return;
+    }
+    var body = "SHELF CHECK: " + checked.map(function (c) { return c.getAttribute("data-line"); }).join(", ");
+    btn.classList.remove("is-disabled");
+    btn.setAttribute("data-body", body);
+    btn.setAttribute("href", smsUrl(body));
+    btn.textContent = "YES, these are on the shelf";
+  }
+  window.openShelfYes = function (ev) {
+    ev.preventDefault();
+    var btn = ev.currentTarget;
+    if (btn.classList.contains("is-disabled")) return false;
+    return window.openSms(ev, btn.getAttribute("data-body"));
+  };
+  window.toggleShelfSelect = function (ev) {
+    ev.preventDefault();
+    var boxes = card.querySelectorAll(".shelf-item");
+    var allOn = Array.prototype.every.call(boxes, function (c) { return c.checked; });
+    boxes.forEach(function (c) { c.checked = !allOn; });
+    syncShelf();
+    return false;
+  };
+  card.addEventListener("change", function (e) {
+    if (e.target && e.target.classList.contains("shelf-item")) syncShelf();
+  });
+  syncShelf();
 })();
 </script>
 </body>
