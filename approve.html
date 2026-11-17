@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>Parts Approval – Scott</title>
+<style>
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #E8E0F5;
+    color: #1A1A1A;
+    font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  body { padding: 0 0 80px; }
+  .wrap { max-width: 840px; margin: 0 auto; padding: 0 16px 24px; }
+  header.page {
+    background: #C9B6E4;
+    color: #1A1A1A;
+    padding: 22px 16px 18px;
+    padding-top: max(22px, env(safe-area-inset-top));
+    border-bottom: 4px solid #8B6FBF;
+  }
+  header.page h1 { font-size: 36px; line-height: 1.15; font-weight: 800; margin: 0; }
+  header.page .intro { font-size: 24px; line-height: 1.45; font-weight: 700; margin: 12px 0 0; }
+  header.page .sub { font-size: 22px; line-height: 1.45; font-weight: 600; margin: 8px 0 0; }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  nav a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 800;
+    color: #1A1A1A;
+    background: #F8D48B;
+    border: 3px solid #C49212;
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+  .brand {
+    margin: 28px 0 8px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 4px solid;
+    padding: 0 0 8px;
+  }
+  .brand > h2 {
+    margin: 0;
+    padding: 16px 20px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #1A1A1A;
+  }
+  .brand.ge { background: #D9EBFA; border-color: #5B8FD9; }
+  .brand.ge > h2 { background: #8EC4F0; }
+  .brand.frig { background: #DDF3E4; border-color: #5A9E70; }
+  .brand.frig > h2 { background: #9DD9B0; }
+  .brand.elux { background: #FFF3C4; border-color: #C49212; }
+  .brand.elux > h2 { background: #E0C56A; }
+  .brand-inner { padding: 0 12px 12px; }
+  .card { border-radius: 16px; margin: 20px 0; overflow: hidden; border: 3px solid; }
+  .card-head { padding: 18px 20px; color: #1A1A1A; }
+  .badge { font-size: 22px; font-weight: 800; letter-spacing: 0.06em; }
+  .cust { font-size: 36px; font-weight: 800; line-height: 1.15; margin-top: 6px; }
+  .claim { font-size: 34px; font-weight: 800; line-height: 1.15; margin-top: 4px; }
+  .card-body { padding: 8px 16px 24px; }
+  .fact { margin-top: 14px; }
+  .label { font-size: 22px; font-weight: 800; letter-spacing: 0.02em; margin: 0; }
+  .value { font-size: 24px; line-height: 1.45; font-weight: 600; margin: 2px 0 0; }
+  .box { border-radius: 12px; padding: 20px 18px; margin-top: 16px; border: 4px solid; }
+  .box h3 { font-size: 28px; font-weight: 800; color: #1A1A1A; margin: 0; }
+  .box.ask h3, .box.note h3 { font-size: 24px; }
+  .box p { font-size: 24px; line-height: 1.45; font-weight: 700; color: #1A1A1A; margin: 8px 0 0; }
+  .box.ask { background: #FFF3C4; border-color: #D4A84B; }
+  .box.note { background: #F5C8B0; border-color: #E0A070; }
+  .box.bulletin { background: #FDE68A; border-color: #D4A017; }
+  .box.shelf { background: #C8EED3; border-color: #7EC98F; }
+  .box.tip { background: #B5D0F5; border-color: #4A7EC0; }
+  .note-bar { margin-top: 16px; color: #1A1A1A; border-radius: 12px; padding: 16px 18px; font-size: 24px; font-weight: 700; }
+  .howto { margin-top: 16px; background: #C8EED3; border: 4px solid #7EC98F; border-radius: 12px; padding: 20px 18px; }
+  .howto h3 { font-size: 28px; font-weight: 800; color: #1A1A1A; margin: 0; }
+  .howto p { font-size: 24px; line-height: 1.45; font-weight: 700; color: #1A1A1A; margin: 8px 0 0; }
+  .howto .rec { font-weight: 800; }
+  .howto .missing { color: #7F1D1D; }
+  .subtotals { margin-top: 16px; border-radius: 12px; padding: 16px 18px; }
+  .subtotals .label { margin: 0; }
+  .subtotals p { font-size: 24px; line-height: 1.4; font-weight: 700; margin: 8px 0 0; }
+  .check { margin-top: 20px; border-radius: 12px; overflow: hidden; border: 4px solid #7EB8E8; }
+  .check-head { background: #BFDDF7; color: #1A1A1A; padding: 16px 18px; font-size: 30px; font-weight: 800; line-height: 1.2; border-bottom: 3px solid #7EB8E8; }
+  .check-body { background: #BFDDF7; padding: 16px 18px 20px; }
+  .step { display: flex; gap: 14px; margin-top: 14px; align-items: flex-start; }
+  .step:first-child { margin-top: 0; }
+  .num { flex: 0 0 40px; width: 40px; height: 40px; border-radius: 10px; background: #3D7AAB; color: #FFFFFF; font-size: 24px; font-weight: 800; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  .step p { font-size: 24px; line-height: 1.4; font-weight: 600; color: #1A1A1A; margin: 0; padding-top: 4px; }
+  .parts-label { margin-top: 20px; font-size: 22px; font-weight: 800; }
+  .parts { margin-top: 8px; }
+  .part { border-radius: 12px; padding: 16px; margin-top: 10px; border: 3px solid; }
+  .part:first-child { margin-top: 0; }
+  .pn { font-size: 24px; font-weight: 800; font-family: ui-monospace, Menlo, Consolas, monospace; }
+  .what { font-size: 22px; line-height: 1.4; font-weight: 600; margin-top: 6px; }
+  .replaces { margin-top: 4px; font-weight: 700; }
+  .meta { margin-top: 10px; font-size: 22px; font-weight: 800; display: flex; flex-wrap: wrap; gap: 10px 16px; }
+  .conf { display: inline-block; padding: 4px 10px; border-radius: 8px; border: 3px solid; }
+  .conf-recommended { background: #C8EED3; border-color: #7EC98F; }
+  .conf-optional { background: #FFF3C4; border-color: #D4A84B; }
+  .conf-alternative { background: #F5C8B0; border-color: #E0A070; }
+  .conf-possible { background: #FDE3D3; border-color: #F0B894; }
+  .price, .arrival { font-size: 22px; line-height: 1.4; font-weight: 700; margin-top: 6px; }
+  .alert { color: #7F1D1D; }
+  .actions { margin-top: 22px; }
+  .btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.2;
+    padding: 22px 16px;
+    border-radius: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 12px;
+    color: #1A1A1A;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.15);
+    cursor: pointer;
+  }
+  .actions .btn:first-child { margin-top: 0; }
+  .yes { background: #5CB85C; border: 3px solid #2E7D32; }
+  .yes-alt { background: #7EC98F; border: 3px solid #2E7D32; }
+  .change { background: #F0A050; border: 3px solid #C87A30; }
+  .ask-box { margin: 22px 0 0; background: #F8D48B; border: 4px solid #C49212; border-radius: 12px; padding: 18px 16px; }
+  .ask-box .ask-label { font-size: 24px; font-weight: 800; color: #1A1A1A; margin: 0; }
+  .ask-box textarea {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #1A1A1A;
+    background: #FDE3D3;
+    border: 3px solid #C49212;
+    border-radius: 10px;
+    padding: 14px 12px;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+  .btn.send-q { background: #5B8FD9; border: 3px solid #2E5A99; margin-top: 12px; }
+  .btn.send-q.is-disabled { background: #A8B8C8; border-color: #7A8894; opacity: 0.7; }
+  footer { margin: 28px 16px 0; background: #D5CCE8; color: #1A1A1A; border-radius: 16px; padding: 22px 20px; }
+  footer p { font-size: 24px; line-height: 1.45; font-weight: 700; margin: 0; }
+  footer p + p { margin-top: 14px; }
+  .sky { background: #D9EBFA; border-color: #8EC4F0; }
+  .sky .card-head, .sky .note-bar, .sky .subtotals { background: #8EC4F0; }
+  .sky .part { background: #C5E0F5; border-color: #8EC4F0; }
+  .peach { background: #FDE3D3; border-color: #F0B894; }
+  .peach .card-head, .peach .note-bar, .peach .subtotals { background: #F0B894; }
+  .peach .part { background: #F5C8B0; border-color: #F0B894; }
+  .mint { background: #DDF3E4; border-color: #9DD9B0; }
+  .mint .card-head, .mint .note-bar, .mint .subtotals { background: #9DD9B0; }
+  .mint .part { background: #C5E6D0; border-color: #9DD9B0; }
+  .lilac { background: #EADFF7; border-color: #C9B6E4; }
+  .lilac .card-head, .lilac .note-bar, .lilac .subtotals { background: #C9B6E4; }
+  .lilac .part { background: #DCCAEF; border-color: #C9B6E4; }
+  .butter { background: #FFF3C4; border-color: #E0C56A; }
+  .butter .card-head, .butter .note-bar, .butter .subtotals { background: #E0C56A; }
+  .butter .part { background: #F5E4A0; border-color: #E0C56A; }
+  .gray { background: #DDE1E6; border-color: #B8BEC6; }
+  .gray .card-head, .gray .note-bar, .gray .subtotals { background: #B8BEC6; }
+  .gray .part { background: #C5CAD0; border-color: #B8BEC6; }
+
+</style>
+</head>
+<body>
+<header class="page">
+  <h1>Parts Approval – Scott</h1>
+  <p class="intro">Tap YES to approve the parts, or CHANGE to tell Ornah what’s different. Updated 11/17/26.</p>
+  <p class="sub">Esh Services LLC. Texts go to Ornah at +12625739584. This page works in iPad Safari — no login.</p>
+  <p class="sub">Questions go to the office; the card is held until the customer answers. Nothing is ordered until Ornah has the YES.</p>
+  <nav>
+    <a href="#ge">GE (6)</a>
+    <a href="#frigidaire">Frigidaire (4)</a>
+    <a href="#electrolux">Electrolux (1)</a>
+  </nav>
+</header>
+<div class="wrap">
+
+<section class="brand ge" id="ge">
+  <h2>GE</h2>
+  <div class="brand-inner">
+  <article class="card sky" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Owen, Doug</div>
+      <div class="claim">SA-5901816</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">GE dishwasher, Manitowoc</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">GDT670SGV8WW / GD709853B</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Fri 11/20/26 · 8–12</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">No power, panel dead, and the customer checked the breaker.</p></div>
+      <div class="box shelf">
+        <h3>ON THE SHELF — DO NOT ORDER A CONTROL</h3>
+        <p>Ornah confirmed 11/16/26: Mulder's unused WD21X36561 control (inv 188272501) has not shipped. Keep it and use it for Owen on Fri 11/20. Do NOT order a new control.</p>
+      </div>
+      <div class="box note">
+        <h3>Note</h3>
+        <p>Mini manual + wiring diagram 31-4000309 is saved in the job folder. No bulletin matches.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Power reset: turn the breaker off for 1 minute, then back on.</p></div>
+          <div class="step"><div class="num">2</div><p>Check for 120 VAC at the junction box. Inspect the junction box wiring and terminal block.</p></div>
+          <div class="step"><div class="num">3</div><p>Check the AC harness to the main control and its connectors (WD21X32678).</p></div>
+          <div class="step"><div class="num">4</div><p>Check that the UI ribbon/harness (WD21X32718) is seated and undamaged. Look for burn or water on the control.</p></div>
+          <div class="step"><div class="num">5</div><p>Check whether the door latch switch circuit is involved.</p></div>
+          <div class="step"><div class="num">6</div><p>If there is power at the control but no display, suspect the UI vs the control.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">WD21X36561</div>
+          <div class="what">Main control — FROM OUR SHELF (unused Mulder, inv 188272501). Do NOT order a new control.<div class="replaces">Replaces WD21X36560</div></div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival alert">Arrival / stock: Our shelf — do not order. (A new one at GE is backordered, ETA 12/07/26.)</div>
+        </div>
+        <div class="part">
+          <div class="pn">WD21X36744</div>
+          <div class="what">User interface (if the UI is also suspected)<div class="replaces">Replaces WD21X36819</div></div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+      </div>
+      <div class="ask-box" data-wo="SA-5901816" data-last="Owen">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK SA-5901816" onclick="return openSms(event, this.getAttribute('data-body'))">YES, use the shelf board</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE SA-5901816: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card peach" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Hughes, Payne</div>
+      <div class="claim">SA-5859712</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">GE gas range, Appleton</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">PGS930YP9FS / TD481368P</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Wed 11/18/26 · 12–5</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Loud fan noise, only while the oven is on.</p></div>
+      <div class="box ask">
+        <h3>Questions first</h3>
+        <p>Does it make the noise on plain Bake, or only on Convection?</p>
+      </div>
+      <div class="box note">
+        <h3>Note</h3>
+        <p>No bulletin for fan noise.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Does the noise happen only with Convection on (convection fan), or on any Bake (cooling blower)?</p></div>
+          <div class="step"><div class="num">2</div><p>Check for a loose or rubbing convection fan blade, the blade nut, and the fan cover.</p></div>
+          <div class="step"><div class="num">3</div><p>With the oven cold, check the motor for bearing play.</p></div>
+          <div class="step"><div class="num">4</div><p>Check the cooling blower wheel for debris, and that the mounting screws are tight.</p></div>
+          <div class="step"><div class="num">5</div><p>Replace only the fan that is actually noisy.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">WB26X28953</div>
+          <div class="what">Convection fan motor</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WB2X8351</div>
+          <div class="what">Convection fan blade<div class="replaces">Replaces WB02X8351</div></div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WB34X28703</div>
+          <div class="what">Fan cover</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WB26X35086</div>
+          <div class="what">Cooling blower (if the noise is the cooling blower, not convection)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-alternative">ALTERNATIVE</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+      </div>
+      <div class="ask-box" data-wo="SA-5859712" data-last="Hughes">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK SA-5859712" onclick="return openSms(event, this.getAttribute('data-body'))">YES, order these</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE SA-5859712: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card mint" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Bowers, Mindy</div>
+      <div class="claim">SA-5926097</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">GE front-load washer, Appleton</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">PFW955SPW0DS / MZ368785N</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Thu 11/19/26 · 12–5</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Bounces and pounds in high spin; it's on a pedestal, not stacked.</p></div>
+      <div class="box bulletin">
+        <h3>GE SERVICE BULLETIN</h3>
+        <p>HL03-26 Rattling/Vibration Sound (Aug 2026). Covers PFW955SPW*DS, serials VV–RD (Nov 2023–Aug 2026). This unit is MZ (Jul 2024), so it's covered. Sound during high-speed spin. Fix: replace the rear cover WH10X29625 (thicker, less noise/vibration).</p>
+      </div>
+      <div class="box ask">
+        <h3>Questions first</h3>
+        <p>Were the shipping bolts removed? Is the washer bolted/clipped to the pedestal, and is the pedestal level on all four feet?</p>
+      </div>
+      <div class="box note">
+        <h3>Note</h3>
+        <p>Could be leveling only; check before ordering.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Bulletin HL03-26 applies; install the new rear cover WH10X29625 first.</p></div>
+          <div class="step"><div class="num">2</div><p>Confirm the shipping bolts were removed.</p></div>
+          <div class="step"><div class="num">3</div><p>Check that the leveling legs are locked, the pedestal is level and fastened to the washer, and the floor is solid.</p></div>
+          <div class="step"><div class="num">4</div><p>Push down on the tub to check damper resistance (weak or broken damper) and inspect the damper pins.</p></div>
+          <div class="step"><div class="num">5</div><p>Confirm the springs are attached and the counterweight bolts are tight.</p></div>
+          <div class="step"><div class="num">6</div><p>Run a test spin with a balanced load and check for an unbalance error.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">WH10X29625</div>
+          <div class="what">Rear cover (bulletin HL03-26; thicker, less noise/vibration)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: not checked yet</div>
+        </div>
+        <div class="part">
+          <div class="pn">WH03X29516</div>
+          <div class="what">Suspension damper (if dampers test weak)</div>
+          <div class="meta"><span>Qty 4</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WH01X29647</div>
+          <div class="what">Damper pin (if dampers test weak)</div>
+          <div class="meta"><span>Qty 4</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WH03X29511</div>
+          <div class="what">Suspension spring</div>
+          <div class="meta"><span>Qty 2</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WH02X29662</div>
+          <div class="what">Counterweight flange nut</div>
+          <div class="meta"><span>Qty As needed</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+      </div>
+      <div class="ask-box" data-wo="SA-5926097" data-last="Bowers">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK SA-5926097" onclick="return openSms(event, this.getAttribute('data-body'))">YES, order these</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE SA-5926097: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card lilac" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Mcnamara, Joseph</div>
+      <div class="claim">SA-5892219</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">GE dishwasher, Neenah</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">GDT565HSY0SS / ZA765105B</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Wed 11/18/26 · 12–5</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Not cycling right; the top-rack spray arm came off; noise in the first 3–5 minutes.</p></div>
+      <div class="box ask">
+        <h3>Questions first</h3>
+        <p>Is the arm broken, or did it just pop off? Is the noise a grinding/rattle (something in the sump)?</p>
+      </div>
+      <div class="box note">
+        <h3>Note</h3>
+        <p>No upper spray arm bulletin. DD03-26 and DD05-26 cover the lower arm only, so they don't apply.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>See whether the upper spray arm is broken or just detached, and check its hub/feed tube connection to the rack.</p></div>
+          <div class="step"><div class="num">2</div><p>Confirm the rack is seated on the rack slides so the arm docks with the conduit.</p></div>
+          <div class="step"><div class="num">3</div><p>Check the sump, filter, and wash pump impeller for foreign objects (likely cause of the early-cycle noise).</p></div>
+          <div class="step"><div class="num">4</div><p>Confirm the filter assembly is seated.</p></div>
+          <div class="step"><div class="num">5</div><p>Check inlet water and fill level.</p></div>
+          <div class="step"><div class="num">6</div><p>Run a diagnostic cycle and listen to the wash pump.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">WD22X27740</div>
+          <div class="what">Mid/upper spray arm assembly</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival alert">Arrival / stock: Not found in CustomerNet – Parker is verifying the number</div>
+        </div>
+        <div class="part">
+          <div class="pn">WD22X10094</div>
+          <div class="what">Mid conduit (feed tube)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: in stock</div>
+        </div>
+        <div class="part">
+          <div class="pn">WD19X25460</div>
+          <div class="what">Wash pump assembly (if the noise is the pump)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-possible">POSSIBLE</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival alert">Arrival / stock: Not found in CustomerNet – Parker is verifying the number</div>
+        </div>
+      </div>
+      <div class="ask-box" data-wo="SA-5892219" data-last="Mcnamara">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK SA-5892219" onclick="return openSms(event, this.getAttribute('data-body'))">YES, order these</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE SA-5892219: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card gray" data-hold="false">
+    <div class="card-head">
+      <div class="badge">ALREADY ORDERED</div>
+      <div class="cust">Rahn, Alan</div>
+      <div class="claim">SA-5704343</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">GE dishwasher, Greenleaf</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Already ordered — no new complaint on this card.</p></div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">WD21X33700</div>
+          <div class="what">UI board<div class="replaces">Replaces WD21X33683</div></div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: awaiting shipping</div>
+        </div>
+        <div class="part">
+          <div class="pn">WD27X33118</div>
+          <div class="what">SS door panel<div class="replaces">Replaces WD21X33798</div></div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival">Arrival / stock: At GE: awaiting shipping</div>
+        </div>
+      </div>
+      <div class="note-bar">CSO 1071084078. Awaiting shipping.</div>
+      <div class="ask-box" data-wo="SA-5704343" data-last="Rahn">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+    </div>
+  </article>
+  <article class="card gray" data-hold="false">
+    <div class="card-head">
+      <div class="badge">ALREADY ORDERED</div>
+      <div class="cust">Haag, Tim</div>
+      <div class="claim">SA-5639905</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">GE dishwasher</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Already ordered — no new complaint on this card.</p></div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">WD22X33499</div>
+          <div class="what">Lower spray arm<div class="replaces">Replaces WD22X27724</div></div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: not listed</div>
+          <div class="arrival alert">Arrival / stock: At GE: backordered, ETA 12/04/26</div>
+        </div>
+      </div>
+      <div class="note-bar">CSO 1071101499. Backordered, ETA 12/04/26.</div>
+      <div class="ask-box" data-wo="SA-5639905" data-last="Haag">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+    </div>
+  </article>
+  </div>
+</section>
+
+<section class="brand frig" id="frigidaire">
+  <h2>Frigidaire</h2>
+  <div class="brand-inner">
+  <article class="card sky" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Knudsen, Jared</div>
+      <div class="claim">1009766345-10</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">Frigidaire refrigerator, Hilbert</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">FRFN2813AF6 / 4A61417362</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Likely after Thanksgiving (11/26/26)</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Ice maker not making ice; the water dispenser works.</p></div>
+      <div class="fact"><p class="label">Parts Manual</p><p class="value">5995751947</p></div>
+      <div class="box tip">
+        <h3>SERVICE TIP</h3>
+        <p>RFTT2604: check the Deli drawer isn't set to freezer mode (filter freezing). RFTT2413: fill time setting — hold FREEZE BOOST + WATER DISPENSER 10 s. 1 = over 60 psi, 2 = 30–60, 3 = 20–30.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Look at freezer temp, which should be 0–4°F.</p></div>
+          <div class="step"><div class="num">2</div><p>Diagnostics: hold + and – for 10 s. Test 88 harvest: Go = OK, Er = fail. Test 86 bail arm: Em/Fu. Test 27 ice maker switch. Test 87 tray sensor: OP/SH. Test 82 fill valve: catch and measure the water. Test 94 fill tube heater: tube warms.</p></div>
+          <div class="step"><div class="num">3</div><p>Check the fill tube for ice.</p></div>
+          <div class="step"><div class="num">4</div><p>Check the water filter condition. Check the Deli drawer isn't set to freezer mode (tip RFTT2604 – filter freezing).</p></div>
+          <div class="step"><div class="num">5</div><p>Fill time setting: hold FREEZE BOOST + WATER DISPENSER 10 s. 1 = over 60 psi, 2 = 30–60, 3 = 20–30 (tip RFTT2413).</p></div>
+          <div class="step"><div class="num">6</div><p>Check for backed-out pins before replacing anything.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">5304531314 → A21755301</div>
+          <div class="what">Ice maker twist tray</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $103.99 · Dey $142.88</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 2 (10 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5304535846</div>
+          <div class="what">Fill tube assembly (no separate heater part)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $8.57 · Dey $8.91</div>
+          <div class="arrival alert">Arrival / stock: Enc: in stock, ships 11/17. Dey: OUT (0).</div>
+        </div>
+        <div class="part">
+          <div class="pn">140137975102</div>
+          <div class="what">Triple solenoid water valve</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: Enc $41.84 · Dey $55.40</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (45 total).</div>
+        </div>
+      </div>
+      <div class="subtotals">
+        <p class="label">Subtotals (dealer, 11/16/26 2 PM CT)</p>
+        <p>Encompass — required $112.56 · optional $41.84 · all $154.40</p>
+        <p>Dey — required $151.79 · optional $55.40 · all $207.19</p>
+      </div>
+      <div class="howto">
+        <h3>HOW TO GET THESE PARTS</h3>
+        <p class="rec">Recommended: Order online (Encompass, ships 11/17)</p>
+        <p class="missing">Dey Brookfield missing: fill tube 5304535846</p>
+      </div>
+      <div class="ask-box" data-wo="1009766345-10" data-last="Knudsen">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK 1009766345-10 ENC" onclick="return openSms(event, this.getAttribute('data-body'))">YES – order Encompass</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE 1009766345-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card peach" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Frederick, Steve</div>
+      <div class="claim">1009749855-10</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">Frigidaire refrigerator, Sheboygan</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">FRSS2623ASN / 4A52914111</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Thu 11/19/26</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Power Outage light and beep, 'power interrupted' message, not cooling. Main board and both UI boards were replaced 10/27/26.</p></div>
+      <div class="fact"><p class="label">Parts Manual</p><p class="value">5995751186</p></div>
+      <div class="box bulletin">
+        <h3>BACKORDER</h3>
+        <p>Machine compartment harness 140287527075 is OUT at Encompass and Dey until about 12/01/26 — after the Thu 11/19 appointment. Order it only if you find it bad; it will not be here for Thursday.</p>
+      </div>
+      <div class="box tip">
+        <h3>SERVICE TIP</h3>
+        <p>No Electrolux tip covers the power outage alert. The closest is FS2621 AFCI/GFCI nuisance tripping: check outlet/breaker wiring and secure neutral and ground, with no floating ground.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Measure outlet voltage under load.</p></div>
+          <div class="step"><div class="num">2</div><p>Check for a GFCI/AFCI or shared circuit.</p></div>
+          <div class="step"><div class="num">3</div><p>Look for a loose service cord connection.</p></div>
+          <div class="step"><div class="num">4</div><p>Diagnostics: hold Refrigerator Temp + Water Filter 10 s. Run the compressor, fans and sensor tests (11–14). Compressor LED blinks: 3 = undervoltage, 4 = overvoltage, 5 = low current (check fuses F1/F2), 8 = DC supply bad.</p></div>
+          <div class="step"><div class="num">5</div><p>Inspect the machine compartment harness and the evap fan harness. A grounded evap fan motor can kill electrical operation (tip RFTT2528).</p></div>
+          <div class="step"><div class="num">6</div><p>Call Electrolux Tech Support before replacing the boards again.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">5304535347 → 140287527075</div>
+          <div class="what">Machine compartment harness (only if found bad)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $26.09 · Dey $33.02</div>
+          <div class="arrival alert">Arrival / stock: Enc: OUT, ships ~12/01. Dey: OUT (0).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5304526980 → 140130970050</div>
+          <div class="what">Evap fan harness (only if found bad)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $12.96 · Dey $14.61</div>
+          <div class="arrival alert">Arrival / stock: Enc: in stock, ships 11/17. Dey: OUT (0).</div>
+        </div>
+        <div class="part">
+          <div class="pn">241516904</div>
+          <div class="what">Service cord (only if found bad)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $19.66 · Dey $23.86</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (6 total).</div>
+        </div>
+      </div>
+      <div class="subtotals">
+        <p class="label">Subtotals (dealer, 11/16/26 2 PM CT)</p>
+        <p>Encompass — required $58.71</p>
+        <p>Dey — required $71.49</p>
+      </div>
+      <div class="howto">
+        <h3>HOW TO GET THESE PARTS</h3>
+        <p class="rec">Recommended: Order online (Encompass). Evap fan harness and service cord ship 11/17. Machine compartment harness 140287527075 is OUT at both vendors until about 12/01/26, after the Thu 11/19 appointment. Parts only if found bad.</p>
+        <p class="missing">Dey Brookfield missing: machine compartment harness 140287527075, evap fan harness 140130970050</p>
+      </div>
+      <div class="ask-box" data-wo="1009749855-10" data-last="Frederick">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK 1009749855-10 ENC" onclick="return openSms(event, this.getAttribute('data-body'))">YES – order Encompass</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE 1009749855-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card mint" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Breit, Dylan</div>
+      <div class="claim">1009735261-10</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">Frigidaire refrigerator, Hilbert</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">GRSC2352AFA / 4A50910156</p></div>
+      <div class="fact"><p class="label">Appointment</p><p class="value">Mon 11/30/26</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Fresh food still over-freezing on a revisit. Damper already replaced (Sears). Silicone fix around the water tube cover already done (tip RFTT2524). The customer wants a replacement.</p></div>
+      <div class="fact"><p class="label">Parts Manual</p><p class="value">5995743480</p></div>
+      <div class="box tip">
+        <h3>SERVICE TIP</h3>
+        <p>RFTT2422 SXS Damper Door and Seal. Check the vents aren't blocked, the damper foam seal isn't rolled or damaged, the damper door doesn't stick, and the harness terminals aren't cracked.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Diagnostics: hold FZ+ and FZ– 10 s. Test 22 damper: airflow at OP, none at CL. Test 29 FF sensor: temp shown, or OP/SH. Error t3 = FF sensor.</p></div>
+          <div class="step"><div class="num">2</div><p>Targets: FF 34–39°F, FZ 0–4°F.</p></div>
+          <div class="step"><div class="num">3</div><p>Check the FF thermistor reading against actual temp.</p></div>
+          <div class="step"><div class="num">4</div><p>Call Tech Support with ticket 1009620951 before parts (the customer agreed to a 10–2 window for that).</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">241518601</div>
+          <div class="what">Damper foam seal</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $6.28 · Dey $6.54</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (9 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5303918775</div>
+          <div class="what">Thermistor kit (FF)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $9.31 · Dey $12.29</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 5 (15 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">241518501 → 5303918899</div>
+          <div class="what">Damper with seals (already replaced once)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: Enc $37.45 · Dey $52.53</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (91 total).</div>
+        </div>
+      </div>
+      <div class="subtotals">
+        <p class="label">Subtotals (dealer, 11/16/26 2 PM CT)</p>
+        <p>Encompass — required $15.59 · optional $37.45 · all $53.04</p>
+        <p>Dey — required $18.83 · optional $52.53 · all $71.36</p>
+      </div>
+      <div class="howto">
+        <h3>HOW TO GET THESE PARTS</h3>
+        <p class="rec">Recommended: Order online (Encompass, ships 11/17)</p>
+        <p>Also: Scott picks up at Dey Brookfield</p>
+      </div>
+      <div class="ask-box" data-wo="1009735261-10" data-last="Breit">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK 1009735261-10 ENC" onclick="return openSms(event, this.getAttribute('data-body'))">YES – order Encompass</a>
+        <a class="btn yes-alt" href="#" data-body="PARTS OK 1009735261-10 DEY PICKUP" onclick="return openSms(event, this.getAttribute('data-body'))">YES – Dey pickup</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE 1009735261-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  <article class="card lilac" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Metzger, Kristine</div>
+      <div class="claim">1009708276-10</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">Frigidaire refrigerator, Port Washington</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">FRFS2823ASF / 4A60402950</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Freezer drawer won't close, drawer seal pulled out, handle broke off on the right.</p></div>
+      <div class="fact"><p class="label">Parts Manual</p><p class="value">5995753109</p></div>
+      <div class="box bulletin">
+        <h3>BACKORDER</h3>
+        <p>Handle screw 5304537220 is OUT at Encompass until about 12/01/26 (vendor PO) and OUT at Dey everywhere. Shim kit 140304337011 is OUT at Encompass until about 12/01/26; Dey Brookfield has 2.</p>
+      </div>
+      <div class="box tip">
+        <h3>SERVICE TIP</h3>
+        <p>RFTT2516 handle shim kit A30433701, for a loose handle. Also RFTT2508 freezer door alignment: a misaligned drawer sits open at the top.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Is the handle broken or just loose? If loose, use shims and tighten the set screws.</p></div>
+          <div class="step"><div class="num">2</div><p>Check the drawer alignment and slides (pinion gear, timing bar).</p></div>
+          <div class="step"><div class="num">3</div><p>Check the gasket can be reseated before replacing it.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">5304537408</div>
+          <div class="what">Freezer drawer gasket</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $39.98 · Dey $53.24</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 6 (26 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5304531232</div>
+          <div class="what">Freezer drawer handle</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $38.28 · Dey $51.37</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1 (9 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5304504279</div>
+          <div class="what">Handle mounting block</div>
+          <div class="meta"><span>Qty 2</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $10.15 ea · Dey $11.43 ea</div>
+          <div class="arrival alert">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 1, need 2 (7 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5304537220</div>
+          <div class="what">Handle screws M5x16</div>
+          <div class="meta"><span>Qty As needed</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $0.87 · Dey $0.75</div>
+          <div class="arrival alert">Arrival / stock: Enc: OUT, ships ~12/01 (vendor PO). Dey: OUT (0).</div>
+        </div>
+        <div class="part">
+          <div class="pn">A30433701 → 140304337011</div>
+          <div class="what">Handle shim kit</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $4.10 · Dey $3.55</div>
+          <div class="arrival alert">Arrival / stock: Enc: OUT, ships ~12/01. Dey: Brookfield 2 (7 total).</div>
+        </div>
+        <div class="part">
+          <div class="pn">5304507999</div>
+          <div class="what">Pinion gear</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: Enc $6.28 · Dey $6.54</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 0 (3 total, Waterloo/Denver/Dallas).</div>
+        </div>
+        <div class="part">
+          <div class="pn">241770705</div>
+          <div class="what">Timing bar</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-optional">OPTIONAL</span></div>
+          <div class="price">Price: Enc $24.68 · Dey $31.24</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: Brookfield 0 (1 total, Vadnais Heights only).</div>
+        </div>
+      </div>
+      <div class="subtotals">
+        <p class="label">Subtotals (dealer, 11/16/26 2 PM CT)</p>
+        <p>Encompass — required $103.53 · optional $30.96 · all $134.49 (screw subtotal is qty 1)</p>
+        <p>Dey — required $131.77 · optional $37.78 · all $169.55 (screw subtotal is qty 1)</p>
+      </div>
+      <div class="howto">
+        <h3>HOW TO GET THESE PARTS</h3>
+        <p class="rec">Recommended: Order online (Encompass). Gasket, handle, mounting blocks, and optional pinion and timing bar ship 11/17. Screw 5304537220 and shim 140304337011 are OUT at Encompass until about 12/01/26 (the screw is on a vendor PO). Dey Brookfield has the shim, but the screw is out everywhere.</p>
+        <p class="missing">Dey Brookfield missing: mounting block 5304504279 (need 2, Brookfield has 1), screw 5304537220, pinion gear 5304507999, timing bar 241770705</p>
+      </div>
+      <div class="ask-box" data-wo="1009708276-10" data-last="Metzger">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK 1009708276-10 ENC" onclick="return openSms(event, this.getAttribute('data-body'))">YES – order Encompass</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE 1009708276-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  </div>
+</section>
+
+<section class="brand elux" id="electrolux">
+  <h2>Electrolux</h2>
+  <div class="brand-inner">
+  <article class="card butter" data-hold="false">
+    <div class="card-head">
+      <div class="badge">NEEDS APPROVAL</div>
+      <div class="cust">Wagner, Benjamin</div>
+      <div class="claim">1009160714-10</div>
+    </div>
+    <div class="card-body">
+      <div class="fact"><p class="label">Appliance</p><p class="value">Electrolux range, Hartford</p></div>
+      <div class="fact"><p class="label">Tag model / serial</p><p class="value">PCFI3670AF / SM54300082</p></div>
+      <div class="fact"><p class="label">Complaint</p><p class="value">Err2 during proofing. All control parts already replaced. Case is with Electrolux engineering, new related ticket 1009760176.</p></div>
+      <div class="box bulletin">
+        <h3>CONFIRM MODEL</h3>
+        <p>Encompass matched model PCFI3670AFA, the closest to the tag PCFI3670AF. Confirm the tag suffix before replacing. Do not order meat probe 5304527535. Still waiting on engineering ticket 1009760176.</p>
+      </div>
+      <div class="box tip">
+        <h3>SERVICE TIP</h3>
+        <p>Tech Data Sheet: Error 2 = oven probe sensed too-high temperature, probable defective probe. Check the cavity probe connections first, then replace the cavity probe. Tip CKTT0222 ERR2 also applies.</p>
+      </div>
+      <div class="check">
+        <div class="check-head">CHECK BEFORE REPLACING</div>
+        <div class="check-body">
+          <div class="step"><div class="num">1</div><p>Measure the cavity probe resistance at room temp. Check against the mini manual / tech data sheet spec.</p></div>
+          <div class="step"><div class="num">2</div><p>Check the probe connector and harness at the control.</p></div>
+          <div class="step"><div class="num">3</div><p>See whether Err2 happens only in proof mode.</p></div>
+          <div class="step"><div class="num">4</div><p>Wait for the engineering answer before ordering.</p></div>
+        </div>
+      </div>
+      <div class="parts-label">Parts</div>
+      <div class="parts">
+        <div class="part">
+          <div class="pn">5304527492</div>
+          <div class="what">Probe, Oven Temp, Pt1000 (not meat probe 5304527535)</div>
+          <div class="meta"><span>Qty 1</span><span class="conf conf-recommended">RECOMMENDED</span></div>
+          <div class="price">Price: Enc $94.58 · Dey not checked</div>
+          <div class="arrival">Arrival / stock: Enc: in stock, ships 11/17. Dey: not checked.</div>
+        </div>
+      </div>
+      <div class="subtotals">
+        <p class="label">Subtotals (dealer, 11/16/26 2 PM CT)</p>
+        <p>Encompass — required $94.58</p>
+        <p>Dey — not checked</p>
+      </div>
+      <div class="howto">
+        <h3>HOW TO GET THESE PARTS</h3>
+        <p class="rec">Recommended: Order online (Encompass, ships 11/17). Wait for engineering ticket 1009760176 before ordering.</p>
+        <p class="missing">Dey not checked for probe 5304527492</p>
+      </div>
+      <div class="ask-box" data-wo="1009160714-10" data-last="Wagner">
+        <p class="ask-label">Ask a question / comment</p>
+        <textarea rows="4" placeholder="Type a question for the customer"></textarea>
+        <a class="btn send-q" href="#" onclick="return sendQuestion(event)">Send question</a>
+      </div>
+      <div class="actions">
+        <a class="btn yes" href="#" data-body="PARTS OK 1009160714-10 ENC" onclick="return openSms(event, this.getAttribute('data-body'))">YES – order Encompass</a>
+        <a class="btn change" href="#" data-body="PARTS CHANGE 1009160714-10: " onclick="return openSms(event, this.getAttribute('data-body'))">Change</a>
+      </div>
+    </div>
+  </article>
+  </div>
+</section>
+
+</div>
+<footer>
+  <p>Gary 1008554845-10 freezer gasket 5304512583 already shipped (Encompass 1-34641).</p>
+  <p>No Whirlpool or cash parts cards are on this list right now.</p>
+  <p>Parker checks for your texts and new tickets weekdays. Nothing is ordered until Ornah has the YES.</p>
+</footer>
+
+<script>
+(function () {
+  var SMS = "sms:+12625739584&body=";
+  function smsUrl(body) {
+    return SMS + encodeURIComponent(body);
+  }
+  window.openSms = function (ev, body) {
+    ev.preventDefault();
+    if (!body) return false;
+    var url = smsUrl(body);
+    ev.currentTarget.setAttribute("href", url);
+    try { window.location.href = url; } catch (e) {}
+    return false;
+  };
+  window.sendQuestion = function (ev) {
+    ev.preventDefault();
+    var box = ev.currentTarget.closest(".ask-box");
+    var area = box.querySelector("textarea");
+    var text = (area && area.value ? area.value : "").trim();
+    if (!text) return false;
+    var body = "QUESTION " + box.getAttribute("data-wo") + " " + box.getAttribute("data-last") + ": " + text;
+    return window.openSms(ev, body);
+  };
+  document.querySelectorAll(".ask-box").forEach(function (box) {
+    var area = box.querySelector("textarea");
+    var btn = box.querySelector(".send-q");
+    function sync() {
+      var text = (area.value || "").trim();
+      if (text) btn.classList.remove("is-disabled");
+      else btn.classList.add("is-disabled");
+    }
+    area.addEventListener("input", sync);
+    sync();
+  });
+})();
+</script>
+
+</body>
+</html>
